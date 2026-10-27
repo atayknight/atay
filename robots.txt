@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://atayknight.com/sitemap.xml
