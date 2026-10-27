@@ -1225,6 +1225,45 @@ html[data-theme=dark] .cs-t.lg-t{background:#161618!important;box-shadow:inset 0
 html[data-theme=dark] .cs-t.lg-t .lg2{color:#F5F5F7}
 html[data-theme=dark] .cs-t.lg-t:hover .lg2,html[data-theme=dark] .cs-t.lg-t.on .lg2{color:#8FB0F7}
 html[data-theme=dark] .cs-t.lg-t .no{color:#636366!important}
+/* ===== NOUR, the guide star ===== */
+.nour{--s:68px;position:fixed;left:var(--x,16px);top:var(--y,calc(100vh - 90px));z-index:57;width:var(--s);height:var(--s);opacity:0;transform:translateY(30px) scale(.6);transition:opacity .5s ease,transform .7s cubic-bezier(.2,1.4,.4,1),left .9s cubic-bezier(.65,0,.35,1),top .9s cubic-bezier(.65,0,.35,1);pointer-events:none}
+.nour.in{opacity:1;transform:none;pointer-events:auto}
+.nr-bot{all:unset;cursor:pointer;display:block;width:100%;height:100%;filter:drop-shadow(0 12px 18px rgba(38,77,149,.45));animation:nrFloat 3.2s ease-in-out infinite}
+.nr-bot:focus-visible{outline:3px solid #3D6BE0;outline-offset:4px;border-radius:50%}
+.nr-bot svg{width:100%;height:100%;overflow:visible}
+.nr-body{transform-origin:50% 50%;animation:nrSpin 9s ease-in-out infinite}
+.nr-eyes{transition:transform .15s ease-out;transform-box:fill-box}
+.nr-eyes ellipse{transform-box:fill-box;transform-origin:center;animation:nrBlink 4.6s infinite}
+.nour.talk .nr-mouth{animation:nrTalk .22s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+.nour.hop .nr-bot{animation:nrHop .7s cubic-bezier(.2,1.6,.4,1),nrFloat 3.2s ease-in-out .7s infinite}
+@keyframes nrFloat{50%{transform:translateY(-7px) rotate(-4deg)}}
+@keyframes nrSpin{0%,80%,100%{transform:rotate(0)}88%{transform:rotate(90deg)}}
+@keyframes nrBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes nrTalk{to{transform:scaleY(1.7)}}
+@keyframes nrHop{0%{transform:scale(.8) rotate(-20deg)}60%{transform:scale(1.12) rotate(8deg)}100%{transform:none}}
+.nr-bub{position:absolute;left:calc(100% + 10px);bottom:8px;width:min(310px,calc(100vw - var(--s) - 44px));padding:14px 16px 12px;border-radius:20px 20px 20px 6px;background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);box-shadow:0 22px 50px -18px rgba(15,30,80,.5),inset 0 0 0 1px rgba(0,0,0,.06);color:#1D1D1F}
+.nr-bub.pop{animation:nrPop .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes nrPop{from{opacity:0;transform:translateY(8px) scale(.94)}}
+.nr-t{margin:0 18px 0 0;font:500 14.5px/1.42 var(--body)}
+.nr-tip{margin:6px 0 0;color:#6E6E73;font:400 13px/1.38 var(--body)}
+.nr-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.nr-b{all:unset;box-sizing:border-box;cursor:pointer;padding:8px 13px;border-radius:99px;background:rgba(0,0,0,.06);color:#1D1D1F;font:600 13px/1 var(--body);white-space:nowrap}
+.nr-b.p{background:#3D6BE0;color:#fff;box-shadow:0 8px 18px -10px rgba(61,107,224,.9)}
+.nr-b:hover{filter:brightness(1.06)}
+.nr-x{all:unset;cursor:pointer;position:absolute;right:8px;top:6px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;color:#86868B;font:500 17px/1 var(--body)}
+.nr-x:hover{background:rgba(0,0,0,.06)}
+/* spotlight on the current stop */
+.nr-spot{position:fixed;z-index:56;border-radius:22px;pointer-events:none;box-shadow:0 0 0 3px #3D6BE0,0 0 0 9999px rgba(10,16,40,.38);transition:left .5s cubic-bezier(.65,0,.35,1),top .5s cubic-bezier(.65,0,.35,1),width .5s,height .5s}
+html[data-theme=dark] .nr-bub{background:rgba(28,28,30,.94);color:#F5F5F7;box-shadow:0 22px 50px -18px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.08)}
+html[data-theme=dark] .nr-tip{color:#A1A1A6}html[data-theme=dark] .nr-b{background:rgba(255,255,255,.1);color:#F5F5F7}html[data-theme=dark] .nr-b.p{background:#3D6BE0}
+html[data-theme=dark] .nr-spot{box-shadow:0 0 0 3px #7FA4F0,0 0 0 9999px rgba(0,0,0,.55)}
+html.pp-open .nour,html.ai-open .nour,html.mnu-open .nour{opacity:0;pointer-events:none}
+html.nr-tour .dock{transform:translateY(140%);opacity:0;pointer-events:none}
+@media (max-width:760px){.nour{--s:56px}.nr-bub{left:calc(12px - var(--x,12px));bottom:calc(100% + 8px);width:calc(100vw - 24px);border-radius:20px 20px 20px 6px}}
+.nour.bdown .nr-bub{bottom:auto;top:8px;border-radius:6px 20px 20px 20px}
+html[dir=rtl] .nr-t{margin:0 0 0 18px}html[dir=rtl] .nr-x{right:auto;left:8px}
+@media (prefers-reduced-motion:reduce){.nr-bot,.nr-body,.nr-eyes ellipse{animation:none!important}.nour,.nr-spot{transition:opacity .2s}}
+
 /*DARK-START*/
 html[data-theme=dark] .nav .cta{background-color:#161618!important}
 html[data-theme=dark] .wm .ink{background:linear-gradient(100deg,#161618 0 44%,#9FC0FF 49%,#E9F0FF 51%,#161618 56% 100%) 0 0/300% 100%!important}
@@ -2422,7 +2461,7 @@ HOW TO BEHAVE:
  const LG=()=>window.I18N?I18N.lang():"en";
  const TX={menu:["Menu","Menu","القائمة"],close:["Close","Fermer","إغلاق"],start:["Start a project","Lancer un projet","ابدأ مشروعاً"],ask:["Ask Atay","Demander à Atay","اسأل أطاي"],wa:["WhatsApp","WhatsApp","واتساب"],theme:["Appearance","Apparence","المظهر"],light:["Light","Clair","فاتح"],dark:["Dark","Sombre","داكن"],lang:["Language","Langue","اللغة"],
   hi:["Film, edit, colour and VFX from Marrakech.","Tournage, montage, couleur et VFX depuis Marrakech.","تصوير ومونتاج وتلوين ومؤثرات بصرية من مراكش."],reply:["You talk to Ayoub directly, no middlemen","Vous parlez directement à Ayoub, sans intermédiaire","تتحدث مع أيوب مباشرة، بدون وسطاء"],
-  trust:["Trusted by brands, festivals and tourism boards","Ils nous font confiance : marques, festivals et offices du tourisme","علامات تجارية ومهرجانات ومكاتب سياحة وثقت بنا"]};
+  tour:["Take the tour with Nour","Visite guidée avec Nour","جولة مع نور"],trust:["Trusted by brands, festivals and tourism boards","Ils nous font confiance : marques, festivals et offices du tourisme","علامات تجارية ومهرجانات ومكاتب سياحة وثقت بنا"]};
  const t=k=>TX[k][LG()==="fr"?1:LG()==="ar"?2:0];
  const WA="https://wa.me/212699146214?text="+encodeURIComponent("Hi Atay Studio, I'd like to talk about a project.");
  const NAV=[["work","nav-w","Work"],["process","nav-s","Skills"],["clients","nav-c","Clients"],["studio","nav-p","Profile"],["contact","nav-k","Contact"]];
@@ -2435,7 +2474,7 @@ HOW TO BEHAVE:
  const sh=document.createElement("nav");sh.className="mnu";sh.id="mnu";sh.setAttribute("aria-label","Site menu");sh.hidden=true;document.body.append(sh);
  function renderSheet(){const dark=de.getAttribute("data-theme")==="dark",l=LG();
   sh.innerHTML=`<div class="mnu-in"><p class="mnu-hi">${t("hi")}</p><ul>${NAV.map((n,i)=>`<li style="--i:${i}"><a href="#${n[0]}"><small>0${i+1}</small>${navLabel(n)}<span aria-hidden="true">›</span></a></li>`).join("")}</ul>
-  <div class="mnu-cta"><a class="mnu-wa" href="${WA}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>${t("start")}</a><button type="button" class="mnu-ask">✦ ${t("ask")}</button></div>
+  <div class="mnu-cta"><a class="mnu-wa" href="${WA}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>${t("start")}</a><button type="button" class="mnu-ask">✦ ${t("ask")}</button><button type="button" class="mnu-ask mnu-tour">${t("tour")}</button></div>
   <p class="mnu-note">${t("reply")}</p>
   <div class="mnu-set"><div><span>${t("theme")}</span><span class="mseg"><button type="button" data-th="light" aria-pressed="${!dark}">${t("light")}</button><button type="button" data-th="dark" aria-pressed="${dark}">${t("dark")}</button></span></div>
   <div><span>${t("lang")}</span><span class="mseg"><button type="button" data-lg="en" aria-pressed="${l==="en"}">EN</button><button type="button" data-lg="fr" aria-pressed="${l==="fr"}">FR</button><button type="button" data-lg="ar" aria-pressed="${l==="ar"}" lang="ar">ع</button></span></div></div></div>`}
@@ -2469,6 +2508,78 @@ HOW TO BEHAVE:
   hero.after(tr);tr.addEventListener("click",()=>$("clients")?.scrollIntoView({behavior:"smooth"}));tr.style.cursor="pointer"}
  const relabel=()=>{btn.querySelector(".mnu-l").textContent=de.classList.contains("mnu-open")?t("close"):t("menu");btn.setAttribute("aria-label",t("menu"));renderDock();const l=document.querySelector(".trust .tr-l");if(l)l.textContent=t("trust");if(!sh.hidden)renderSheet()};
  relabel();addEventListener("atay:lang",relabel);addEventListener("atay:theme",()=>{if(!sh.hidden)renderSheet()});
+})();
+</script>
+<script>/* NOUR: a small star character (the Atay star, with a face) who greets visitors and gives a guided tour.
+   Desktop: she flies next to each stop. Phone: she stays docked bottom-left and the page scrolls to each stop. */
+(()=>{const de=document.documentElement;
+ const LG=()=>window.I18N?I18N.lang():"en";const L=(en,fr,ar)=>LG()==="fr"?fr:LG()==="ar"?ar:en;
+ const RMo=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const phone=()=>innerWidth<=760;
+ const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+ const WA="https://wa.me/212699146214?text="+encodeURIComponent("Hi Atay Studio, I'd like to talk about a project.");
+ const STEPS=[
+  {sel:".hx-copy",t:()=>L("Hi, I'm Nour, the Atay Studio star. Let me show you around! Up here is a living wall of our films.","Salut, je suis Nour, l’étoile d’Atay Studio. Je vous fais visiter ! Ici, un mur vivant de nos films.","مرحباً، أنا نور، نجمة Atay Studio. دعني أريك المكان! هنا جدار حيّ من أفلامنا."),
+   tip:()=>phone()?L("Swipe the films sideways, tap one to watch it.","Glissez les films, touchez-en un pour le voir.","اسحب الأفلام جانباً، والمس أحدها لمشاهدته."):L("Drag the wall, hover a film to preview it, click to watch.","Faites glisser le mur, survolez un film, cliquez pour le voir.","اسحب الجدار، مرّر على فيلم لمعاينته، وانقر لمشاهدته.")},
+  {sel:".trust",t:()=>L("These are some of the brands, festivals and tourism boards that trusted us.","Voici quelques marques, festivals et offices du tourisme qui nous ont fait confiance.","هذه بعض العلامات والمهرجانات ومكاتب السياحة التي وثقت بنا.")},
+  {sel:"#work .drawer",t:()=>L("Our selected work. Each divider is one project: open it for the film, the credits and every reel.","Nos projets choisis. Chaque intercalaire est un projet : ouvrez-le pour le film, les crédits et les reels.","أعمالنا المختارة. كل فاصل مشروع: افتحه لمشاهدة الفيلم والفريق وكل الريلز."),tip:()=>L("Use the tabs to filter: cinematography, tourism, commercial, 3D & VFX.","Filtrez avec les onglets : cinéma, tourisme, publicité, 3D & VFX.","استعمل التبويبات للتصفية: سينما، سياحة، إعلانات، 3D ومؤثرات.")},
+  {sel:".svc-list",t:()=>L("Four crafts under one roof: shoot, edit, colour and VFX. One team, one look, from set to screen.","Quatre métiers sous un même toit : tournage, montage, couleur et VFX. Une équipe, un regard.","أربع حِرف تحت سقف واحد: تصوير، مونتاج، تلوين ومؤثرات. فريق واحد ورؤية واحدة.")},
+  {sel:"#cs-grid",t:()=>L("Pick a client to see what we made for them.","Choisissez un client pour voir ce que nous avons fait pour lui.","اختر عميلاً لترى ما صنعناه له.")},
+  {sel:"#studio .pcard",t:()=>L("This is Ayoub, the founder. He shoots, edits, grades and builds the VFX himself.","Voici Ayoub, le fondateur. Il filme, monte, étalonne et crée les VFX lui-même.","هذا أيوب، المؤسس. يصوّر ويُمنتج ويلوّن ويصنع المؤثرات بنفسه.")},
+  {sel:"#req",t:()=>L("Ready? Tell us the idea, the dates and the place. Your message is written for you, just hit send.","Prêt ? Dites-nous l’idée, les dates et le lieu. Le message est prêt, il suffit de l’envoyer.","جاهز؟ أخبرنا بالفكرة والمواعيد والمكان. الرسالة تُكتب لك، فقط اضغط إرسال."),end:true}];
+
+ /* the character */
+ const nr=document.createElement("div");nr.className="nour";nr.setAttribute("aria-live","polite");
+ nr.innerHTML=`<button class="nr-bot" type="button" aria-label="Nour, your guide"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="nrg" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#9BB8FF"/><stop offset=".45" stop-color="#3D6BE0"/><stop offset="1" stop-color="#264D95"/></radialGradient></defs>
+  <path class="nr-body" d="M50 4 C54 32 68 46 96 50 C68 54 54 68 50 96 C46 68 32 54 4 50 C32 46 46 32 50 4Z" fill="url(#nrg)"/>
+  <path d="M50 10 C53 33 63 43 84 47" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2.4" stroke-linecap="round"/>
+  <g class="nr-face"><g class="nr-eyes"><ellipse cx="42" cy="48" rx="3.6" ry="5" fill="#fff"/><ellipse cx="58" cy="48" rx="3.6" ry="5" fill="#fff"/></g>
+  <path class="nr-mouth" d="M44 58 Q50 63 56 58" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+  <ellipse cx="36" cy="56" rx="3.4" ry="2" fill="#FF9EC2" opacity=".55"/><ellipse cx="64" cy="56" rx="3.4" ry="2" fill="#FF9EC2" opacity=".55"/></g></svg></button>
+  <div class="nr-bub" hidden><p class="nr-t"></p><p class="nr-tip"></p><div class="nr-row"></div><button class="nr-x" type="button" aria-label="Close">×</button></div>`;
+ document.body.append(nr);
+ const spot=document.createElement("div");spot.className="nr-spot";spot.hidden=true;document.body.append(spot);
+ const bot=nr.querySelector(".nr-bot"),bub=nr.querySelector(".nr-bub"),tx=nr.querySelector(".nr-t"),tip=nr.querySelector(".nr-tip"),row=nr.querySelector(".nr-row");
+ let step=-1,touring=false,mode="idle";
+ function say(text,tipText,buttons){tx.textContent=text;tip.textContent=tipText||"";tip.hidden=!tipText;row.innerHTML="";
+  (buttons||[]).forEach(([label,fn,primary])=>{const b=document.createElement(fn.href?"a":"button");if(fn.href){b.href=fn.href;b.target="_blank";b.rel="noopener"}else{b.type="button";b.addEventListener("click",fn)}b.className="nr-b"+(primary?" p":"");b.textContent=label;row.append(b)});
+  bub.hidden=false;nr.classList.add("talk");clearTimeout(nr._tt);nr._tt=setTimeout(()=>nr.classList.remove("talk"),1400);
+  bub.classList.remove("pop");void bub.offsetWidth;bub.classList.add("pop")}
+ function hush(){bub.hidden=true;nr.classList.remove("talk")}
+ function home(){const p=phone(),S=p?56:68,sb=parseFloat(getComputedStyle(de).getPropertyValue("--sab"))||0;const low=!p||document.body.classList.contains("at-top")||touring||de.classList.contains("at-contact");const y=innerHeight-S-(p?(low?16:76):20)-sb;const right=p&&document.body.classList.contains("at-top")&&!touring;nr.style.setProperty("--x",(right?innerWidth-S-12:(p?12:16))+"px");nr.style.setProperty("--y",y+"px");nr.classList.remove("bdown");nr.classList.toggle("rt",right)}
+ function placeNear(el){if(phone()||!el){home();return}
+  const r=el.getBoundingClientRect(),W=innerWidth,H=innerHeight,S=74;
+  let x=r.right+14,y=Math.max(90,Math.min(H-S-210,r.top+10));
+  if(x+S+330>W){x=r.left-S-14;if(x<12)x=12}
+  nr.style.setProperty("--x",x+"px");nr.style.setProperty("--y",y+"px");nr.classList.toggle("bdown",y<innerHeight*.5);nr.classList.remove("rt")}
+ function highlight(el){if(!el){spot.hidden=true;return}const r=el.getBoundingClientRect(),p=10,maxH=innerHeight*.62;
+  spot.hidden=false;spot.style.left=(r.left-p)+"px";spot.style.top=(Math.max(r.top,phone()?64:70)-p)+"px";spot.style.width=(r.width+p*2)+"px";spot.style.height=(Math.min(r.height,maxH)+p*2)+"px"}
+ let follow=0;function track(){if(!touring)return;const s=STEPS[step],el=s&&document.querySelector(s.sel);highlight(el);if(!phone())placeNear(el);follow=requestAnimationFrame(track)}
+ function go(i){step=i;const s=STEPS[i];const el=document.querySelector(s.sel);if(!el){return i<STEPS.length-1?go(i+1):end()}
+  touring=true;de.classList.add("nr-tour");
+  const top=el.getBoundingClientRect().top+scrollY-(phone()?84:110);scrollTo({top:Math.max(0,top),behavior:RMo?"auto":"smooth"});
+  cancelAnimationFrame(follow);follow=requestAnimationFrame(track);
+  nr.classList.remove("hop");void nr.offsetWidth;nr.classList.add("hop");
+  const btns=[];if(i>0)btns.push([L("Back","Retour","رجوع"),()=>go(i-1)]);
+  if(s.end){btns.push([L("Start a project","Lancer un projet","ابدأ مشروعاً"),{href:WA},true]);btns.push([L("Ask me anything","Posez-moi une question","اسألني"),()=>{end();window.openAssistant&&openAssistant()}]);btns.push([L("Done","Terminé","انتهى"),end])}
+  else btns.push([L("Next","Suivant","التالي")+` (${i+1}/${STEPS.length})`,()=>go(i+1),true]);
+  say(s.t(),s.tip&&s.tip(),btns)}
+ function end(){touring=false;cancelAnimationFrame(follow);spot.hidden=true;de.classList.remove("nr-tour");home();ls.set("nour-done","1");
+  say(L("Have fun exploring! Tap me any time if you need me.","Bonne visite ! Touchez-moi si besoin.","استمتع بالاستكشاف! المسني متى احتجتني."),"",[[L("OK","OK","حسناً"),hush,true]]);setTimeout(()=>{if(!touring)hush()},5000)}
+ function menuBubble(){say(L("Need a hand? I can show you around or help you plan a project.","Besoin d’aide ? Je peux vous faire visiter ou vous aider à préparer un projet.","تحتاج مساعدة؟ يمكنني أن أريك المكان أو أساعدك في التخطيط لمشروعك."),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true],[L("Plan my project","Préparer mon projet","خطّط لمشروعي"),()=>{hush();window.openAssistant&&openAssistant(LG()==="ar"?"ساعدني في كتابة ملخص":LG()==="fr"?"Aidez-moi à écrire un brief":"Help me write a brief")}],[L("Not now","Plus tard","ليس الآن"),()=>{ls.set("nour-done","1");hush()}]])}
+ bot.addEventListener("click",()=>{if(touring){go(step)}else if(!bub.hidden)hush();else menuBubble()});
+ nr.querySelector(".nr-x").addEventListener("click",()=>{if(touring)end();else{ls.set("nour-done","1");hush()}});
+ addEventListener("keydown",e=>{if(e.key==="Escape"&&touring)end()});
+ addEventListener("resize",()=>{if(!touring)home()});home();new MutationObserver(()=>{if(!touring)home()}).observe(document.body,{attributes:true,attributeFilter:["class"]});new MutationObserver(()=>{if(!touring)home()}).observe(de,{attributes:true,attributeFilter:["class"]});
+ /* greet first-time visitors after a moment */
+ setTimeout(()=>{nr.classList.add("in");if(!ls.get("nour-done")&&!de.classList.contains("pp-open")&&!de.classList.contains("ai-open"))setTimeout(()=>{if(!touring&&bub.hidden)say(L("Hi! I'm Nour. Want a quick tour of the studio?","Salut ! Je suis Nour. Une petite visite du studio ?","مرحباً! أنا نور. هل تريد جولة سريعة في الاستوديو؟"),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true],[L("Not now","Plus tard","ليس الآن"),()=>{ls.set("nour-done","1");hush()}]])},900)},2400);
+ /* eyes follow the pointer on desktop, blink now and then */
+ const eyes=nr.querySelector(".nr-eyes");
+ addEventListener("pointermove",e=>{if(e.pointerType!=="mouse")return;const r=bot.getBoundingClientRect();const dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),d=Math.hypot(dx,dy)||1;eyes.style.transform=`translate(${(dx/d*3).toFixed(2)}px,${(dy/d*2.4).toFixed(2)}px)`},{passive:true});
+ /* the menu gets a "Take the tour" entry */
+ addEventListener("click",e=>{if(e.target.closest(".mnu-tour")){window.dispatchEvent(new KeyboardEvent("keydown",{key:"Escape"}));setTimeout(()=>go(0),380)}});
+ window.nourTour=()=>go(0);
+ addEventListener("atay:lang",()=>{if(touring)go(step);else if(!bub.hidden)hush()});
 })();
 </script>
 
