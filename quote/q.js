@@ -38,8 +38,32 @@ const SV={
 };
 const XT={mg:{n:["Motion graphics","Motion design","موشن جرافيك"],p:800},vfx:{n:["Visual effects","Effets visuels","مؤثرات بصرية"],p:1500},sub:{n:["Subtitles","Sous-titres","ترجمة مكتوبة"],p:300},drone:{n:["Drone shots","Plans drone","لقطات بالدرون"],p:1500},vo:{n:["Voice-over","Voix off","تعليق صوتي"],p:1200},light:{n:["Lighting kit","Kit lumière","معدات الإضاءة"],p:1000},grade:{n:["Colour grading","Étalonnage","تدريج الألوان"],p:800},sound:{n:["Sound design","Sound design","تصميم صوتي"],p:600}};
 const ORDER=Object.keys(SV);
-const myP=(()=>{try{return JSON.parse(store.get("atq:prices2")||"{}")}catch(e){return{}}})();
-const stdPrice=k=>myP[k]??(SV[k]?SV[k].p:XT[k.slice(2)]?.p);   /* "x:mg" for extras */
+/* ---------- prices per market (researched Oct 2026; Morocco in DH, Europe in €, USA in $) ---------- */
+const PR={
+ ma:{cur:"MAD",reel:2500,film:12000,shoot:4500,photo:2500,edit:2000,grade:1500,vfx:1200,d3:6000,mg:2500,
+  x:{mg:600,vfx:1200,sub:250,drone:1500,vo:1000,light:1000,grade:600,sound:600},pk:{social:8900,launch:19900,edit:9900,vfx:13900}},
+ eu:{cur:"EUR",reel:450,film:2900,shoot:650,photo:450,edit:350,grade:300,vfx:250,d3:1200,mg:500,
+  x:{mg:120,vfx:250,sub:50,drone:300,vo:200,light:150,grade:120,sound:120},pk:{social:1590,launch:4290,edit:1790,vfx:2890}},
+ us:{cur:"USD",reel:550,film:3500,shoot:850,photo:550,edit:450,grade:400,vfx:300,d3:1500,mg:600,
+  x:{mg:150,vfx:300,sub:60,drone:350,vo:250,light:200,grade:150,sound:150},pk:{social:1890,launch:5190,edit:2290,vfx:3490}}};
+const DEPOSIT=40;  /* % to start */
+/* ready-made packages: i = [service, amount, extras] */
+const PK={
+ social:{m:"f",pop:1,mo:1,ic:"reel",i:[["reel",4,["sub","mg"]]],
+  n:["Social Starter","Social Starter","باقة السوشيال"],
+  b:[["4 reels every month, filmed and edited","1 shoot session a month","Subtitles and animated titles","Great for cafés, hotels, shops, brands"],["4 reels par mois, tournés et montés","1 séance de tournage par mois","Sous-titres et titres animés","Idéal pour cafés, hôtels, boutiques, marques"],["4 ريلز كل شهر، تصوير ومونتاج","جلسة تصوير واحدة في الشهر","ترجمة مكتوبة وعناوين متحركة","مثالية للمقاهي والفنادق والمتاجر والعلامات"]]},
+ launch:{m:"f",ic:"film",i:[["film",1,["drone"]],["reel",4,[]],["photo",1,[]]],
+  n:["Brand Launch","Lancement de marque","إطلاق العلامة"],
+  b:[["1 brand film with drone shots","4 reels cut from the same shoot","20 edited photos","For a launch, a new season or an event"],["1 film de marque avec plans drone","4 reels issus du même tournage","20 photos retouchées","Pour un lancement, une saison ou un événement"],["فيلم للعلامة مع لقطات درون","4 ريلز من نفس التصوير","20 صورة معدّلة","لإطلاق جديد أو موسم أو حدث"]]},
+ edit:{m:"r",pop:1,ic:"edit",i:[["edit",5,["grade","sub"]]],
+  n:["Edit Pack","Pack Montage","باقة المونتاج"],
+  b:[["5 videos edited from your footage","Colour grading on every video","Subtitles included","Delivered in every format you need"],["5 vidéos montées à partir de vos images","Étalonnage sur chaque vidéo","Sous-titres inclus","Livré dans tous les formats utiles"],["5 فيديوهات من لقطاتك","تدريج الألوان لكل فيديو","الترجمة المكتوبة مشمولة","بكل الصيغ التي تحتاجها"]]},
+ vfx:{m:"r",ic:"vfx",i:[["vfx",10,[]],["d3",1,[]]],
+  n:["VFX & 3D Pack","Pack VFX & 3D","باقة المؤثرات و3D"],
+  b:[["10 VFX shots: clean-up, sky, screens","1 3D animation of your product or logo","Ready for ads and social"],["10 plans VFX : nettoyage, ciel, écrans","1 animation 3D de votre produit ou logo","Prêt pour la pub et les réseaux"],["10 لقطات مؤثرات: تنظيف، سماء، شاشات","تحريك ثلاثي الأبعاد لمنتجك أو شعارك","جاهزة للإعلانات والشبكات"]]}};
+/* client's market from their timezone (Ayoub can force one with @ma / @eu / @us) */
+const autoMarket=()=>{let z="";try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}
+ if(/^Africa\/(Casablanca|El_Aaiun)$/.test(z))return"ma";if(/^America\//.test(z)||/^Pacific\/Honolulu$/.test(z))return"us";return"eu"};
 
 /* ---------- words ---------- */
 const W={
@@ -73,174 +97,166 @@ const W={
   wa1:"مرحباً أيوب، هذا مشروعي ({id}):",waT:"المجموع: {x}",waD:"للبدء: {x}",waW:"متى: {x}",waN:"ملاحظة: {x}",waM:"عمل عن بُعد (سأرسل اللقطات)",waL:"اختياراتي: {l}",
   none:"لا يوجد رابط مشروع هنا",noneL:"اطلب رابطك الخاص من أيوب، أو راسله عبر واتساب.",goSite:"زيارة الاستوديو",
   steps:[["مكالمة التعارف","مكالمة قصيرة للاتفاق على الفكرة والأسلوب والمواعيد."],["ما قبل الإنتاج","لوحة الإلهام وقائمة اللقطات والتخطيط، كل شيء جاهز قبل البدء."],["التصوير أو لقطاتك","يصوّر أيوب في الموقع، أو يشتغل على اللقطات التي ترسلها."],["المونتاج والألوان والمؤثرات","تشاهد النسخة الأولى وترسل ملاحظاتك، ثم نُكمل اللمسة النهائية."],["التسليم","الملفات النهائية بكل الصيغ التي تحتاجها، جاهزة للنشر."]]}};
+Object.assign(W.en,{pack:"Start with a package?",packL:"Our most chosen bundles, or build your own.",own:"Build my own",ownD:"Pick exactly what you need, one by one.",save:"Save {n}%",mo:"/ month",pop:"Most chosen",waP:"Package: {x}"});
+Object.assign(W.fr,{pack:"Commencer par un pack ?",packL:"Nos offres les plus choisies, ou composez la vôtre.",own:"Composer la mienne",ownD:"Choisissez exactement ce qu’il vous faut.",save:"−{n} %",mo:"/ mois",pop:"Le plus choisi",waP:"Pack : {x}"});
+Object.assign(W.ar,{pack:"تبدأ بباقة جاهزة؟",packL:"الباقات الأكثر طلباً، أو اصنع باقتك.",own:"أصنع باقتي",ownD:"اختر ما تحتاجه بالضبط، خطوة بخطوة.",save:"وفّر {n}٪",mo:"/ شهرياً",pop:"الأكثر طلباً",waP:"الباقة: {x}"});
 const tr=(l,k,v={})=>String(W[l][k]).replace(/\{(\w+)\}/g,(_,x)=>v[x]??"");
 const LOC={en:"en-GB",fr:"fr-FR",ar:"ar-MA"};
 function money(n,cur,l){const v=Math.round(n);if(cur==="MAD"){const s=new Intl.NumberFormat(LOC[l],{maximumFractionDigits:0}).format(v);return l==="ar"?s+" درهم":s+" DH"}
- try{return new Intl.NumberFormat(LOC[l],{style:"currency",currency:cur,maximumFractionDigits:0}).format(v)}catch(e){return v+" "+cur}}
+ try{return new Intl.NumberFormat(cur==="USD"&&l==="en"?"en-US":LOC[l],{style:"currency",currency:cur,maximumFractionDigits:0}).format(v)}catch(e){return v+" "+cur}}
 const sN=(k,l)=>SV[k].n[LI[l]],xN=(k,l)=>XT[k].n[LI[l]],uN=(k,l,q)=>SV[k].u[LI[l]][q===1?0:1];
 
-/* ---------- link ---------- */
-const b64e=s=>{const b=new TextEncoder().encode(s);let x="";b.forEach(c=>x+=String.fromCharCode(c));return btoa(x).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")};
-const b64d=s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");const x=atob(s);return new TextDecoder().decode(Uint8Array.from(x,c=>c.charCodeAt(0)))};
-function keyOf(){let k=store.get("atq:key");if(!k){const a=new Uint8Array(18);crypto.getRandomValues(a);k=[...a].map(x=>x.toString(36).padStart(2,"0")).join("").slice(0,24);store.set("atq:key",k)}return k}
-const sign=pl=>SHA.hmac(keyOf(),pl).slice(0,16);
-const BASE=()=>/atayknight\.com$/.test(location.hostname)?location.origin+"/quote/":location.href.split("#")[0];
-const newId=()=>{const a="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let s="";const r=new Uint8Array(4);crypto.getRandomValues(r);r.forEach(x=>s+=a[x%a.length]);return s};
-/* the link carries: client name, offered services, their prices + extras' prices, discount, deposit, currency */
-function packOffer(o){const pr={};o.s.forEach(k=>{pr[k]=stdPrice(k);SV[k].x.forEach(x=>pr["x:"+x]=stdPrice("x:"+x))});
- return b64e(JSON.stringify({v:2,id:o.id,c:o.c||undefined,s:o.s,pr,disc:o.disc||undefined,dep:+(myP.dep??50),cur:myP.cur||"MAD"}))}
-function linkFor(o){const pl=packOffer(o);return BASE()+"#p="+pl+"&g="+sign(pl)}
-
-/* ---------- theme ---------- */
+/* ---------- theme + icons ---------- */
 function theme(t){if(!t){t=store.get("atay-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}de.setAttribute("data-theme",t)}
 theme();
 const ICON='<i class="q-ic" aria-hidden="true"></i>';
 const MOON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor"/></svg>';
 const WA_I='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>';
 const langGuess=()=>{const s=(store.get("atay-lang")||navigator.language||"en").slice(0,2);return W[s]?s:"en"};
+const slug=n=>encodeURIComponent(n.trim().replace(/\s+/g,"-")).replace(/%2D/gi,"-");
+const LINK=n=>"atayknight.com/quote/"+(n.trim()?"#"+slug(n):"");
 
 /* ======================================================================
-   CLIENT FLOW
+   CLIENT FLOW   atayknight.com/quote/#Kenza
    ====================================================================== */
-function flow(O,pl,g,selStr){
- let l=langGuess();const cur=O.cur||"MAD";const M=k=>money(k,cur,l);const T=(k,v)=>tr(l,k,v);
- const offered=O.s.filter(k=>SV[k]);const modes=[...new Set(offered.map(k=>SV[k].m))];
- const st={mode:modes.length===1?modes[0]:null,pick:[],q:{},x:{},when:-1,note:""};
- offered.forEach(k=>{st.q[k]=SV[k].def;st.x[k]=[]});
- const price=k=>+(O.pr[k]??stdPrice(k)),xp=x=>+(O.pr["x:"+x]??stdPrice("x:"+x));
- const mine=!!store.get("atq:key"),verified=mine?(g&&sign(pl)===g):null;
- if(selStr){try{const [m,items,w]=selStr.split("~");if(m)st.mode=m;items.split(",").filter(Boolean).forEach(s=>{const [k,q,xs]=s.split(":");if(!SV[k]||!offered.includes(k))return;st.pick.push(k);st.q[k]=Math.min(SV[k].max,Math.max(1,+q||1));st.x[k]=(xs||"").split("+").filter(x=>SV[k].x.includes(x))});st.when=+w;if(isNaN(st.when))st.when=-1}catch(e){}}
- /* steps are built from the answers so far */
- function steps(){const s=["hi"];if(modes.length>1)s.push("mode");s.push("what");st.pick.forEach(k=>s.push("q:"+k));s.push("when","sum");return s}
- let at=selStr&&st.pick.length?steps().length-1:0,dir=1;
- const avail=()=>offered.filter(k=>!st.mode||SV[k].m===st.mode);
- function calc(){let sub=0;const lines=st.pick.map(k=>{const q=st.q[k];const xs=st.x[k];let t=q*price(k);xs.forEach(x=>t+=q*xp(x));sub+=t;return{k,q,xs,t}});
-  const disc=Math.round(sub*(+O.disc||0)/100),total=sub-disc,dep=Math.round(total*(+O.dep||0)/100);return{lines,sub,disc,total,dep}}
+function flow(name,mk){
+ let l=langGuess();const P=PR[mk]||PR.ma,cur=P.cur;const M=v=>money(v,cur,l),T=(k,v)=>tr(l,k,v);
+ const price=k=>P[k],xp=x=>P.x[x];
+ const st={mode:null,pk:null,pick:[],q:{},x:{},when:-1,note:""};ORDER.forEach(k=>{st.q[k]=SV[k].def;st.x[k]=[]});
+ const packs=m=>Object.keys(PK).filter(k=>PK[k].m===m);
+ const pkVal=k=>PK[k].i.reduce((s,[sv,q,xs])=>s+q*(price(sv)+xs.reduce((a,x)=>a+xp(x),0)),0);
+ const pkSave=k=>Math.round((1-P.pk[k]/pkVal(k))*100);
+ function steps(){const s=["hi","mode"];if(st.mode&&packs(st.mode).length)s.push("pack");
+  if(st.pk&&st.pk!=="own"){s.push("when","sum");return s}
+  s.push("what");st.pick.forEach(k=>s.push("q:"+k));s.push("when","sum");return s}
+ let at=0,dir=1;
+ function calc(){if(st.pk&&st.pk!=="own"){const t=P.pk[st.pk];return{pack:st.pk,lines:[],total:t,dep:Math.round(t*DEPOSIT/100)}}
+  let total=0;const lines=st.pick.map(k=>{const q=st.q[k],xs=st.x[k];let t=q*price(k);xs.forEach(x=>t+=q*xp(x));total+=t;return{k,q,xs,t}});
+  return{lines,total,dep:Math.round(total*DEPOSIT/100)}}
  app.className="w";
  function frame(){de.setAttribute("lang",l);de.setAttribute("dir",l==="ar"?"rtl":"ltr");
-  app.innerHTML=`${mine?`<div class="q-badge ${verified?"ok":"bad"}">${verified?"✓ Your link, prices unchanged.":"⚠ The prices in this link were changed after you sent it."}</div>`:""}
-  <header class="w-top"><a class="q-brand" href="/">${ICON}<b>Atay Studio</b></a><div class="q-tools"><div class="q-lang" role="group" aria-label="Language">${["en","fr","ar"].map(x=>`<button type="button" data-l="${x}" aria-pressed="${x===l}">${x==="ar"?"ع":x.toUpperCase()}</button>`).join("")}</div><button type="button" class="q-th" aria-label="Dark mode">${MOON}</button></div></header>
-  <div class="w-prog" aria-hidden="true"><i></i></div>
-  <main class="w-stage" aria-live="polite"></main>
+  app.innerHTML=`<header class="w-top"><a class="q-brand" href="/">${ICON}<b>Atay Studio</b></a><div class="q-tools"><div class="q-lang" role="group" aria-label="Language">${["en","fr","ar"].map(x=>`<button type="button" data-l="${x}" aria-pressed="${x===l}">${x==="ar"?"ع":x.toUpperCase()}</button>`).join("")}</div><button type="button" class="q-th" aria-label="Dark mode">${MOON}</button></div></header>
+  <div class="w-prog" aria-hidden="true"><i></i></div><main class="w-stage" aria-live="polite"></main>
   <nav class="w-nav"><button type="button" class="w-back">${l==="ar"?"→":"←"} <span>${T("back")}</span></button><div class="w-tot" hidden><span>${T("total")}</span><b></b></div><button type="button" class="w-next"></button></nav>`;
   draw()}
- function draw(){const S=steps();at=Math.max(0,Math.min(at,S.length-1));const id=S[at],stage=$(".w-stage");const C=calc();
-  $(".w-prog i").style.width=(at/(S.length-1))*100+"%";
-  let h="";
-  if(id==="hi"){h=`<div class="w-hi"><img src="../img/portrait.webp" alt="" width="96" height="96" onerror="this.style.visibility='hidden'"><h1>${O.c?T("hi",{c:`<em>${esc(O.c)}</em>`}):T("hiNo")}</h1><p class="w-lead">${T("intro")}</p><p class="w-time">◷ ${T("time")}</p></div>`}
-  if(id==="mode"){h=`<h2 class="w-h">${T("mode")}</h2><p class="w-l">${T("modeL")}</p><div class="w-modes">
-    ${[["f","film2",T("mF"),T("mFd")],["r","remote",T("mR"),T("mRd")]].map(([m,ic,t,d])=>`<button type="button" class="w-mode${st.mode===m?" on":""}" data-mode="${m}" aria-pressed="${st.mode===m}">${svg(ic,"w-mi")}<b>${t}</b><span>${d}</span>${m==="r"?`<em class="w-tag">${T("remote")}</em>`:""}<i class="w-ck"></i></button>`).join("")}</div>`}
-  if(id==="what"){h=`<h2 class="w-h">${T("what")}</h2><p class="w-l">${T("whatL")}</p><div class="w-tiles">${avail().map(k=>`<button type="button" class="w-tile${st.pick.includes(k)?" on":""}" data-k="${k}" aria-pressed="${st.pick.includes(k)}">${svg(k,"w-ti")}<b>${sN(k,l)}</b><span>${T("from",{x:M(price(k))})}${SV[k].m==="r"&&!st.mode?` · ${T("remote")}`:""}</span><i class="w-ck"></i></button>`).join("")}</div><p class="w-err" hidden>${T("pick")}</p>`}
+ const pkCard=k=>{const p=PK[k],sv=pkSave(k),on=st.pk===k;return `<button type="button" class="w-pk${on?" on":""}${p.pop?" pop":""}" data-pk="${k}" aria-pressed="${on}">
+   ${p.pop?`<em class="w-pop">${T("pop")}</em>`:""}<div class="w-pkh">${svg(p.ic,"w-pki")}<b>${p.n[LI[l]]}</b></div>
+   <ul>${p.b[LI[l]].map(x=>`<li>${x}</li>`).join("")}</ul>
+   <div class="w-pkp"><span class="w-pkv">${M(P.pk[k])}${p.mo?` <small>${T("mo")}</small>`:""}</span>${sv>=5?`<s>${M(pkVal(k))}</s><em class="w-sv">${T("save",{n:sv})}</em>`:""}</div><i class="w-ck"></i></button>`};
+ function draw(){const S=steps();at=Math.max(0,Math.min(at,S.length-1));const id=S[at],stage=$(".w-stage"),C=calc();
+  $(".w-prog i").style.width=(at/(S.length-1))*100+"%";let h="";
+  if(id==="hi")h=`<div class="w-hi"><img src="../img/portrait.webp" alt="" width="96" height="96" onerror="this.style.visibility='hidden'"><h1>${name?T("hi",{c:`<em>${esc(name)}</em>`}):T("hiNo")}</h1><p class="w-lead">${T("intro")}</p><p class="w-time">◷ ${T("time")}</p></div>`;
+  if(id==="mode")h=`<h2 class="w-h">${T("mode")}</h2><p class="w-l">${T("modeL")}</p><div class="w-modes">
+    ${[["f","film2",T("mF"),T("mFd")],["r","remote",T("mR"),T("mRd")]].map(([m,ic,t,d])=>`<button type="button" class="w-mode${st.mode===m?" on":""}" data-mode="${m}" aria-pressed="${st.mode===m}">${svg(ic,"w-mi")}<b>${t}</b><span>${d}</span>${m==="r"?`<em class="w-tag">${T("remote")}</em>`:""}<i class="w-ck"></i></button>`).join("")}</div>`;
+  if(id==="pack")h=`<h2 class="w-h">${T("pack")}</h2><p class="w-l">${T("packL")}</p><div class="w-pks">${packs(st.mode).map(pkCard).join("")}
+    <button type="button" class="w-pk w-own${st.pk==="own"?" on":""}" data-pk="own" aria-pressed="${st.pk==="own"}"><div class="w-pkh">${svg("mg","w-pki")}<b>${T("own")}</b></div><p>${T("ownD")}</p><i class="w-ck"></i></button></div>`;
+  if(id==="what")h=`<h2 class="w-h">${T("what")}</h2><p class="w-l">${T("whatL")}</p><div class="w-tiles">${ORDER.filter(k=>SV[k].m===st.mode).map(k=>`<button type="button" class="w-tile${st.pick.includes(k)?" on":""}" data-k="${k}" aria-pressed="${st.pick.includes(k)}">${svg(k,"w-ti")}<b>${sN(k,l)}</b><span>${T("from",{x:M(price(k))})}</span><i class="w-ck"></i></button>`).join("")}</div><p class="w-err" hidden>${T("pick")}</p>`;
   if(id.startsWith("q:")){const k=id.slice(2),q=st.q[k],mx=SV[k].max;
    h=`<div class="w-qh">${svg(k,"w-qi")}<div><h2 class="w-h">${SV[k].q[LI[l]]}</h2><p class="w-l">${SV[k].d[LI[l]]}</p></div></div>
     <div class="w-qty"><button type="button" class="w-st" data-d="-1" aria-label="−">−</button><output><b>${q}</b><span>${uN(k,l,q)}</span></output><button type="button" class="w-st" data-d="1" aria-label="+">+</button>
      <input type="range" min="1" max="${mx}" value="${q}" style="--f:${((q-1)/((mx-1)||1))*100}%" aria-label="${SV[k].q[LI[l]]}"><p class="w-each">${M(price(k))} ${T("per",{u:uN(k,l,1)})}</p></div>
     ${SV[k].x.length?`<h3 class="w-xh">${T("xtra")}</h3><div class="w-xs">${SV[k].x.map(x=>`<button type="button" class="w-x${st.x[k].includes(x)?" on":""}" data-x="${x}" aria-pressed="${st.x[k].includes(x)}"><i class="w-ck"></i><b>${xN(x,l)}</b><span>+${M(xp(x))} ${T("per",{u:uN(k,l,1)})}</span></button>`).join("")}</div>`:""}
     <div class="w-line"><span>${sN(k,l)}</span><b data-line>${M(C.lines.find(x=>x.k===k)?.t||0)}</b></div>`}
-  if(id==="when"){h=`<h2 class="w-h">${T("when")}</h2><div class="w-opts">${W[l].whenO.map((o,i)=>`<button type="button" class="w-opt${st.when===i?" on":""}" data-w="${i}" aria-pressed="${st.when===i}"><i class="w-rd"></i>${o}</button>`).join("")}</div>
-    <label class="w-note"><span>${T("note")} <em>${T("noteO")}</em></span><textarea rows="3" placeholder="${T("noteP")}">${esc(st.note)}</textarea></label>`}
-  if(id==="sum"){h=`<h2 class="w-h">${T("sum")}</h2><p class="w-l">${T("sumL")}</p><div class="w-sum">
-    <ul>${C.lines.map(L=>`<li>${svg(L.k,"w-si")}<div><b>${L.q} × ${sN(L.k,l)}</b>${L.xs.length?`<small>+ ${L.xs.map(x=>xN(x,l)).join(", ")}</small>`:""}</div><span>${M(L.t)}</span></li>`).join("")}</ul>
-    ${+O.disc?`<div class="w-r"><span>${T("sub")}</span><b>${M(C.sub)}</b></div><div class="w-r w-dc"><span>${T("disc",{n:O.disc})}</span><b>−${M(C.disc)}</b></div>`:""}
-    <div class="w-big"><span>${T("total")}</span><b data-total>${M(C.total)}</b></div>
-    ${+O.dep?`<p class="w-dep">${T("dep",{n:O.dep})}: <b>${M(C.dep)}</b></p>`:""}
+  if(id==="when")h=`<h2 class="w-h">${T("when")}</h2><div class="w-opts">${W[l].whenO.map((o,i)=>`<button type="button" class="w-opt${st.when===i?" on":""}" data-w="${i}" aria-pressed="${st.when===i}"><i class="w-rd"></i>${o}</button>`).join("")}</div>
+    <label class="w-note"><span>${T("note")} <em>${T("noteO")}</em></span><textarea rows="3" placeholder="${T("noteP")}">${esc(st.note)}</textarea></label>`;
+  if(id==="sum"){const p=C.pack&&PK[C.pack];
+   h=`<h2 class="w-h">${T("sum")}</h2><p class="w-l">${T("sumL")}</p><div class="w-sum">
+    <ul>${p?`<li class="w-lp">${svg(p.ic,"w-si")}<div><b>${p.n[LI[l]]}</b><small>${p.b[LI[l]].slice(0,3).join(" · ")}</small></div><span>${M(C.total)}${p.mo?` ${T("mo")}`:""}</span></li>`:
+     C.lines.map(L=>`<li>${svg(L.k,"w-si")}<div><b>${L.q} × ${sN(L.k,l)}</b>${L.xs.length?`<small>+ ${L.xs.map(x=>xN(x,l)).join(", ")}</small>`:""}</div><span>${M(L.t)}</span></li>`).join("")}</ul>
+    <div class="w-big"><span>${T("total")}</span><b data-total>${M(C.total)}${p&&p.mo?`<small> ${T("mo")}</small>`:""}</b></div>
+    <p class="w-dep">${T("dep",{n:DEPOSIT})}: <b>${M(C.dep)}</b></p>
     <button type="button" class="w-send">${WA_I}<span>${T("send")}</span></button><p class="w-sl">${T("sendL")}</p>
     <a class="w-call" href="/#book">${T("call")}</a><button type="button" class="w-chg">${T("change")}</button></div>`}
-  stage.innerHTML=`<div class="w-step" style="--dx:${dir*28}px">${id!=="hi"?`<p class="w-k">${T("step",{n:at,t:S.length-1})}</p>`:""}${h}</div>`;
+  stage.innerHTML=`<div class="w-step" style="--dx:${dir*28}px">${id!=="hi"?`<p class="w-k">${T("step",{n:at})}</p>`:""}${h}</div>`;
   const nx=$(".w-next"),bk=$(".w-back"),tot=$(".w-tot");
   bk.style.visibility=at===0?"hidden":"visible";
   nx.hidden=id==="sum";nx.textContent=id==="hi"?T("start"):S[at+1]==="sum"?T("see"):T("next");
-  nx.classList.toggle("dim",(id==="mode"&&!st.mode)||(id==="what"&&!st.pick.length));
-  tot.hidden=!st.pick.length||id==="sum"||id==="hi";$("b",tot).textContent=M(C.total);
+  nx.classList.toggle("dim",(id==="mode"&&!st.mode)||(id==="pack"&&!st.pk)||(id==="what"&&!st.pick.length));
+  tot.hidden=!(C.total>0)||id==="sum"||id==="hi";$("b",tot).textContent=M(C.total);
   const f=stage.querySelector("h1,h2");if(f&&!RM&&at>0){f.setAttribute("tabindex","-1");f.focus({preventScroll:true})}
   scrollTo({top:0,behavior:"instant"})}
- function go(d){const S=steps(),id=S[at];
-  if(d>0&&id==="mode"&&!st.mode)return;
+ function go(d){const id=steps()[at];
+  if(d>0&&((id==="mode"&&!st.mode)||(id==="pack"&&!st.pk)))return;
   if(d>0&&id==="what"&&!st.pick.length){$(".w-err").hidden=false;return}
   dir=d;at+=d;draw()}
  function refreshQ(k){const C=calc(),q=st.q[k],r=$(".w-qty input");$(".w-qty output b").textContent=q;$(".w-qty output span").textContent=uN(k,l,q);r.value=q;r.style.setProperty("--f",((q-1)/((SV[k].max-1)||1))*100+"%");
   $("[data-line]").textContent=M(C.lines.find(x=>x.k===k).t);$(".w-tot b").textContent=M(C.total);
   const o=$(".w-qty output b");if(!RM){o.classList.remove("pop");void o.offsetWidth;o.classList.add("pop")}}
+ const auto=()=>setTimeout(()=>go(1),RM?0:260);
  app.onclick=e=>{const t=e.target;
   if(t.closest(".w-next"))return go(1);if(t.closest(".w-back"))return go(-1);
   const lg=t.closest("[data-l]");if(lg){l=lg.dataset.l;store.set("atay-lang",l);frame();return}
   if(t.closest(".q-th")){const n=de.getAttribute("data-theme")==="dark"?"light":"dark";store.set("atay-theme",n);theme(n);return}
-  const md=t.closest("[data-mode]");if(md){st.mode=md.dataset.mode;st.pick=st.pick.filter(k=>SV[k].m===st.mode);draw();setTimeout(()=>go(1),RM?0:260);return}
+  const md=t.closest("[data-mode]");if(md){if(st.mode!==md.dataset.mode){st.mode=md.dataset.mode;st.pk=null;st.pick=[]}draw();auto();return}
+  const pk=t.closest("[data-pk]");if(pk){st.pk=pk.dataset.pk;draw();auto();return}
   const tl=t.closest("[data-k]");if(tl){const k=tl.dataset.k;st.pick=st.pick.includes(k)?st.pick.filter(x=>x!==k):[...st.pick,k];st.pick.sort((a,b)=>ORDER.indexOf(a)-ORDER.indexOf(b));draw();return}
   const sp=t.closest(".w-st");if(sp){const k=steps()[at].slice(2);st.q[k]=Math.max(1,Math.min(SV[k].max,st.q[k]+ +sp.dataset.d));refreshQ(k);return}
   const xx=t.closest("[data-x]");if(xx){const k=steps()[at].slice(2),x=xx.dataset.x;st.x[k]=st.x[k].includes(x)?st.x[k].filter(y=>y!==x):[...st.x[k],x];xx.classList.toggle("on");xx.setAttribute("aria-pressed",xx.classList.contains("on"));refreshQ(k);return}
   const w=t.closest("[data-w]");if(w){st.when=+w.dataset.w;$$(".w-opt").forEach(b=>{const on=+b.dataset.w===st.when;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});return}
-  if(t.closest(".w-chg")){dir=-1;at=steps().indexOf("what");draw();return}
+  if(t.closest(".w-chg")){dir=-1;at=steps().indexOf("pack");if(at<0)at=1;draw();return}
   if(t.closest(".w-send"))return send()};
  app.oninput=e=>{if(e.target.matches(".w-qty input")){const k=steps()[at].slice(2);st.q[k]=+e.target.value;refreshQ(k)}if(e.target.matches(".w-note textarea"))st.note=e.target.value};
  addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.target.matches("textarea,button,a")&&!$(".w-next").hidden){e.preventDefault();go(1)}});
- function send(){const C=calc(),sel=(st.mode||"")+"~"+st.pick.map(k=>k+":"+st.q[k]+":"+st.x[k].join("+")).join(",")+"~"+st.when;
-  const link=BASE()+"#p="+pl+(g?"&g="+g:"")+"&s="+encodeURIComponent(sel);
-  const lines=C.lines.map(L=>"• "+L.q+" × "+sN(L.k,l)+(L.xs.length?" (+ "+L.xs.map(x=>xN(x,l)).join(", ")+")":"")+": "+M(L.t));
-  const msg=[T("wa1",{id:O.id||""}),...(st.mode==="r"?[T("waM")]:[]),...lines,"",+O.disc?T("disc",{n:O.disc})+": −"+M(C.disc):null,T("waT",{x:M(C.total)}),+O.dep?T("waD",{x:M(C.dep)}):null,st.when>=0?T("waW",{x:W[l].whenO[st.when]}):null,st.note.trim()?T("waN",{x:st.note.trim()}):null,"",T("waL",{l:link})].filter(x=>x!==null).join("\n");
+ function send(){const C=calc(),p=C.pack&&PK[C.pack];
+  const body=p?[T("waP",{x:p.n[LI[l]]+" ("+M(C.total)+(p.mo?" "+T("mo"):"")+")"}),...p.b[LI[l]].slice(0,3).map(x=>"• "+x)]
+   :C.lines.map(L=>"• "+L.q+" × "+sN(L.k,l)+(L.xs.length?" (+ "+L.xs.map(x=>xN(x,l)).join(", ")+")":"")+": "+M(L.t));
+  const msg=[T("wa1",{id:name||"—"}).replace(" ()",""),...(st.mode==="r"?[T("waM")]:[]),...body,"",T("waT",{x:M(C.total)+(p&&p.mo?" "+T("mo"):"")}),T("waD",{x:M(C.dep)}),st.when>=0?T("waW",{x:W[l].whenO[st.when]}):null,st.note.trim()?T("waN",{x:st.note.trim()}):null].filter(x=>x!==null).join("\n");
   window.open("https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(msg),"_blank","noopener");
   const sh=document.createElement("div");sh.className="q-thx";sh.setAttribute("role","dialog");sh.setAttribute("aria-modal","true");
   sh.innerHTML=`<div class="q-tc" dir="${l==="ar"?"rtl":"ltr"}"><span class="q-ok">✓</span><h2>${T("thanks")}</h2><p>${T("thanksL")}</p><h3>${T("nextT")}</h3><ol>${W[l].steps.map(([a,b],i)=>`<li style="--d:${200+i*90}ms"><b>${a}</b><span>${b}</span></li>`).join("")}</ol><button type="button" class="q-close">OK</button></div>`;
   document.body.appendChild(sh);sh.addEventListener("click",e=>{if(e.target===sh||e.target.closest(".q-close"))sh.remove()});$(".q-close",sh).focus()}
- document.title=(O.c?O.c+" · ":"")+"Atay Studio";frame()}
+ document.title=(name?name+" · ":"")+"Atay Studio";frame()}
 
 /* ======================================================================
-   LINK MAKER (Ayoub)
+   LINK MAKER (Ayoub)   atayknight.com/quote/#edit
    ====================================================================== */
-const hist=()=>{try{return JSON.parse(store.get("atq:hist2")||"[]")}catch(e){return[]}};
-function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");document.title="New project link · Atay Studio";app.className="mk";
- const o={id:newId(),c:"",s:(()=>{try{return JSON.parse(store.get("atq:last")||"null")}catch(e){return null}})()||ORDER.slice(),disc:0};
- const tile=k=>`<button type="button" class="mk-t${o.s.includes(k)?" on":""}" data-k="${k}" aria-pressed="${o.s.includes(k)}">${svg(k,"mk-i")}<span>${SV[k].n[0]}</span><i class="w-ck"></i></button>`;
- app.innerHTML=`<header class="w-top"><span class="q-brand">${ICON}<b>Atay Studio</b></span><div class="q-tools"><button type="button" class="mk-l" data-open="hist">Sent <i class="e-hn"></i></button><button type="button" class="mk-l" data-open="prices">My prices</button></div></header>
- <div class="mk-wrap"><h1>New project link</h1><p class="mk-sub">Send it to a client. They answer a few quick questions and see their price.</p>
-  <section class="mk-card"><label class="mk-f"><span>Who is it for?</span><input class="mk-c" placeholder="Client or contact name" autocomplete="off"></label>
-   <div class="mk-f"><span>What can they choose?</span>
-    <p class="mk-g">${svg("film2","mk-gi")} Filming</p><div class="mk-ts">${ORDER.filter(k=>SV[k].m==="f").map(tile).join("")}</div>
-    <p class="mk-g">${svg("remote","mk-gi")} Remote work</p><div class="mk-ts">${ORDER.filter(k=>SV[k].m==="r").map(tile).join("")}</div></div>
-   <div class="mk-f"><span>Discount</span><div class="mk-seg">${[0,5,10,15,20].map(d=>`<button type="button" data-d="${d}" aria-pressed="${d===0}">${d?d+"%":"None"}</button>`).join("")}</div></div></section>
+const hist=()=>{try{return JSON.parse(store.get("atq:hist3")||"[]")}catch(e){return[]}};
+function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");document.title="Client link · Atay Studio";app.className="mk";
+ let mkt="";
+ app.innerHTML=`<header class="w-top"><span class="q-brand">${ICON}<b>Atay Studio</b></span><div class="q-tools"><button type="button" class="mk-l" data-open="hist">Sent <i class="e-hn"></i></button><button type="button" class="mk-l" data-open="prices">Prices</button></div></header>
+ <div class="mk-wrap"><h1>Client link</h1><p class="mk-sub">Type the client’s name and send. They pick a package or build their own, and see the price.</p>
+  <section class="mk-card"><label class="mk-f"><span>Client name</span><input class="mk-c" placeholder="e.g. Kenza" autocomplete="off" autocapitalize="words"></label>
+   <p class="mk-link"><span>Their link</span><b>atayknight.com/quote/</b></p>
+   <details class="mk-more"><summary>Prices shown</summary><div class="mk-seg">${[["","Auto"],["ma","Morocco DH"],["eu","Europe €"],["us","USA $"]].map(([v,t])=>`<button type="button" data-m="${v}" aria-pressed="${v===""}">${t}</button>`).join("")}</div>
+    <p class="mk-hint">Auto shows DH to clients in Morocco, € in Europe and the rest of the world, $ in the Americas.</p></details></section>
   <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-act="wa">${WA_I} Send on WhatsApp</button><button type="button" class="mk-btn" data-act="copy">Copy link</button><button type="button" class="mk-btn mk-gh" data-act="open">Preview</button></div>
  </div><div class="e-toast" role="status" aria-live="polite"></div><div class="e-modal" hidden></div>`;
+ const inp=$(".mk-c"),url=()=>"https://"+LINK(inp.value)+(mkt&&inp.value.trim()?"@"+mkt:mkt?"#@"+mkt:"");
+ const showLink=()=>{$(".mk-link b").textContent=url().replace("https://","")};inp.addEventListener("input",showLink);
  const toast=t=>{const el=$(".e-toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),2600)};
  const hn=()=>{$(".e-hn").textContent=hist().length||""};hn();
  const copy=t=>{if(navigator.clipboard&&isSecureContext)navigator.clipboard.writeText(t).catch(()=>fb(t));else fb(t)};
  const fb=t=>{const ta=document.createElement("textarea");ta.value=t;ta.style.cssText="position:fixed;opacity:0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}ta.remove()};
- function make(){o.c=$(".mk-c").value.trim();if(!o.s.length){toast("Pick at least one service");return null}store.set("atq:last",JSON.stringify(o.s));
-  const url=linkFor(o);const h=hist().filter(x=>x.id!==o.id);h.unshift({id:o.id,c:o.c||"(no name)",d:new Date().toISOString().slice(0,10),n:o.s.length,url});store.set("atq:hist2",JSON.stringify(h.slice(0,60)));hn();return url}
- const msg=url=>`${o.c?"Hi "+o.c+"! ":"Hi! "}Here is your project link from Atay Studio. Pick what you need and you'll see the price straight away:\n${url}`;
+ function remember(u){const n=inp.value.trim()||"(no name)";const h=hist().filter(x=>x.url!==u);h.unshift({c:n,d:new Date().toISOString().slice(0,10),url:u});store.set("atq:hist3",JSON.stringify(h.slice(0,80)));hn()}
+ const msg=u=>{const n=inp.value.trim();return `${n?"Hi "+n+"! ":"Hi! "}Here is your project link from Atay Studio. Pick a package or build your own, and you'll see the price straight away:\n${u}`};
  app.onclick=e=>{const t=e.target;
-  const k=t.closest(".mk-t");if(k){const x=k.dataset.k;o.s=o.s.includes(x)?o.s.filter(y=>y!==x):[...o.s,x];o.s.sort((a,b)=>ORDER.indexOf(a)-ORDER.indexOf(b));k.classList.toggle("on");k.setAttribute("aria-pressed",k.classList.contains("on"));return}
-  const d=t.closest("[data-d]");if(d){o.disc=+d.dataset.d;$$(".mk-seg button").forEach(b=>b.setAttribute("aria-pressed",b===d));return}
-  const a=t.closest("[data-act]");if(a){const url=make();if(!url)return;
-   if(a.dataset.act==="copy"){copy(url);toast("Link copied")}
-   if(a.dataset.act==="open")window.open(url,"_blank","noopener");
-   if(a.dataset.act==="wa")window.open("https://wa.me/?text="+encodeURIComponent(msg(url)),"_blank","noopener");
-   o.id=newId();return}
-  const op=t.closest("[data-open]");if(op){op.dataset.open==="prices"?prices():sent()}};
+  const m=t.closest("[data-m]");if(m){mkt=m.dataset.m;$$("[data-m]").forEach(b=>b.setAttribute("aria-pressed",b===m));showLink();return}
+  const a=t.closest("[data-act]");if(a){const u=url();remember(u);
+   if(a.dataset.act==="copy"){copy(u);toast("Link copied")}
+   if(a.dataset.act==="open")window.open(u,"_blank","noopener");
+   if(a.dataset.act==="wa")window.open("https://wa.me/?text="+encodeURIComponent(msg(u)),"_blank","noopener");return}
+  const op=t.closest("[data-open]");if(op)op.dataset.open==="prices"?prices():sent()};
  function sheet(html){const m=$(".e-modal");m.hidden=false;m.innerHTML=`<div class="e-mc" role="dialog" aria-modal="true">${html}</div>`;m.onclick=e=>{if(e.target===m||e.target.closest("[data-x]"))m.hidden=true};return m}
  function sent(){const h=hist();sheet(`<div class="e-mh"><b>Sent links</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div>
-  ${h.length?`<ul class="e-hl">${h.map(x=>`<li><div><b>${esc(x.c)}</b><span>${esc(x.id)} · ${esc(x.d)} · ${x.n} service${x.n>1?"s":""}</span></div><a class="mk-btn mk-sm" href="${esc(x.url)}" target="_blank" rel="noopener">Open</a><button type="button" class="mk-btn mk-sm" data-cp="${esc(x.url)}">Copy</button></li>`).join("")}</ul>`:`<p class="mk-hint">Links you send or copy appear here.</p>`}`).addEventListener("click",e=>{const c=e.target.closest("[data-cp]");if(c){copy(c.dataset.cp);toast("Link copied")}})}
- function prices(){const row=(k,name,sub)=>`<label class="mk-pr"><span>${name}${sub?`<small>${sub}</small>`:""}</span><input type="number" min="0" step="50" data-p="${k}" value="${stdPrice(k)}"></label>`;
-  const m=sheet(`<div class="e-mh"><b>My prices</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div><p class="mk-hint">Your standard rates. Every new link uses them. Links you already sent keep their prices.</p>
-   <div class="mk-row"><label class="mk-pr"><span>Currency</span><select data-p="cur">${[["MAD","Dirham (DH)"],["EUR","Euro (€)"],["USD","Dollar ($)"]].map(([v,t])=>`<option value="${v}"${(myP.cur||"MAD")===v?" selected":""}>${t}</option>`).join("")}</select></label>
-    <label class="mk-pr"><span>Deposit to start</span><select data-p="dep">${[0,30,40,50,60,100].map(v=>`<option value="${v}"${+(myP.dep??50)===v?" selected":""}>${v}%</option>`).join("")}</select></label></div>
-   <h4>Filming</h4>${ORDER.filter(k=>SV[k].m==="f").map(k=>row(k,SV[k].n[0],"per "+SV[k].u[0][0])).join("")}
-   <h4>Remote work</h4>${ORDER.filter(k=>SV[k].m==="r").map(k=>row(k,SV[k].n[0],"per "+SV[k].u[0][0])).join("")}
-   <h4>Extras <small>(charged per reel, film, day or video)</small></h4>${Object.keys(XT).map(x=>row("x:"+x,XT[x].n[0])).join("")}
-   <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-save>Save my prices</button><button type="button" class="mk-btn mk-gh" data-reset>Original prices</button></div>
-   <details class="mk-key"><summary>Checking links on another device</summary><p class="mk-hint">Links are signed with a private key kept in this browser. When a client sends their link back, open it here: a green line means the prices are yours. To check on another phone or computer, copy this key there.</p><code>${esc(keyOf())}</code><div class="mk-act"><button type="button" class="mk-btn mk-sm" data-ck>Copy key</button><button type="button" class="mk-btn mk-sm" data-pk>Paste a key</button></div></details>`);
-  m.addEventListener("click",e=>{if(e.target.closest("[data-save]")){$$("[data-p]",m).forEach(i=>{const k=i.dataset.p;myP[k]=k==="cur"?i.value:+i.value});store.set("atq:prices2",JSON.stringify(myP));m.hidden=true;toast("Prices saved")}
-   if(e.target.closest("[data-reset]")){Object.keys(myP).forEach(k=>delete myP[k]);store.set("atq:prices2","{}");m.hidden=true;toast("Original prices restored")}
-   if(e.target.closest("[data-ck]")){copy(keyOf());toast("Key copied")}
-   if(e.target.closest("[data-pk]")){const k=prompt("Paste the key from your other device:");if(k&&k.trim().length>=12){store.set("atq:key",k.trim());toast("Key updated");m.hidden=true}}})}
+  ${h.length?`<ul class="e-hl">${h.map(x=>`<li><div><b>${esc(x.c)}</b><span>${esc(x.d)} · ${esc(x.url.replace("https://",""))}</span></div><button type="button" class="mk-btn mk-sm" data-cp="${esc(x.url)}">Copy</button></li>`).join("")}</ul>`:`<p class="mk-hint">Links you send or copy appear here.</p>`}`).addEventListener("click",e=>{const c=e.target.closest("[data-cp]");if(c){copy(c.dataset.cp);toast("Link copied")}})}
+ function prices(){const mk=["ma","eu","us"],hd=`<tr><th></th><th>Morocco</th><th>Europe</th><th>USA</th></tr>`,f=(m,v)=>money(v,PR[m].cur,"en");
+  const row=(name,get)=>`<tr><td>${name}</td>${mk.map(m=>`<td>${f(m,get(PR[m]))}</td>`).join("")}</tr>`;
+  sheet(`<div class="e-mh"><b>Prices</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div><p class="mk-hint">What clients see, by where they are. Deposit to start: ${DEPOSIT}%. To change a price, tell Claude.</p>
+   <div class="mk-tw"><table class="mk-tb"><thead>${hd}</thead><tbody>
+   <tr class="mk-th"><td colspan="4">Packages</td></tr>${Object.keys(PK).map(k=>row(PK[k].n[0]+(PK[k].mo?" (month)":""),P=>P.pk[k])).join("")}
+   <tr class="mk-th"><td colspan="4">Filming</td></tr>${ORDER.filter(k=>SV[k].m==="f").map(k=>row(SV[k].n[0]+" / "+SV[k].u[0][0],P=>P[k])).join("")}
+   <tr class="mk-th"><td colspan="4">Remote</td></tr>${ORDER.filter(k=>SV[k].m==="r").map(k=>row(SV[k].n[0]+" / "+SV[k].u[0][0],P=>P[k])).join("")}
+   <tr class="mk-th"><td colspan="4">Extras (each)</td></tr>${Object.keys(XT).map(x=>row(XT[x].n[0],P=>P.x[x])).join("")}
+   </tbody></table></div>`)}
 }
 
 /* ---------- router ---------- */
-function nothing(){const l=langGuess();de.setAttribute("dir",l==="ar"?"rtl":"ltr");app.className="w";
- app.innerHTML=`<div class="q-none">${ICON}<h1>${tr(l,"none")}</h1><p>${tr(l,"noneL")}</p><a class="w-send" href="/">${tr(l,"goSite")}</a></div>`}
-function route(){const h=new URLSearchParams(location.hash.slice(1));
- if(h.has("edit"))return maker();
- if(h.has("p")){try{const pl=h.get("p"),O=JSON.parse(b64d(pl));if(O.v!==2||!Array.isArray(O.s))throw 0;return flow(O,pl,h.get("g"),h.get("s"))}catch(e){return nothing()}}
- nothing()}
+function route(){let h=decodeURIComponent(location.hash.slice(1)||"");
+ if(h==="edit")return maker();
+ let name="",mk="";
+ if(/^p=/.test(h)){/* older long links: keep the name */try{const o=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(new URLSearchParams(location.hash.slice(1)).get("p").replace(/-/g,"+").replace(/_/g,"/")),c=>c.charCodeAt(0))));name=o.c||""}catch(e){}}
+ else{const m=h.match(/@(ma|eu|us)$/);if(m){mk=m[1];h=h.slice(0,-3)}name=h.replace(/[-_]+/g," ").trim().slice(0,60)}
+ flow(name,mk||autoMarket())}
 addEventListener("hashchange",()=>location.reload());
 route();
 })();
