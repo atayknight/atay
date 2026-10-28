@@ -431,7 +431,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
    <ol class="mk-steps"><li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → New fine-grained token</a> (signed in as atayknight).</li>
    <li>Name it <b>Atay prices</b>, expiration <b>1 year</b>.</li><li>Repository access: <b>Only select repositories</b> → <b>atay</b> and <b>atay-clients</b>.</li>
    <li>Permissions → Repository → <b>Contents: Read and write</b>.</li><li>Generate, copy the key and paste it here.</li></ol>
-   <label class="mk-pr mk-key2"><span>GitHub key</span><input type="password" class="mk-tok" placeholder="${has?"Saved. Paste a new one to replace it":"github_pat_…"}" autocomplete="off"></label>
+   <label class="mk-pr mk-key2"><span>GitHub key</span><input type="text" class="mk-tok" name="gh-key-x" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" style="-webkit-text-security:disc;font-family:var(--mono)" placeholder="${has?"Saved. Paste a new one to replace it":"github_pat_…"}" autocomplete="off"></label>
    <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-save>Save and test</button>${has?`<button type="button" class="mk-btn mk-gh" data-forget>Disconnect</button>`:""}</div>`);
   m.addEventListener("click",async e=>{if(e.target.closest("[data-forget]")){store.set("atq:gh","");try{localStorage.removeItem("atq:gh")}catch(_){ }m.close();ghState();toast("Disconnected");return}
    if(!e.target.closest("[data-save]"))return;const v=$(".mk-tok",m).value.replace(/\s+/g,"");if(v.length<20){toast("Paste the whole key (it starts with github_pat_)");return}
