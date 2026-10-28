@@ -328,7 +328,7 @@ function docHTML(o){const w=DW[o.l]||DW.fr,l=o.l==="en"?"en":"fr",M=v=>money(v,o
  const ids=[B.ice&&w.ice+" "+B.ice,B.idf&&w.idf+" "+B.idf,B.rc&&w.rc+" "+B.rc].filter(Boolean).join(" · ");
  const tr=(k,v)=>w[k].replace(/\{(\w+)\}/g,(_,x)=>v[x]);
  return `<article class="dv-page" lang="${l}">
- <header class="dv-hd"><div class="dv-br"><img class="dv-lg" src="/brand/icon.svg" alt="" width="44" height="44"><div><b>${esc(B.name)}</b><span>${esc(B.owner)}</span></div></div>
+ <header class="dv-hd"><div class="dv-br"><img class="dv-lg" src="/brand/icon-doc.png" alt="" width="44" height="44"><div><b>${esc(B.name)}</b><span>${esc(B.owner)}</span></div></div>
   <div class="dv-tt"><h1>${f?w.f:w.d}</h1><dl><div><dt>${w.no}</dt><dd>${esc(o.no)}</dd></div><div><dt>${w.dt}</dt><dd>${fd(o.dt)}</dd></div>${f?"":`<div><dt>${w.val}</dt><dd>${fd(addD(o.dt,30))}</dd></div>`}</dl></div></header>
  <section class="dv-pt"><div><h4>${w.from}</h4><b>${esc(B.name)}</b><p>${esc(B.owner)}<br>${esc(B.addr)}<br>${esc(B.tel)} · ${esc(B.mail)}${ids?`<br><small>${esc(ids)}</small>`:""}</p></div>
   <div><h4>${w.to}</h4><b>${esc(o.cl.n||"—")}</b><p>${[o.cl.ad,o.cl.em,o.cl.ice&&"ICE "+o.cl.ice].filter(Boolean).map(esc).join("<br>")}</p></div></section>
