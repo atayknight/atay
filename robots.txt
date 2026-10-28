@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /quote/
+Disallow: /p/
 
 Sitemap: https://atayknight.com/sitemap.xml

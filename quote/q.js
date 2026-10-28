@@ -129,7 +129,7 @@ const MOON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 
 const WA_I='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>';
 const langGuess=()=>{const s=(store.get("atay-lang")||navigator.language||"en").slice(0,2);return W[s]?s:"en"};
 const slug=n=>encodeURIComponent(n.trim().replace(/\s+/g,"-")).replace(/%2D/gi,"-");
-const LINK=n=>"atayknight.com/quote/"+(n.trim()?"#"+slug(n):"");
+const LINK=n=>"atayknight.com/p/"+(n.trim()?"#"+slug(n):"");
 
 /* ======================================================================
    CLIENT FLOW   atayknight.com/quote/#Kenza
@@ -261,7 +261,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
   <section class="mk-card"><label class="mk-f"><span>Client name</span><input class="mk-c" placeholder="e.g. Kenza" autocomplete="off" autocapitalize="words"></label>
    <div class="mk-f"><span>Discount for this client</span><div class="mk-seg mk-ds">${DSEG.map(d=>`<button type="button" data-d="${d}" aria-pressed="${d===0}">${d?d+"%":"None"}</button>`).join("")}<input class="mk-dn" type="number" min="0" max="90" placeholder="Other %" aria-label="Other discount"></div>
     <p class="mk-hint mk-dh">Saved with the client’s name, so the link stays short.</p></div>
-   <p class="mk-link"><span>Their link</span><b>atayknight.com/quote/</b></p>
+   <p class="mk-link"><span>Their link</span><b>atayknight.com/p/</b></p>
    <details class="mk-more"><summary>Prices shown</summary><div class="mk-seg">${[["","Auto"],["ma","Morocco DH"],["eu","Europe €"],["us","USA $"]].map(([v,t])=>`<button type="button" data-m="${v}" aria-pressed="${v===""}">${t}</button>`).join("")}</div>
     <p class="mk-hint">Auto shows DH to clients in Morocco, € in Europe and the rest of the world, $ in the Americas.</p></details></section>
   <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-act="wa">${WA_I} Send on WhatsApp</button><button type="button" class="mk-btn" data-act="copy">Copy link</button><button type="button" class="mk-btn mk-gh" data-act="open">Preview</button></div>
@@ -351,5 +351,5 @@ function route(){let h=decodeURIComponent(location.hash.slice(1)||"");
  else{const m=h.match(/@(ma|eu|us)$/);if(m){mk=m[1];h=h.slice(0,-3)}name=h.replace(/[-_]+/g," ").trim().slice(0,60)}
  flow(name,mk||autoMarket())}
 addEventListener("hashchange",()=>location.reload());
-fetch("prices.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null).then(j=>{applyData(j);route()});
+fetch("/quote/prices.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null).then(j=>{applyData(j);route()});
 })();

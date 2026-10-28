@@ -1746,7 +1746,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
     <button class="hchip" id="coins-btn" type="button" aria-label="Coins collected"><span class="coin" aria-hidden="true"></span><span id="coins">000</span></button>
     <button class="hchip" id="quest-btn" type="button" aria-expanded="false" aria-controls="qlog"><span class="keys" id="hkeys"></span><span id="quest-n">0/3</span></button>
     <button class="hchip theme-ic" id="theme-btn" type="button" aria-pressed="false" aria-label="Dark mode"><svg class="moon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6z"/></svg><svg class="sun" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg></button><button class="hchip" id="set-btn" type="button" aria-expanded="false" aria-controls="setp" aria-label="Settings and language"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="flex:none"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span id="lang-code" style="margin-inline-start:5px;font:600 12px/1 var(--body)">EN</span></button>
-    <a class="go" href="/quote/" data-i18n="go">Start a project</a>
+    <a class="go" href="/p/" data-i18n="go">Start a project</a>
   </div>
 </header>
 <div class="setp" id="setp" hidden><h3 class="px" data-i18n="set-h">Settings</h3>
@@ -1775,7 +1775,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
           <button type="button" data-k="VFX" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 6.3L21 12l-6.8 2.7L12 21l-2.2-6.3L3 12l6.8-2.7z"/></svg></span><span data-i18n="hx-vfx">VFX</span></button>
         </div>
         <div class="hx-cta">
-          <a class="hx-go" href="/quote/"><span class="hx-comet" aria-hidden="true"></span><span data-i18n="hx-go">Start a project</span><i aria-hidden="true"></i></a>
+          <a class="hx-go" href="/p/"><span class="hx-comet" aria-hidden="true"></span><span data-i18n="hx-go">Start a project</span><i aria-hidden="true"></i></a>
           <a class="hx-ghost" href="#work" data-i18n="cta2">See the work</a>
         </div>
       </div>
@@ -1907,7 +1907,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
 </div></div><!--SEO-FOOT-END--><footer><div class="wrap"><a class="brand" href="#top"><span class="mark icon" aria-hidden="true"></span>Atay Studio</a><span class="end px"><span>Thanks for playing · © 2026 Atay Studio · Marrakech</span><button class="estar" type="button" aria-label="A hidden star">✦</button><a href="#top" style="color:var(--yel);text-decoration:none">Continue? ▲</a></span></div></footer>
 
 <dialog id="dlg" aria-labelledby="dlg-t"></dialog>
-<dialog id="egg" aria-labelledby="egg-t"><div class="in"><span class="px" style="color:var(--cyan)">Easter egg unlocked · 3 / 3 keys</span><h3 id="egg-t">You found the egg</h3><p>Copper, jade and crystal: every key collected. You have explored the whole world of Atay Studio. The next level is the project you bring us.</p><a class="gbtn" href="/quote/" id="egg-go" style="flex:none;padding:14px 22px">▶ Start a project</a><button class="hchip" type="button" id="egg-x">Keep exploring</button></div></dialog>
+<dialog id="egg" aria-labelledby="egg-t"><div class="in"><span class="px" style="color:var(--cyan)">Easter egg unlocked · 3 / 3 keys</span><h3 id="egg-t">You found the egg</h3><p>Copper, jade and crystal: every key collected. You have explored the whole world of Atay Studio. The next level is the project you bring us.</p><a class="gbtn" href="/p/" id="egg-go" style="flex:none;padding:14px 22px">▶ Start a project</a><button class="hchip" type="button" id="egg-x">Keep exploring</button></div></dialog>
 <canvas id="confetti" aria-hidden="true"></canvas>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -2405,7 +2405,7 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
   pp.querySelectorAll(".pp-tile").forEach((t,k)=>t.classList.toggle("on",k===i))}
  function render(p){const L=clipsOf(p);const kv=[[T("Client","Client"),p.client],p.dir&&[T("Director","Réalisation"),p.dir],p.prod&&[T("Production","Production"),p.prod],[T("Our role","Notre rôle"),p.role.join(" · ")],[T("Location","Lieu"),LOC[p.id]],[T("Format","Format"),L.length>1?(()=>{const r=L.map(arOf),n=x=>x<1?"9:16":x<1.5?"4:3":"16:9",u=[...new Set(r.map(n))];return `${L.length} ${T("reels","reels")} · ${u.join(" / ")}`})():(p.fmt||p.ar)],p.dur&&[T("Runtime","Durée"),tc(p.dur).slice(0,5)],[T("Category","Catégorie"),T(...(CAT[p.cat]||[p.cat,p.cat]))]].filter(x=>x&&x[1]);
   const more=P.filter(x=>x.id!==p.id).sort((a,b)=>(b.cat===p.cat)-(a.cat===p.cat)).slice(0,10);
-  pp.innerHTML=`<nav class="pp-nav" aria-label="Project"><div class="pp-in"><button class="pp-back" type="button" data-close>‹ <span>${T("All work","Tous les projets")}</span></button><b class="pp-nt">${esc(p.t)}</b><span class="pp-links"><a href="#pp-reels">${T("Reels","Reels")}</a><a href="#pp-credits">${T("Credits","Crédits")}</a></span><a class="pp-buy" href="/quote/">${T("Start a project","Lancer un projet")}</a></div></nav>
+  pp.innerHTML=`<nav class="pp-nav" aria-label="Project"><div class="pp-in"><button class="pp-back" type="button" data-close>‹ <span>${T("All work","Tous les projets")}</span></button><b class="pp-nt">${esc(p.t)}</b><span class="pp-links"><a href="#pp-reels">${T("Reels","Reels")}</a><a href="#pp-credits">${T("Credits","Crédits")}</a></span><a class="pp-buy" href="/p/">${T("Start a project","Lancer un projet")}</a></div></nav>
   <header class="pp-hero rv"><span class="pp-eb">${esc(T(...(CAT[p.cat]||[p.cat,p.cat])))} · ${esc(p.client)}</span><h1>${esc(p.t)}</h1><p>${esc(p.d||"")}</p>
    <div class="pp-cta"><a class="pp-btn" href="#pp-stage" data-play>${T("Watch","Regarder")} ▸</a><a class="pp-link" href="${WA(`Hi Atay Studio, I'd like a project like "${p.t}".`)}" target="_blank" rel="noopener">${T("Get a project like this","Un projet comme celui-ci")} ›</a></div></header>
   <section class="pp-stage rv" id="pp-stage"><div class="pp-media"></div><div class="pp-under"><span class="pp-cap"></span><a class="pp-ext" target="_blank" rel="noopener"></a></div></section>
@@ -2674,7 +2674,7 @@ HOW TO BEHAVE:
  const sh=document.createElement("nav");sh.className="mnu";sh.id="mnu";sh.setAttribute("aria-label","Site menu");sh.hidden=true;document.body.append(sh);
  function renderSheet(){const dark=de.getAttribute("data-theme")==="dark",l=LG();
   sh.innerHTML=`<div class="mnu-in"><p class="mnu-hi">${t("hi")}</p><ul>${NAV.map((n,i)=>`<li style="--i:${i}"><a href="#${n[0]}"><small>0${i+1}</small>${navLabel(n)}<span aria-hidden="true">›</span></a></li>`).join("")}</ul>
-  <div class="mnu-cta"><a class="mnu-wa" href="/quote/"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2-6.2-2.3 6.2-2.3z"/></svg>${t("start")}</a><button type="button" class="mnu-ask">✦ ${t("ask")}</button><button type="button" class="mnu-ask mnu-tour">${t("tour")}</button></div>
+  <div class="mnu-cta"><a class="mnu-wa" href="/p/"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2-6.2-2.3 6.2-2.3z"/></svg>${t("start")}</a><button type="button" class="mnu-ask">✦ ${t("ask")}</button><button type="button" class="mnu-ask mnu-tour">${t("tour")}</button></div>
   <p class="mnu-note">${t("reply")}</p>
   <div class="mnu-set"><div><span>${t("theme")}</span><span class="mseg"><button type="button" data-th="light" aria-pressed="${!dark}">${t("light")}</button><button type="button" data-th="dark" aria-pressed="${dark}">${t("dark")}</button></span></div>
   <div><span>${t("lang")}</span><span class="mseg"><button type="button" data-lg="en" aria-pressed="${l==="en"}">EN</button><button type="button" data-lg="fr" aria-pressed="${l==="fr"}">FR</button><button type="button" data-lg="ar" aria-pressed="${l==="ar"}" lang="ar">ع</button></span></div></div></div>`}
@@ -2691,7 +2691,7 @@ HOW TO BEHAVE:
 
  /* bottom action dock (phones) */
  const dock=document.createElement("div");dock.className="dock";dock.setAttribute("role","group");dock.setAttribute("aria-label","Quick actions");
- const renderDock=()=>{dock.innerHTML=`<a class="dk-ask dk-call" href="#book"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>${t("call")}</a><a class="dk-go" href="/quote/"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2-6.2-2.3 6.2-2.3z"/></svg>${t("start")}</a>`};
+ const renderDock=()=>{dock.innerHTML=`<a class="dk-ask dk-call" href="#book"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>${t("call")}</a><a class="dk-go" href="/p/"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2-6.2-2.3 6.2-2.3z"/></svg>${t("start")}</a>`};
  renderDock();document.body.append(dock);
  
  /* hide the dock while the contact form is on screen (it has its own buttons) */
@@ -2762,7 +2762,7 @@ HOW TO BEHAVE:
   cancelAnimationFrame(follow);follow=requestAnimationFrame(track);
   nr.classList.remove("hop");void nr.offsetWidth;nr.classList.add("hop");
   const btns=[];if(i>0)btns.push([L("Back","Retour","رجوع"),()=>go(i-1)]);
-  if(s.end){btns.push([L("Start a project","Lancer un projet","ابدأ مشروعاً"),{href:"/quote/"},true]);btns.push([L("Done","Terminé","انتهى"),end])}
+  if(s.end){btns.push([L("Start a project","Lancer un projet","ابدأ مشروعاً"),{href:"/p/"},true]);btns.push([L("Done","Terminé","انتهى"),end])}
   else btns.push([L("Next","Suivant","التالي")+` (${i+1}/${STEPS.length})`,()=>go(i+1),true]);
   say(s.t(),s.tip&&s.tip(),btns)}
  function end(){touring=false;cancelAnimationFrame(follow);spot.hidden=true;de.classList.remove("nr-tour");home();ls.set("nour-done","1");
