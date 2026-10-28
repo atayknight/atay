@@ -342,7 +342,7 @@ html[data-theme=dark] .dv{background:#0B0B0D}
 .dv-page{--b:#3D6BE0;--d:#264D95;--i:#1D1D1F;--m:#6E6E73;--l:#E3E5EA;width:794px;min-height:1123px;box-sizing:border-box;padding:56px 60px 44px;background:#fff;color:var(--i);font:400 13.5px/1.5 var(--body);box-shadow:0 30px 60px -30px rgba(20,30,60,.45);display:flex;flex-direction:column;position:relative;overflow:hidden}
 .dv-page::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:linear-gradient(90deg,var(--b),var(--d))}
 .dv-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
-.dv-br{display:flex;align-items:center;gap:12px}.dv-lg{width:44px;height:44px;background:var(--b);-webkit-mask:url(../brand/icon.svg) center/contain no-repeat;mask:url(../brand/icon.svg) center/contain no-repeat}
+.dv-br{display:flex;align-items:center;gap:12px}.dv-lg{display:block;width:44px;height:44px;object-fit:contain}
 .dv-br b{display:block;font:800 22px/1 var(--display);font-stretch:90%;text-transform:uppercase;letter-spacing:-.01em}.dv-br span{display:block;margin-top:4px;color:var(--m);font-size:12.5px}
 .dv-tt{text-align:end}.dv-tt h1{margin:0;font:850 46px/.9 var(--display);font-stretch:82%;text-transform:uppercase;letter-spacing:-.02em;color:var(--b)}
 .dv-tt dl{margin:12px 0 0;display:grid;gap:3px}.dv-tt dl div{display:flex;justify-content:flex-end;gap:10px}.dv-tt dt{color:var(--m)}.dv-tt dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
@@ -374,3 +374,9 @@ html[data-theme=dark] .dv{background:#0B0B0D}
  .dv-fit{transform:none!important;width:auto!important;height:auto!important}
  .dv-page{width:210mm;min-height:297mm;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+.w-pdf{margin:18px 0 4px;padding:16px;border-radius:20px;background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--line);text-align:start}
+.w-pdfh{display:flex;gap:12px;align-items:flex-start}.w-pdfh svg{flex:none;width:34px;height:34px;padding:7px;border-radius:10px;background:var(--brand);color:#fff}
+.w-pdfh b{display:block;font:600 14px/1.2 var(--mono);letter-spacing:.04em}.w-pdfh span{display:block;margin-top:3px;color:var(--mut);font-size:13.5px;line-height:1.4}
+.w-pdf .w-send{margin-top:14px;height:52px}.w-pdf .w-send:disabled{opacity:.6;cursor:progress}.w-pdf .w-send svg{width:20px;height:20px}
+.w-pdf .w-call{width:100%;gap:8px;border:0;background:none;cursor:pointer;font-family:inherit}.w-pdf .w-call svg{width:20px;height:20px;color:#25D366}.w-pdf .w-sl{margin:8px 0 0;text-align:center;color:#1B8A3A;font-weight:600}
