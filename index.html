@@ -1725,7 +1725,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
 @media (max-width:760px){.bk-cw{border-radius:22px;padding:4px;min-height:620px}}
 @media (prefers-reduced-motion:reduce){.bk-cw-load i{animation:none;opacity:.7}}
 
-/* ===== one assistant (Nour) + Book a call float ===== */
+/* ===== one assistant (Anir) + Book a call float ===== */
 .ai-fab{display:none!important}
 .wa-float.bk-fl{background:#3D6BE0!important;color:#fff!important;clip-path:none!important;border-radius:99px!important;padding:13px 18px 13px 15px!important;font:600 15px/1 var(--body)!important;font-stretch:100%!important;text-transform:none!important;letter-spacing:0;box-shadow:0 14px 30px -12px rgba(61,107,224,.85)!important;gap:9px}
 .wa-float.bk-fl:hover{filter:brightness(1.08)}
@@ -2456,8 +2456,8 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
  /* ---------- assistant ---------- */
  const fab=document.createElement("button");fab.className="ai-fab";fab.type="button";fab.setAttribute("aria-haspopup","dialog");
  fab.innerHTML=`<span class="orb" aria-hidden="true"></span><span class="lbl"></span>`;
- const box=document.createElement("section");box.className="ai";box.setAttribute("role","dialog");box.setAttribute("aria-label","Nour, the Atay Studio guide");box.setAttribute("aria-hidden","true");
- box.innerHTML=`<header class="ai-hd"><span class="orb" aria-hidden="true"><i></i></span><span class="tx"><b>Nour</b><small class="ai-sub"></small></span><button class="ai-x" type="button" aria-label="Close">×</button></header>
+ const box=document.createElement("section");box.className="ai";box.setAttribute("role","dialog");box.setAttribute("aria-label","Anir, the Atay Studio guide");box.setAttribute("aria-hidden","true");
+ box.innerHTML=`<header class="ai-hd"><span class="orb" aria-hidden="true"><i></i></span><span class="tx"><b>Anir</b><small class="ai-sub"></small></span><button class="ai-x" type="button" aria-label="Close">×</button></header>
   <div class="ai-log" aria-live="polite"></div><div class="ai-chips"></div>
   <form class="ai-f"><textarea rows="1" aria-label="Message"></textarea><button class="ai-send" type="submit" aria-label="Send">↑</button></form><div class="ai-note"></div>`;
  document.body.append(fab,box);
@@ -2580,7 +2580,7 @@ HOW TO BEHAVE:
  let greeted=false;
  function tourChip(){const b=document.createElement("button");b.type="button";b.className="ai-chip ai-tour";b.textContent="✦ "+T("Show me around","Faire la visite");b.addEventListener("click",()=>{closeBox();setTimeout(()=>window.nourTour&&nourTour(),350)});chipsEl.prepend(b)}
  function openBox(){document.documentElement.classList.add("ai-open");box.setAttribute("aria-hidden","false");
-  if(!greeted){greeted=true;bubble("bot").textContent=T("Hi! I’m Nour, the Atay Studio guide. Ask me anything about our work, or tell me what you’re making and I’ll help you plan it.","Salut ! Je suis Nour, le guide d’Atay Studio. Posez-moi une question sur nos projets, ou dites-moi ce que vous préparez et je vous aide.");chips(CHIPS().slice(2,4));tourChip()}
+  if(!greeted){greeted=true;bubble("bot").textContent=T("Hi! I’m Anir, the Atay Studio guide. Ask me anything about our work, or tell me what you’re making and I’ll help you plan it.","Salut ! Je suis Anir, le guide d’Atay Studio. Posez-moi une question sur nos projets, ou dites-moi ce que vous préparez et je vous aide.");chips(CHIPS().slice(2,4));tourChip()}
   setTimeout(()=>{if(matchMedia("(pointer:fine)").matches)ta.focus()},250)}
  function closeBox(){document.documentElement.classList.remove("ai-open");box.setAttribute("aria-hidden","true");fab.focus({preventScroll:true})}
  window.openAssistant=(q)=>{openBox();if(q)ask(q)};
@@ -2659,9 +2659,9 @@ HOW TO BEHAVE:
 <script>/* PHONE + TABLET: menu sheet, bottom action dock, trusted-by strip */
 (()=>{const $=id=>document.getElementById(id),de=document.documentElement;
  const LG=()=>window.I18N?I18N.lang():"en";
- const TX={menu:["Menu","Menu","القائمة"],close:["Close","Fermer","إغلاق"],start:["Start a project","Lancer un projet","ابدأ مشروعاً"],call:["Book a call","Réserver un appel","احجز مكالمة"],ask:["Ask Nour","Demander à Atay","اسأل أطاي"],wa:["WhatsApp","WhatsApp","واتساب"],theme:["Appearance","Apparence","المظهر"],light:["Light","Clair","فاتح"],dark:["Dark","Sombre","داكن"],lang:["Language","Langue","اللغة"],
+ const TX={menu:["Menu","Menu","القائمة"],close:["Close","Fermer","إغلاق"],start:["Start a project","Lancer un projet","ابدأ مشروعاً"],call:["Book a call","Réserver un appel","احجز مكالمة"],ask:["Ask Anir","Demander à Anir","اسأل أنير"],wa:["WhatsApp","WhatsApp","واتساب"],theme:["Appearance","Apparence","المظهر"],light:["Light","Clair","فاتح"],dark:["Dark","Sombre","داكن"],lang:["Language","Langue","اللغة"],
   hi:["Film, edit, colour and VFX from Marrakech.","Tournage, montage, couleur et VFX depuis Marrakech.","تصوير ومونتاج وتلوين ومؤثرات بصرية من مراكش."],reply:["You talk to Ayoub directly, no middlemen","Vous parlez directement à Ayoub, sans intermédiaire","تتحدث مع أيوب مباشرة، بدون وسطاء"],
-  tour:["Take the tour with Nour","Visite guidée avec Nour","جولة مع نور"],trust:["Trusted by brands, festivals and tourism boards","Ils nous font confiance : marques, festivals et offices du tourisme","علامات تجارية ومهرجانات ومكاتب سياحة وثقت بنا"]};
+  tour:["Take the tour with Anir","Visite guidée avec Anir","جولة مع أنير"],trust:["Trusted by brands, festivals and tourism boards","Ils nous font confiance : marques, festivals et offices du tourisme","علامات تجارية ومهرجانات ومكاتب سياحة وثقت بنا"]};
  const t=k=>TX[k][LG()==="fr"?1:LG()==="ar"?2:0];
  const WA="https://wa.me/212699146214?text="+encodeURIComponent("Hi Atay Studio, I'd like to talk about a project.");
  const NAV=[["work","nav-w","Work"],["process","nav-s","Skills"],["clients","nav-c","Clients"],["studio","nav-p","Profile"],["book","nav-b","Book a call"],["contact","nav-k","Contact"]];
@@ -2719,7 +2719,7 @@ HOW TO BEHAVE:
  const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
  const WA="https://wa.me/212699146214?text="+encodeURIComponent("Hi Atay Studio, I'd like to talk about a project.");
  const STEPS=[
-  {sel:".hx-copy",t:()=>L("Hi, I'm Nour, the Atay Studio star. Let me show you around! Up here is a living wall of our films.","Salut, je suis Nour, l’étoile d’Atay Studio. Je vous fais visiter ! Ici, un mur vivant de nos films.","مرحباً، أنا نور، نجمة Atay Studio. دعني أريك المكان! هنا جدار حيّ من أفلامنا."),
+  {sel:".hx-copy",t:()=>L("Hi, I'm Anir, the Atay Studio star. Let me show you around! Up here is a living wall of our films.","Salut, je suis Anir, l’étoile d’Atay Studio. Je vous fais visiter ! Ici, un mur vivant de nos films.","مرحباً، أنا أنير، نجمة Atay Studio. دعني أريك المكان! هنا جدار حيّ من أفلامنا."),
    tip:()=>phone()?L("Swipe the films sideways, tap one to watch it.","Glissez les films, touchez-en un pour le voir.","اسحب الأفلام جانباً، والمس أحدها لمشاهدته."):L("Drag the wall, hover a film to preview it, click to watch.","Faites glisser le mur, survolez un film, cliquez pour le voir.","اسحب الجدار، مرّر على فيلم لمعاينته، وانقر لمشاهدته.")},
   {sel:".trust",t:()=>L("These are some of the brands, festivals and tourism boards that trusted us.","Voici quelques marques, festivals et offices du tourisme qui nous ont fait confiance.","هذه بعض العلامات والمهرجانات ومكاتب السياحة التي وثقت بنا.")},
   {sel:"#work .drawer",t:()=>L("Our selected work. Each divider is one project: open it for the film, the credits and every reel.","Nos projets choisis. Chaque intercalaire est un projet : ouvrez-le pour le film, les crédits et les reels.","أعمالنا المختارة. كل فاصل مشروع: افتحه لمشاهدة الفيلم والفريق وكل الريلز."),tip:()=>L("Use the tabs to filter: cinematography, tourism, commercial, 3D & VFX.","Filtrez avec les onglets : cinéma, tourisme, publicité, 3D & VFX.","استعمل التبويبات للتصفية: سينما، سياحة، إعلانات، 3D ومؤثرات.")},
@@ -2731,7 +2731,7 @@ HOW TO BEHAVE:
 
  /* the character */
  const nr=document.createElement("div");nr.className="nour";nr.setAttribute("aria-live","polite");
- nr.innerHTML=`<button class="nr-bot" type="button" aria-label="Nour, your guide"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="nrg" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#9BB8FF"/><stop offset=".45" stop-color="#3D6BE0"/><stop offset="1" stop-color="#264D95"/></radialGradient></defs>
+ nr.innerHTML=`<button class="nr-bot" type="button" aria-label="Anir, your guide"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="nrg" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#9BB8FF"/><stop offset=".45" stop-color="#3D6BE0"/><stop offset="1" stop-color="#264D95"/></radialGradient></defs>
   <path class="nr-body" d="M50 4 C54 32 68 46 96 50 C68 54 54 68 50 96 C46 68 32 54 4 50 C32 46 46 32 50 4Z" fill="url(#nrg)"/>
   <path d="M50 10 C53 33 63 43 84 47" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2.4" stroke-linecap="round"/>
   <g class="nr-face"><g class="nr-eyes"><ellipse cx="42" cy="48" rx="3.6" ry="5" fill="#fff"/><ellipse cx="58" cy="48" rx="3.6" ry="5" fill="#fff"/></g>
@@ -2775,7 +2775,7 @@ HOW TO BEHAVE:
  /* greet first-time visitors once they scroll past the hero (never over the hero buttons), then step back */
  setTimeout(()=>nr.classList.add("in"),1600);
  let greeted=false;const greet=()=>{if(greeted||ls.get("nour-done")||touring||de.classList.contains("pp-open")||de.classList.contains("ai-open")||de.classList.contains("mnu-open"))return;if(document.body.classList.contains("at-top"))return;greeted=true;
-  say(L("Hi! I'm Nour. Tap me to ask anything, or take a quick tour.","Salut ! Je suis Nour. Touchez-moi pour poser une question, ou faites la visite.","مرحباً! أنا نور. المسني لتسألني أي شيء، أو خذ جولة سريعة."),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true]]);
+  say(L("Hi! I'm Anir. Tap me to ask anything, or take a quick tour.","Salut ! Je suis Anir. Touchez-moi pour poser une question, ou faites la visite.","مرحباً! أنا أنير. المسني لتسألني أي شيء، أو خذ جولة سريعة."),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true]]);
   setTimeout(()=>{if(!touring)hush()},9000)};
  new MutationObserver(()=>setTimeout(greet,1200)).observe(document.body,{attributes:true,attributeFilter:["class"]});
  /* eyes follow the pointer on desktop, blink now and then */
@@ -2923,7 +2923,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("a[data-pj]");if(
 </script>
 
 
-<script>/* Arabic for Nour-as-assistant strings */(()=>{const A=window.AR_T||(window.AR_T={});Object.assign(A,{"Hi! I’m Nour, the Atay Studio guide. Ask me anything about our work, or tell me what you’re making and I’ll help you plan it.":"مرحباً! أنا نور، دليل Atay Studio. اسألني أي شيء عن أعمالنا، أو أخبرني بما تحضّره وسأساعدك في التخطيط له.","Show me around":"جولة في الموقع"})})();</script>
+<script>/* Arabic for Anir-as-assistant strings */(()=>{const A=window.AR_T||(window.AR_T={});Object.assign(A,{"Hi! I’m Anir, the Atay Studio guide. Ask me anything about our work, or tell me what you’re making and I’ll help you plan it.":"مرحباً! أنا أنير، دليل Atay Studio. اسألني أي شيء عن أعمالنا، أو أخبرني بما تحضّره وسأساعدك في التخطيط له.","Show me around":"جولة في الموقع"})})();</script>
 
 </body>
 </html>
