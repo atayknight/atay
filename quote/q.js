@@ -410,7 +410,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
   try{const nm=JSON.parse(store.get("atq:names")||"{}");nm[k]=inp.value.trim();store.set("atq:names",JSON.stringify(nm))}catch(e){}
   if(!store.get("atq:gh")){connect("To save a client discount, connect GitHub once.");return false}
   toast("Saving the discount…",8000);
-  try{await publish(d=>{d.clients=d.clients||{};delete d.clients[old];if(disc)d.clients[k]=disc;else delete d.clients[k]},`Discount for ${inp.value.trim()}: ${disc}%`);toast(disc?`${disc}% saved for ${inp.value.trim()}. Live in about a minute.`:"Discount removed");return true}
+  try{await publish(d=>{d.clients=d.clients||{};delete d.clients[old];if(disc)d.clients[k]=disc;else delete d.clients[k]},"Update a client discount");toast(disc?`${disc}% saved for ${inp.value.trim()}. Live in about a minute.`:"Discount removed");return true}
   catch(e){toast(errMsg(e));return false}}
  app.onclick=async e=>{const t=e.target;
   const m=t.closest("[data-m]");if(m){mkt=m.dataset.m;$$("[data-m]").forEach(b=>b.setAttribute("aria-pressed",b===m));showLink();return}
