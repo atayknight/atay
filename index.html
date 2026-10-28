@@ -1578,7 +1578,7 @@ html[data-theme=dark] .trust{background:#000}html[data-theme=dark] .trust .ti{co
 .nour.dr .nr-bub{left:auto;right:calc(100% + 10px);border-radius:20px 20px 6px 20px}
 .contact .press{display:none!important}
 @media (max-width:760px){html:not(.nr-tour) body.at-top .nour{opacity:0;pointer-events:none}}
-/* ===== round 9 edits: cleaner titles, bigger hero, readable labels, bigger footer ===== */
+/* ===== round 9 edits: cleaner titles, bigger hero, readable labels, bigger footer (merged on live 1793135987) ===== */
 .hx-eyebrow{display:none!important}
 .lh{display:none!important}
 .contact .marquee{display:none!important}
@@ -1605,13 +1605,110 @@ html[data-theme=dark] .req label{color:#F5F5F7!important}
 footer .end,footer .end span,footer .end a{font:600 13.5px/1.4 var(--body)!important;letter-spacing:0!important;text-transform:none!important}
 footer .brand{font-weight:800}
 @media (max-width:520px){.seo-foot{font-size:14.5px!important}}
+
+/* hero word: block drop (same feel as "Let's build something together") */
+.hx-cube.hbw{clip-path:none!important;perspective:none}
+.hx-cube.hbw .hx-cb{transform:none!important;transition:none!important}
+.hx-cube.hbw .f1{display:none!important}
+.hx-cube .f.hbf{transform:none!important;background:none!important;-webkit-text-fill-color:initial!important;color:#3D6BE0;animation:none!important;filter:none!important}
+.hb{display:inline-block;position:relative;color:transparent;-webkit-text-fill-color:transparent;opacity:0}
+.hb::before{content:"";position:absolute;left:.03em;right:.03em;top:.16em;bottom:.04em;border-radius:.1em;background:linear-gradient(160deg,#6E95F5,#3D6BE0 55%,#264D95);box-shadow:inset 0 -.06em 0 rgba(0,0,0,.18),inset 0 .05em 0 rgba(255,255,255,.35)}
+.hbf.in .hb{animation:khDrop .62s cubic-bezier(.3,1.5,.55,1) forwards,hbInk .35s ease forwards;animation-delay:var(--d),calc(var(--d) + .55s)}
+.hbf.in .hb::before{animation:khMelt .4s ease forwards;animation-delay:calc(var(--d) + .5s)}
+.hbf.out .hb{opacity:1;color:#3D6BE0;-webkit-text-fill-color:#3D6BE0;animation:hbOut .42s cubic-bezier(.55,0,.8,.2) forwards;animation-delay:var(--o)}
+.hbf.out .hb::before{opacity:0}
+.hb-dot{font-style:normal;color:#FFB800!important;-webkit-text-fill-color:#FFB800!important;display:inline-block;opacity:0}
+.hbf.in .hb-dot{animation:hbDot .5s cubic-bezier(.2,1.6,.4,1) forwards;animation-delay:var(--d)}
+.hbf.out .hb-dot{opacity:1;animation:hbOut .3s ease forwards}
+@keyframes hbInk{to{color:#3D6BE0;-webkit-text-fill-color:#3D6BE0}}
+@keyframes hbOut{to{opacity:0;transform:translateY(.55em) rotate(var(--r,8deg)) scale(.9)}}
+@keyframes hbDot{0%{opacity:0;transform:scale(0)}100%{opacity:1;transform:none}}
+html[data-theme=dark] .hx-cube .f.hbf{color:#7FA4F0}
+html[data-theme=dark] .hbf.out .hb{color:#7FA4F0;-webkit-text-fill-color:#7FA4F0}
+html[data-theme=dark] .hbf.in .hb{animation-name:khDrop,hbInkD}
+@keyframes hbInkD{to{color:#7FA4F0;-webkit-text-fill-color:#7FA4F0}}
+@media (prefers-reduced-motion:reduce){.hb,.hb-dot{opacity:1!important;animation:none!important;color:#3D6BE0;-webkit-text-fill-color:#3D6BE0}.hb::before{display:none}}
+/* even bigger hero line */
+.hx h1{font-size:clamp(68px,10.2vw,160px)!important;line-height:.96!important}
+@media (max-width:900px){.hx h1{font-size:clamp(56px,17vw,100px)!important}}
+/* ===== BOOK A CALL + process ===== */
+#book{background:#F5F5F7;padding:clamp(64px,8vw,110px) 0}
+#book .bk-head{max-width:720px;margin-bottom:clamp(26px,4vw,40px)}
+#book .bk-h{margin:0;font:800 clamp(40px,6vw,80px)/1.02 var(--display);font-stretch:92%;letter-spacing:-.035em;color:#1D1D1F}
+#book .bk-l{margin:14px 0 0;color:#6E6E73;font:400 clamp(16px,1.5vw,19px)/1.5 var(--body)}
+.bk-card{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:0;border-radius:28px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04),0 30px 60px -30px rgba(20,30,60,.3)}
+.bk-cal{padding:clamp(20px,3vw,34px);border-right:1px solid rgba(0,0,0,.07)}
+.bk-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.bk-mo{font:700 20px/1.2 var(--body);color:#1D1D1F;text-transform:capitalize}
+.bk-nav{display:flex;gap:6px}
+.bk-nav button{all:unset;cursor:pointer;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(61,107,224,.1);color:#3D6BE0;font:600 18px/1 var(--body)}
+.bk-nav button:disabled{opacity:.3;cursor:default}
+.bk-wk,.bk-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.bk-wk span{color:#86868B;font:600 12px/2 var(--body);text-transform:uppercase}
+.bk-d{all:unset;box-sizing:border-box;cursor:pointer;aspect-ratio:1;max-height:52px;display:grid;place-items:center;border-radius:50%;font:600 16px/1 var(--body);color:#1D1D1F;background:rgba(61,107,224,.08);transition:background .2s,color .2s,transform .2s}
+.bk-d:hover:not(:disabled){background:rgba(61,107,224,.18)}
+.bk-d:disabled{background:none;color:#C7C7CC;cursor:default}
+.bk-d.today{box-shadow:inset 0 0 0 2px rgba(61,107,224,.45)}
+.bk-d.on{background:#3D6BE0;color:#fff;transform:scale(1.06);box-shadow:0 10px 20px -10px rgba(61,107,224,.9)}
+.bk-d:focus-visible{outline:3px solid #3D6BE0;outline-offset:2px}
+.bk-side{padding:clamp(20px,3vw,34px);min-height:360px;display:flex;flex-direction:column}
+.bk-side h3{margin:0;font:700 20px/1.25 var(--body);color:#1D1D1F;text-transform:capitalize}
+.bk-tz{margin:4px 0 14px;color:#86868B;font:500 13px/1.3 var(--body)}
+.bk-hint{margin:auto 0;text-align:center;color:#6E6E73}.bk-hint b{display:block;color:#1D1D1F;font:700 20px/1.2 var(--body);margin-bottom:6px}.bk-hint p{margin:0;font:400 15px/1.5 var(--body)}
+.bk-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.bk-s{all:unset;box-sizing:border-box;cursor:pointer;padding:12px 8px;border-radius:14px;text-align:center;font:700 16px/1 var(--body);color:#3D6BE0;box-shadow:inset 0 0 0 1.5px rgba(61,107,224,.35);transition:background .2s,color .2s}
+.bk-s small{display:block;margin-top:5px;font:500 11.5px/1 var(--body);color:#86868B}
+.bk-s:hover{background:rgba(61,107,224,.08)}.bk-s.on{background:#3D6BE0;color:#fff;box-shadow:none}.bk-s.on small{color:rgba(255,255,255,.8)}
+.bk-kind{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px;padding:4px;border-radius:99px;background:rgba(0,0,0,.05);width:max-content;max-width:100%}
+.bk-kind button{all:unset;cursor:pointer;padding:8px 13px;border-radius:99px;font:600 13px/1 var(--body);color:#424245}
+.bk-kind button[aria-pressed=true]{background:#fff;color:#1D1D1F;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.bk-f{display:flex;flex-direction:column;gap:6px;margin-top:12px;font:700 14px/1.2 var(--body);color:#1D1D1F}
+.bk-f input{border:0;border-radius:12px;padding:12px 14px;background:#F5F5F7;font:500 16px/1.3 var(--body);color:#1D1D1F;outline:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.bk-f input:focus{box-shadow:inset 0 0 0 2px #3D6BE0}
+.bk-go{all:unset;box-sizing:border-box;cursor:pointer;margin-top:18px;display:flex;align-items:center;justify-content:center;height:52px;border-radius:99px;background:#3D6BE0;color:#fff;font:600 16px/1 var(--body);box-shadow:0 14px 28px -14px rgba(61,107,224,.9);text-decoration:none}
+.bk-go:disabled{opacity:.4;cursor:default;box-shadow:none}
+.bk-done{text-align:center;margin:auto 0;animation:bkIn .5s cubic-bezier(.16,1,.3,1)}
+@keyframes bkIn{from{opacity:0;transform:translateY(10px)}}
+.bk-ok{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#3D6BE0;color:#fff;font:700 24px/1 var(--body);margin-bottom:10px;animation:bkPop .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes bkPop{from{transform:scale(0)}}
+.bk-done h3{font-size:24px}.bk-when{margin:10px 0;font:700 17px/1.4 var(--body);color:#1D1D1F;text-transform:capitalize}.bk-when small{font:500 13px/1.4 var(--body);color:#6E6E73;text-transform:none}
+.bk-done>p{color:#6E6E73;font:400 15px/1.5 var(--body);margin:6px 0 0}
+.bk-add{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-top:14px}.bk-add a{color:#3D6BE0;font:600 14px/1.3 var(--body);text-decoration:none}.bk-add a:hover{text-decoration:underline}
+.bk-back{all:unset;cursor:pointer;margin-top:16px;color:#6E6E73;font:500 14px/1 var(--body)}
+.bk-next{font-size:13px!important}
+.bk-note2{margin:14px 0 0;color:#86868B;font:500 13px/1.4 var(--body)}
+/* process */
+.bk-proc{margin-top:clamp(56px,7vw,90px)}
+.bk-ph{margin:0;font:800 clamp(30px,4.2vw,52px)/1.05 var(--display);font-stretch:92%;letter-spacing:-.03em;color:#1D1D1F}
+.bk-pl{margin:12px 0 0;color:#6E6E73;font:400 clamp(16px,1.4vw,18px)/1.5 var(--body);max-width:640px}
+.bk-steps{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;counter-reset:s}
+.bk-steps li{position:relative;padding:18px 16px 20px;border-radius:22px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04),0 18px 36px -24px rgba(20,30,60,.3);opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .7s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i)*80ms)}
+#book.in .bk-steps li{opacity:1;transform:none}
+.bk-steps li::after{content:"";position:absolute;top:34px;right:-12px;width:12px;height:2px;background:linear-gradient(90deg,#3D6BE0,rgba(61,107,224,.2))}
+.bk-steps li:last-child::after{display:none}
+.bk-steps .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(150deg,#6E95F5,#3D6BE0 55%,#264D95);color:#fff;font:700 13px/1 var(--body);margin-bottom:12px}
+.bk-steps b{display:block;font:700 16px/1.25 var(--body);color:#1D1D1F}
+.bk-steps p{margin:6px 0 0;color:#6E6E73;font:400 13.5px/1.45 var(--body)}
+@media (max-width:1180px){.bk-steps{grid-template-columns:repeat(4,minmax(0,1fr))}.bk-steps li::after{display:none}}
+@media (max-width:760px){.bk-card{grid-template-columns:minmax(0,1fr)}.bk-kind{width:auto}.bk-slots{grid-template-columns:repeat(3,minmax(0,1fr))}.bk-cal,.bk-side{padding:18px 14px}.bk-wk,.bk-grid{gap:4px}.bk-cal{border-right:0;border-bottom:1px solid rgba(0,0,0,.07)}.bk-side{min-height:0}
+ .bk-steps{grid-template-columns:1fr;gap:10px}.bk-steps li{display:grid;grid-template-columns:44px 1fr;column-gap:12px;padding:16px}.bk-steps .n{grid-row:span 2;margin:0}.bk-steps p{grid-column:2}
+ .bk-steps li::after{display:block;left:32px;right:auto;top:auto;bottom:-10px;width:2px;height:10px;background:rgba(61,107,224,.35)}.bk-steps li:last-child::after{display:none}}
+html[data-theme=dark] #book{background:#000}
+html[data-theme=dark] .bk-card,html[data-theme=dark] .bk-steps li{background:#161618;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+html[data-theme=dark] .bk-cal{border-color:rgba(255,255,255,.08)}
+html[data-theme=dark] #book .bk-h,html[data-theme=dark] .bk-ph,html[data-theme=dark] .bk-mo,html[data-theme=dark] .bk-side h3,html[data-theme=dark] .bk-hint b,html[data-theme=dark] .bk-steps b,html[data-theme=dark] .bk-when,html[data-theme=dark] .bk-f,html[data-theme=dark] .bk-d{color:#F5F5F7}
+html[data-theme=dark] .bk-d:disabled{color:#48484A}
+html[data-theme=dark] .bk-f input{background:#1C1C1E;color:#F5F5F7;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+html[data-theme=dark] .bk-kind{background:rgba(255,255,255,.08)}html[data-theme=dark] .bk-kind button{color:#D1D1D6}html[data-theme=dark] .bk-kind button[aria-pressed=true]{background:#3A3A3C;color:#fff}
+html[data-theme=dark] .bk-s{color:#8FB0F7;box-shadow:inset 0 0 0 1.5px rgba(143,176,247,.35)}html[data-theme=dark] .bk-s.on{background:#3D6BE0;color:#fff}
+@media (prefers-reduced-motion:reduce){.bk-steps li{opacity:1;transform:none;transition:none}}
 </style>
 
 <div id="boot" aria-hidden="true"><div class="bx"><pre id="boot-t"></pre><div class="pb"><i id="boot-p"></i></div><button type="button" id="boot-go">Press start</button><span class="sk">Click anywhere to skip</span></div></div>
 <header class="hudbar" id="hud">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Atay Studio, back to the showreel"><span class="mark" aria-hidden="true"></span><span class="n">Atay Studio</span></a>
-    <nav class="hnav" aria-label="Sections"><a href="#work" data-i18n="nav-w">Work</a><a href="#process" data-i18n="nav-s">Skills</a><a href="#clients" data-i18n="nav-c">Clients</a><a href="#studio" data-i18n="nav-p">Profile</a><a href="#contact" data-i18n="nav-k">Contact</a></nav>
+    <nav class="hnav" aria-label="Sections"><a href="#work" data-i18n="nav-w">Work</a><a href="#process" data-i18n="nav-s">Skills</a><a href="#clients" data-i18n="nav-c">Clients</a><a href="#studio" data-i18n="nav-p">Profile</a><a href="#contact" data-i18n="nav-k">Contact</a><a href="#book" data-i18n="nav-b">Book a call</a></nav>
     <div class="xp"><div class="t px"><b id="lvl-name">Lobby · World map</b><span id="xp-n">XP 0%</span></div><div class="bar"><i id="xp-bar"></i></div></div>
     <button class="hchip" id="coins-btn" type="button" aria-label="Coins collected"><span class="coin" aria-hidden="true"></span><span id="coins">000</span></button>
     <button class="hchip" id="quest-btn" type="button" aria-expanded="false" aria-controls="qlog"><span class="keys" id="hkeys"></span><span id="quest-n">0/3</span></button>
@@ -1637,7 +1734,7 @@ footer .brand{font-weight:800}
       <div class="hx-copy">
         <span class="hx-eyebrow" aria-label="studio by Atay"><span class="hx-type" id="hx-type"></span><i class="hx-caret"></i></span>
         <h1><span class="sr-only hx-seo">Atay Studio, Ayoub Ouazzou: director of photography, editor, colorist and VFX artist in Marrakech, Morocco. </span><span class="hx-l1" data-i18n="hx-h1a">Ideas take</span><span class="hx-cube" id="hx-cube"><span class="hx-cb" id="hx-cb"><span class="f f0">shape<i>.</i></span><span class="f f1"></span></span></span></h1>
-        <p data-i18n="hx-p">Film, edit, colour and VFX from Marrakech, for brands, festivals and tourism boards.</p>
+        <p data-i18n="hx-p">Film, edit, colour and VFX for brands, festivals and tourism boards.</p>
         <div class="hx-pills" id="hx-pills" role="group" aria-label="Filter the work by skill">
           <button type="button" data-k="Shoot" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="10" rx="2"/><path d="M16 11l5-3v8l-5-3z"/></svg></span><span data-i18n="hx-shoot">Shoot</span></button>
           <button type="button" data-k="Edit" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="M8.5 8.5 20 18M8.5 15.5 20 6"/></svg></span><span data-i18n="hx-edit">Edit</span></button>
@@ -1760,6 +1857,12 @@ footer .brand{font-weight:800}
       </div>
     </div>
   </section>
+  <section class="sec" id="book" aria-labelledby="bk-h"><div class="wrap">
+    <div class="bk-head"><h2 class="bk-h" id="bk-h">Book a call.</h2><p class="bk-l"></p></div>
+    <div class="bk-card"><div class="bk-cal"><div class="bk-top"><span class="bk-mo"></span><span class="bk-nav"><button type="button" class="bk-prev">‹</button><button type="button" class="bk-next">›</button></span></div><div class="bk-wk"></div><div class="bk-grid"></div></div><div class="bk-side" aria-live="polite"></div></div>
+    <p class="bk-note2"></p>
+    <div class="bk-proc"><h2 class="bk-ph"></h2><p class="bk-pl"></p><ol class="bk-steps"></ol></div>
+  </div></section>
 </main>
 <!--SEO-FOOT-START--><div class="seo-foot"><div class="wrap sf-grid">
  <div class="sf-about"><b>Atay Studio</b><p>Atay Studio is the film studio of <strong>Ayoub Ouazzou</strong> (Atay Knight), a director of photography, video editor, colorist and 3D/VFX artist based in <strong>Marrakech, Morocco</strong>. We shoot and finish tourism films, commercials, social campaigns, festival recaps and hotel films across Morocco, and work remotely with clients worldwide, in Arabic, English and French.</p></div>
@@ -1903,12 +2006,16 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
  /* "Ideas take" never moves; only the word rolls over on a cube, with a short glitch */
  const WORDS={en:["shape","motion","colour","life"],fr:["forme","vie","couleur","mouvement"],ar:["شكلاً","حركةً","لوناً","حياةً"]};const LK=()=>{const l=window.I18N?I18N.lang():"en";return WORDS[l]?l:"en"};let wi=0;const cube=$("hx-cube"),cb=$("hx-cb"),f0=cb.querySelector(".f0"),f1=cb.querySelector(".f1");
  const face=w=>`${w}<i>.</i>`;
+ /* the word after "Ideas take" builds itself from blue blocks, like "Let's build something together" */
+ const blocks=w=>{const parts=LK()==="ar"?[w]:[...w];return parts.map((c,i)=>`<span class="hb" style="--d:${(i*.06).toFixed(2)}s;--r:${((i*37)%25)-12}deg;--o:${((parts.length-i)*.035).toFixed(3)}s">${c}</span>`).join("")+`<i class="hb-dot" style="--d:${(parts.length*.06+.25).toFixed(2)}s">.</i>`};
  function fit(){const L=WORDS[LK()];const m=document.createElement("span");m.className="f";m.style.cssText="position:absolute;visibility:hidden;transform:none";cube.append(m);let w=0;L.forEach(x=>{m.innerHTML=face(x);w=Math.max(w,m.offsetWidth)});m.remove();cube.style.setProperty("--cubew",(w+4)+"px")}
  fit();addEventListener("resize",fit);if(document.fonts)document.fonts.ready.then(fit);
- function roll(){const L=WORDS[LK()];wi=(wi+1)%L.length;f1.innerHTML=face(L[wi]);cube.classList.add("glitch");cb.classList.add("roll");
-  setTimeout(()=>{f0.innerHTML=face(L[wi]);cb.style.transition="none";cb.classList.remove("roll");void cb.offsetWidth;cb.style.transition="";cube.classList.remove("glitch")},900)}
- setInterval(()=>{if(!RM&&on&&!document.hidden)roll()},2800);
- document.addEventListener("atay:lang",()=>{fit();f0.innerHTML=face(WORDS[LK()][wi])});
+ cube.classList.add("hbw");f0.classList.add("hbf");
+ function show(word){f0.classList.remove("out","in");f0.innerHTML=blocks(word);void f0.offsetWidth;f0.classList.add("in")}
+ show(WORDS[LK()][wi]);
+ function roll(){const L=WORDS[LK()];wi=(wi+1)%L.length;f0.classList.remove("in");f0.classList.add("out");setTimeout(()=>show(L[wi]),520)}
+ setInterval(()=>{if(!RM&&on&&!document.hidden)roll()},3600);
+ document.addEventListener("atay:lang",()=>{fit();show(WORDS[LK()][wi])});
  /* orbit of clients */
  const bubs=$("hx-bubbles");const CLI=[["INWI","reel/c2-s.jpg",1135769380],["III Points","reel/v1-s.jpg",1135787186],["Visit Drâa-Tafilalet","reel/ig/DSAf5irFe4o-s.jpg","visitdraa"],["Palais Amani","reel/ig/DQKSwzvCD4_-s.jpg","DQKSwzvCD4_"],["Beni Mellal-Khénifra","reel/a1-s.jpg",1060940223],["Huna Paris","reel/ig/DL420Jztv6Z-s.jpg",1050810936],["CRI Marrakech-Safi","reel/ig/DFxO77ZM3uH-s.jpg","DFxO77ZM3uH"],["Lenovo","reel/ig/DdZcdGRBWHF-s.jpg","DdZcdGRBWHF"]];
  bubs.innerHTML=CLI.map(([n,th,pj])=>`<button class="hx-bub" type="button" data-pj="${pj}" style="background-image:url(${th})" aria-label="${esc(n)}"><span>${esc(n)}</span></button>`).join("");
@@ -1920,8 +2027,8 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
 })();
 </script>
 <script>/* ARABIC: strings for data-i18n keys (AR_K) and for the dynamic modules, keyed by their English text (AR_T) */
-window.AR_K={"nav-w":"الأعمال","nav-s":"المهارات","nav-c":"العملاء","nav-p":"الملف","nav-k":"تواصل","go":"ابدأ مشروعاً","set-h":"الإعدادات","set-lang":"اللغة","set-game":"وضع اللعبة","set-snd":"الصوت","wa":"واتساب",
- "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية من مراكش، للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نربط علامتك التجارية بالعالم","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"اسحب للاستكشاف · مرّر للمعاينة · انقر للمشاهدة","hx-hint-t":"اسحب للاستكشاف · المس فيلماً لمشاهدته","w-l-t":"كل فاصل يحمل مشروعاً. المسه لمشاهدة الفيلم والفريق وكل الريلز.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
+window.AR_K={"nav-w":"الأعمال","nav-s":"المهارات","nav-c":"العملاء","nav-p":"الملف","nav-k":"تواصل","nav-b":"احجز مكالمة","go":"ابدأ مشروعاً","set-h":"الإعدادات","set-lang":"اللغة","set-game":"وضع اللعبة","set-snd":"الصوت","wa":"واتساب",
+ "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نربط علامتك التجارية بالعالم","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"اسحب للاستكشاف · مرّر للمعاينة · انقر للمشاهدة","hx-hint-t":"اسحب للاستكشاف · المس فيلماً لمشاهدته","w-l-t":"كل فاصل يحمل مشروعاً. المسه لمشاهدة الفيلم والفريق وكل الريلز.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
  "w-h":"أعمال مختارة","w-l":"كل فاصل يحمل مشروعاً. مرّر أو انقر على الفاصل لفتحه، ثم افتحه مرة أخرى لرؤية الفريق والفيلم.","s-h":"أربع حِرَف، صورة واحدة","c-h":"اختر عميلاً","c-l":"مرّر على عميل لمعاينة ما صنعناه له. انقر لفتح المشروع.",
  "p-h":"ملف اللاعب","p-cls":"الفئة · مدير تصوير","p-t":"مؤسس Atay Studio. يصوّر أيوب ويُمنتج ويلوّن ويصنع المؤثرات البصرية بنفسه، فالصورة التي توافق عليها في موقع التصوير هي التي تُسلَّم. مقيم في مراكش، ويعمل في كل أنحاء المغرب وعن بُعد حول العالم.",
  "k-p":"مستعد يا لاعب واحد؟ أخبرنا عن المشروع والمواعيد والمكان.","f-name":"اسمك","f-type":"نوع المشروع","o1":"إعلان تجاري","o2":"حملة على مواقع التواصل","o3":"فيلم سياحي","o4":"حدث أو مهرجان","o5":"فيديو كليب","o6":"مؤثرات بصرية أو 3D فقط","o7":"شيء آخر","f-date":"المواعيد","f-loc":"المكان","f-msg":"المشروع في بضعة أسطر","f-wa":"أرسل عبر واتساب","f-mail":"أرسل بالبريد الإلكتروني","f-note":"رسالتك مكتوبة لك، ما عليك إلا الضغط على إرسال."};
@@ -1970,7 +2077,7 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
   "s-h":"Quatre métiers, une image","c-h":"Choisissez un client","c-l":"Survolez un client pour voir le travail réalisé pour lui. Cliquez pour ouvrir le projet.",
   "p-h":"Profil du joueur","p-cls":"Classe · Directeur de la photographie","p-t":"Fondateur d'Atay Studio. Ayoub filme, monte, étalonne et crée les VFX, pour que le rendu validé sur le plateau soit celui qui est livré. Basé à Marrakech, il travaille partout au Maroc et à distance dans le monde entier.",
   "k-p":"Prêt, joueur 1 ? Parlez-nous du projet, des dates et du lieu.","f-name":"Votre nom","f-type":"Type de projet","f-date":"Dates","f-loc":"Lieu","f-msg":"Le projet en quelques lignes","f-wa":"Envoyer sur WhatsApp","f-mail":"Envoyer par e-mail","f-note":"Le message est prêt, il ne reste qu'à l'envoyer.",
-  "set-h":"Réglages","set-lang":"Langue","set-snd":"Son","set-game":"Mode jeu","wa":"WhatsApp","nav-m":"Missions","nav-w":"Travaux","nav-s":"Métiers","nav-c":"Clients","nav-p":"Profil","nav-k":"Contact","go":"Lancer un projet","hx-h1a":"Les idées prennent","hx-p":"Tournage, montage, étalonnage et VFX depuis Marrakech, pour les marques, les festivals et les offices du tourisme.","hx-shoot":"Tournage","hx-edit":"Montage","hx-grade":"Couleur","hx-vfx":"VFX","hx-go":"Lancer un projet","hx-tag":"Votre marque, connectée au monde","hx-hint":"Glissez pour explorer · survolez pour prévisualiser · cliquez pour lire","hx-hint-t":"Glissez pour explorer · touchez un film pour le voir","w-l-t":"Chaque intercalaire contient un projet. Touchez-en un pour voir le film, les crédits et tous les reels.","c-l-t":"Touchez un client pour voir le travail réalisé pour lui.","hx-peek":"Cliquez pour regarder","hx-oc":"13 clients · Maroc et Miami","pi-info":"Détails","like4":"Un projet comme celui-ci","mm-h":"Carte du monde","m1-tab":"Film touristique · Béni Mellal-Khénifra","m2-tab":"Campagne sociale · 9:16","m3-tab":"VFX de festival · Miami","st-1":"Brief","st-2":"Exécution","st-3":"Résultat","pc-reel":"Voir le reel","ghint":"Faites tourner · touchez une épingle","cin-x":"Retour au globe","ps":"Appuyez sur start","ps-mute":"Jouer sans le son","ps-tag":"Production vidéo et VFX · de Marrakech au monde","ec-k":"Journal de mission terminé","ec-h":"Prochaine mission : la vôtre","ec-p":"On filme, on monte, on étalonne et on crée des mondes. Dites-nous où se passe votre projet.","ec-re":"↻ Rejouer le voyage","dk-map":"◇ Carte"};
+  "set-h":"Réglages","set-lang":"Langue","set-snd":"Son","set-game":"Mode jeu","wa":"WhatsApp","nav-m":"Missions","nav-w":"Travaux","nav-s":"Métiers","nav-c":"Clients","nav-p":"Profil","nav-k":"Contact","nav-b":"Réserver un appel","go":"Lancer un projet","hx-h1a":"Les idées prennent","hx-p":"Tournage, montage, étalonnage et VFX pour les marques, les festivals et les offices du tourisme.","hx-shoot":"Tournage","hx-edit":"Montage","hx-grade":"Couleur","hx-vfx":"VFX","hx-go":"Lancer un projet","hx-tag":"Votre marque, connectée au monde","hx-hint":"Glissez pour explorer · survolez pour prévisualiser · cliquez pour lire","hx-hint-t":"Glissez pour explorer · touchez un film pour le voir","w-l-t":"Chaque intercalaire contient un projet. Touchez-en un pour voir le film, les crédits et tous les reels.","c-l-t":"Touchez un client pour voir le travail réalisé pour lui.","hx-peek":"Cliquez pour regarder","hx-oc":"13 clients · Maroc et Miami","pi-info":"Détails","like4":"Un projet comme celui-ci","mm-h":"Carte du monde","m1-tab":"Film touristique · Béni Mellal-Khénifra","m2-tab":"Campagne sociale · 9:16","m3-tab":"VFX de festival · Miami","st-1":"Brief","st-2":"Exécution","st-3":"Résultat","pc-reel":"Voir le reel","ghint":"Faites tourner · touchez une épingle","cin-x":"Retour au globe","ps":"Appuyez sur start","ps-mute":"Jouer sans le son","ps-tag":"Production vidéo et VFX · de Marrakech au monde","ec-k":"Journal de mission terminé","ec-h":"Prochaine mission : la vôtre","ec-p":"On filme, on monte, on étalonne et on crée des mondes. Dites-nous où se passe votre projet.","ec-re":"↻ Rejouer le voyage","dk-map":"◇ Carte"};
  const TIPS={en:["Every frame is shot, cut and graded in-house, so the look you approve is the look that ships.","We deliver 16:9 films, 9:16 social cuts and LED-banner content from the same shoot.","Based in Marrakech, shooting across Morocco and remotely worldwide.","Hover a client in Level 03 to preview their footage.","Open 3 project files to earn the copper key.","Arabic, English and French on every production."],
   fr:["Chaque image est filmée, montée et étalonnée chez nous : le rendu validé est celui qui est livré.","Nous livrons films 16:9, formats sociaux 9:16 et contenus pour écrans LED à partir du même tournage.","Basés à Marrakech, nous tournons partout au Maroc et à distance dans le monde entier.","Survolez un client au niveau 03 pour voir ses images.","Ouvrez 3 projets pour gagner la clé de cuivre.","Arabe, anglais et français sur chaque production."],ar:["كل لقطة تُصوَّر وتُمنتج وتُلوَّن داخلياً، فما توافق عليه هو ما يُسلَّم.","نسلّم أفلام 16:9 ومقاطع 9:16 للتواصل ومحتوى شاشات LED من التصوير نفسه.","مقرّنا مراكش، ونصوّر في كل المغرب وعن بُعد حول العالم.","مرّر على عميل في المستوى 03 لمعاينة صوره.","افتح 3 مشاريع لتربح المفتاح النحاسي.","العربية والإنجليزية والفرنسية في كل إنتاج."]};
  const EN={};document.querySelectorAll("[data-i18n]").forEach(el=>{EN[el.dataset.i18n]=el.textContent});
@@ -2522,7 +2629,7 @@ HOW TO BEHAVE:
   tour:["Take the tour with Nour","Visite guidée avec Nour","جولة مع نور"],trust:["Trusted by brands, festivals and tourism boards","Ils nous font confiance : marques, festivals et offices du tourisme","علامات تجارية ومهرجانات ومكاتب سياحة وثقت بنا"]};
  const t=k=>TX[k][LG()==="fr"?1:LG()==="ar"?2:0];
  const WA="https://wa.me/212699146214?text="+encodeURIComponent("Hi Atay Studio, I'd like to talk about a project.");
- const NAV=[["work","nav-w","Work"],["process","nav-s","Skills"],["clients","nav-c","Clients"],["studio","nav-p","Profile"],["contact","nav-k","Contact"]];
+ const NAV=[["work","nav-w","Work"],["process","nav-s","Skills"],["clients","nav-c","Clients"],["studio","nav-p","Profile"],["contact","nav-k","Contact"],["book","nav-b","Book a call"]];
  const navLabel=n=>{const a=document.querySelector(`.hnav a[href="#${n[0]}"]`);return a?a.textContent:n[2]};
 
  /* menu button + sheet */
@@ -2584,7 +2691,8 @@ HOW TO BEHAVE:
   {sel:".svc-list",t:()=>L("Four crafts under one roof: shoot, edit, colour and VFX. One team, one look, from set to screen.","Quatre métiers sous un même toit : tournage, montage, couleur et VFX. Une équipe, un regard.","أربع حِرف تحت سقف واحد: تصوير، مونتاج، تلوين ومؤثرات. فريق واحد ورؤية واحدة.")},
   {sel:"#cs-grid",t:()=>L("Pick a client to see what we made for them.","Choisissez un client pour voir ce que nous avons fait pour lui.","اختر عميلاً لترى ما صنعناه له.")},
   {sel:"#studio .pcard",t:()=>L("This is Ayoub, the founder. He shoots, edits, grades and builds the VFX himself.","Voici Ayoub, le fondateur. Il filme, monte, étalonne et crée les VFX lui-même.","هذا أيوب، المؤسس. يصوّر ويُمنتج ويلوّن ويصنع المؤثرات بنفسه.")},
-  {sel:"#req",t:()=>L("Ready? Tell us the idea, the dates and the place. Your message is written for you, just hit send.","Prêt ? Dites-nous l’idée, les dates et le lieu. Le message est prêt, il suffit de l’envoyer.","جاهز؟ أخبرنا بالفكرة والمواعيد والمكان. الرسالة تُكتب لك، فقط اضغط إرسال."),end:true}];
+  {sel:"#req",t:()=>L("Ready? Tell us the idea, the dates and the place. Your message is written for you, just hit send.","Prêt ? Dites-nous l’idée, les dates et le lieu. Le message est prêt, il suffit de l’envoyer.","جاهز؟ أخبرنا بالفكرة والمواعيد والمكان. الرسالة تُكتب لك، فقط اضغط إرسال.")},
+  {sel:"#book .bk-card",t:()=>L("Prefer to talk first? Pick a day for a call. Just below, you can see every step once we agree on a project.","Vous préférez en parler d’abord ? Choisissez un jour pour un appel. Juste en dessous, toutes les étapes une fois le projet validé.","تفضّل الحديث أولاً؟ اختر يوماً لمكالمة. وتحتها مباشرة كل الخطوات بعد الاتفاق على المشروع."),end:true}];
 
  /* the character */
  const nr=document.createElement("div");nr.className="nour";nr.setAttribute("aria-live","polite");
@@ -2647,6 +2755,100 @@ HOW TO BEHAVE:
 <!--SEO-JS-START--><script>/* footer project links open the in-page project view when it exists */
 document.addEventListener("click",e=>{const a=e.target.closest("a[data-pj]");if(!a||!window.goProject||e.metaKey||e.ctrlKey)return;e.preventDefault();const id=a.dataset.pj;goProject(isNaN(+id)?id:+id)});
 </script><!--SEO-JS-END-->
+<script>/* BOOK A CALL: pick a day and a time (Marrakech time), confirm on WhatsApp, add it to your calendar.
+   Below it, the step-by-step process once a project is agreed. Works without a server: Ayoub confirms each request. */
+(()=>{const root=document.getElementById("book");if(!root)return;
+ const LG=()=>window.I18N?I18N.lang():"en";const L=(en,fr,ar)=>LG()==="fr"?fr:LG()==="ar"?ar:en;
+ const loc=()=>LG()==="fr"?"fr-FR":LG()==="ar"?"ar-MA":"en-GB";
+ const TZ="Africa/Casablanca";
+ const SLOTS=["10:00","11:00","12:00","15:00","16:00","17:00","18:00"];   // Marrakech time, Monday to Saturday
+ const OPEN_DAYS=[1,2,3,4,5,6];                                          // 0 = Sunday
+ const WA_NUM="212699146214";
+ const userTZ=(()=>{try{return Intl.DateTimeFormat().resolvedOptions().timeZone}catch(e){return TZ}})();
+ /* wall-clock time in Marrakech -> real Date */
+ function offsetAt(ms,tz){const p=new Intl.DateTimeFormat("en-US",{timeZone:tz,hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"}).formatToParts(new Date(ms)).reduce((a,x)=>(a[x.type]=x.value,a),{});
+  return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour%24,+p.minute,+p.second)-ms}
+ function casa(y,m,d,hm){const [h,mi]=hm.split(":").map(Number);const g=Date.UTC(y,m,d,h,mi);let t=g-offsetAt(g,TZ);t=g-offsetAt(t,TZ);return new Date(t)}
+ const todayCasa=()=>{const p=new Intl.DateTimeFormat("en-US",{timeZone:TZ,year:"numeric",month:"numeric",day:"numeric"}).formatToParts(new Date()).reduce((a,x)=>(a[x.type]=x.value,a),{});return {y:+p.year,m:+p.month-1,d:+p.day}};
+ const T0=todayCasa();
+ let view={y:T0.y,m:T0.m},sel=null,slot=null,kind="wa",step="pick";
+ const $=s=>root.querySelector(s);
+ const fmtDay=(y,m,d)=>new Intl.DateTimeFormat(loc(),{weekday:"long",day:"numeric",month:"long",timeZone:"UTC"}).format(new Date(Date.UTC(y,m,d,12)));
+ const fmtLocal=dt=>new Intl.DateTimeFormat(loc(),{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}).format(dt);
+ const KINDS=()=>[["wa",L("WhatsApp call","Appel WhatsApp","مكالمة واتساب")],["meet",L("Google Meet","Google Meet","Google Meet")],["phone",L("Phone call","Appel téléphonique","مكالمة هاتفية")]];
+ function render(){
+  const first=new Date(Date.UTC(view.y,view.m,1)),days=new Date(Date.UTC(view.y,view.m+1,0)).getUTCDate();
+  const lead=(first.getUTCDay()+6)%7;  // weeks start on Monday
+  const wk=[...Array(7)].map((_,i)=>new Intl.DateTimeFormat(loc(),{weekday:"narrow",timeZone:"UTC"}).format(new Date(Date.UTC(2024,0,1+i))));
+  const isPast=(y,m,d)=>y<T0.y||(y===T0.y&&(m<T0.m||(m===T0.m&&d<T0.d)));
+  const far=(y,m)=>(y-T0.y)*12+(m-T0.m)>2;
+  let cells="";for(let i=0;i<lead;i++)cells+='<span class="bk-e"></span>';
+  for(let d=1;d<=days;d++){const dow=new Date(Date.UTC(view.y,view.m,d)).getUTCDay();const off=isPast(view.y,view.m,d)||!OPEN_DAYS.includes(dow)||!slotsFor(view.y,view.m,d).length;
+   const on=sel&&sel.y===view.y&&sel.m===view.m&&sel.d===d,today=view.y===T0.y&&view.m===T0.m&&d===T0.d;
+   cells+=`<button type="button" class="bk-d${on?" on":""}${today?" today":""}" data-d="${d}" ${off?"disabled":""} aria-pressed="${on}" aria-label="${fmtDay(view.y,view.m,d)}">${d}</button>`}
+  $(".bk-mo").textContent=new Intl.DateTimeFormat(loc(),{month:"long",year:"numeric",timeZone:"UTC"}).format(first);
+  $(".bk-wk").innerHTML=wk.map(w=>`<span>${w}</span>`).join("");
+  $(".bk-grid").innerHTML=cells;
+  $(".bk-prev").disabled=view.y===T0.y&&view.m===T0.m;$(".bk-next").disabled=far(view.y,view.m+1>11?view.y+1:view.y,(view.m+1)%12);
+  renderSide()}
+ function slotsFor(y,m,d){const now=Date.now();return SLOTS.filter(s=>casa(y,m,d,s).getTime()-now>2*3600e3)}
+ function renderSide(){const side=$(".bk-side");
+  if(!sel){side.innerHTML=`<div class="bk-hint"><b>${L("Pick a day","Choisissez un jour","اختر يوماً")}</b><p>${L("Calls last about 20 minutes. Times are in Marrakech time.","Les appels durent environ 20 minutes. Heures de Marrakech.","تستغرق المكالمة حوالي 20 دقيقة. الأوقات بتوقيت مراكش.")}</p></div>`;return}
+  const list=slotsFor(sel.y,sel.m,sel.d);
+  const diff=userTZ!==TZ;
+  side.innerHTML=`<h3>${fmtDay(sel.y,sel.m,sel.d)}</h3><p class="bk-tz">${L("Marrakech time","Heure de Marrakech","بتوقيت مراكش")}${diff?` · ${L("your time in brackets","votre heure entre parenthèses","توقيتك بين قوسين")}`:""}</p>
+   <div class="bk-slots">${list.map(s=>{const dt=casa(sel.y,sel.m,sel.d,s);const lt=diff?new Intl.DateTimeFormat(loc(),{hour:"2-digit",minute:"2-digit",timeZone:userTZ}).format(dt):"";return `<button type="button" class="bk-s${slot===s?" on":""}" data-s="${s}" aria-pressed="${slot===s}">${s}${lt&&lt!==s?`<small>(${lt})</small>`:""}</button>`}).join("")||`<p>${L("No times left on this day.","Plus de créneaux ce jour-là.","لا أوقات متاحة في هذا اليوم.")}</p>`}</div>
+   <div class="bk-kind" role="group">${KINDS().map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${kind===k}">${l}</button>`).join("")}</div>
+   <label class="bk-f"><span>${L("Your name","Votre nom","اسمك")}</span><input class="bk-name" autocomplete="name" value="${(document.getElementById("fi-name")||{}).value||""}"></label>
+   <label class="bk-f"><span>${L("What is it about? (optional)","De quoi s’agit-il ? (facultatif)","ما موضوع المكالمة؟ (اختياري)")}</span><input class="bk-note" placeholder="${L("e.g. a hotel film in December","ex. un film pour un hôtel en décembre","مثلاً فيلم لفندق في دجنبر")}"></label>
+   <button type="button" class="bk-go" ${slot?"":"disabled"}>${slot?L("Book","Réserver","احجز")+` ${slot}`:L("Choose a time","Choisissez une heure","اختر وقتاً")}</button>`}
+ function g(dt){return dt.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"")}
+ function confirmView(){const dt=casa(sel.y,sel.m,sel.d,slot),end=new Date(dt.getTime()+30*60e3);
+  const name=($(".bk-name")||{}).value||"",note=($(".bk-note")||{}).value||"";const kl=KINDS().find(k=>k[0]===kind)[1];
+  const when=`${fmtDay(sel.y,sel.m,sel.d)}, ${slot} (${L("Marrakech time","heure de Marrakech","بتوقيت مراكش")})`;
+  const msg=[L("Hi Atay Studio, I'd like to book a call:","Bonjour Atay Studio, je voudrais réserver un appel :","مرحباً Atay Studio، أود حجز مكالمة:"),`📅 ${when}`,`📞 ${kl}`,name&&`👤 ${name}`,note&&`💬 ${note}`].filter(Boolean).join("\n");
+  const title=L("Call with Atay Studio","Appel avec Atay Studio","مكالمة مع Atay Studio");
+  const details=`${kl}${note?" · "+note:""} · WhatsApp +212 699 146 214`;
+  const gcal=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${g(dt)}/${g(end)}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(kl)}`;
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Atay Studio//Booking//EN","BEGIN:VEVENT",`UID:${Date.now()}@atayknight.com`,`DTSTAMP:${g(new Date())}`,`DTSTART:${g(dt)}`,`DTEND:${g(end)}`,`SUMMARY:${title}`,`DESCRIPTION:${details}`,"END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const side=$(".bk-side");
+  side.innerHTML=`<div class="bk-done"><span class="bk-ok" aria-hidden="true">✓</span><h3>${L("Almost booked","Presque réservé","الحجز شبه جاهز")}</h3>
+   <p class="bk-when">${when}<br><small>${kl}${userTZ!==TZ?` · ${L("your time","votre heure","توقيتك")}: ${fmtLocal(dt)}`:""}</small></p>
+   <p>${L("Send it on WhatsApp and Ayoub will confirm your call.","Envoyez-le sur WhatsApp et Ayoub confirmera votre appel.","أرسله عبر واتساب وسيؤكد أيوب مكالمتك.")}</p>
+   <a class="bk-go" href="https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${L("Send on WhatsApp","Envoyer sur WhatsApp","أرسل عبر واتساب")}</a>
+   <div class="bk-add"><a href="${gcal}" target="_blank" rel="noopener">${L("Add to Google Calendar","Ajouter à Google Agenda","أضف إلى تقويم Google")}</a><a href="data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}" download="atay-studio-call.ics">${L("Add to Apple / Outlook","Ajouter à Apple / Outlook","أضف إلى Apple / Outlook")}</a><a href="mailto:atayknight@gmail.com?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(msg)}">${L("Email instead","Par e-mail","عبر البريد")}</a></div>
+   <button type="button" class="bk-back">‹ ${L("Change the time","Changer l’heure","غيّر الوقت")}</button>
+   <p class="bk-next">${L("After the call: see the steps below.","Après l’appel : voyez les étapes ci-dessous.","بعد المكالمة: انظر الخطوات أدناه.")}</p></div>`}
+ root.addEventListener("click",e=>{const t=e.target;
+  if(t.closest(".bk-prev")){view.m--;if(view.m<0){view.m=11;view.y--}render();return}
+  if(t.closest(".bk-next")){view.m++;if(view.m>11){view.m=0;view.y++}render();return}
+  const d=t.closest(".bk-d");if(d&&!d.disabled){sel={y:view.y,m:view.m,d:+d.dataset.d};slot=null;render();if(innerWidth<760)$(".bk-side").scrollIntoView({behavior:"smooth",block:"nearest"});return}
+  const s=t.closest(".bk-s");if(s){slot=s.dataset.s;const nm=($(".bk-name")||{}).value,nt=($(".bk-note")||{}).value;renderSide();$(".bk-name").value=nm||"";$(".bk-note").value=nt||"";return}
+  const k=t.closest(".bk-kind [data-k]");if(k){kind=k.dataset.k;root.querySelectorAll(".bk-kind [data-k]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.k===kind)));return}
+  if(t.closest("button.bk-go")&&slot){confirmView();return}
+  if(t.closest(".bk-back")){renderSide();return}});
+ /* the process, after a project is agreed */
+ const STEPS=()=>[
+  [L("Discovery call","Appel découverte","مكالمة التعارف"),L("We talk about your goal, your audience, the places and the dates.","On parle de votre objectif, de votre public, des lieux et des dates.","نتحدث عن هدفك وجمهورك والأماكن والمواعيد.")],
+  [L("Proposal and quote","Proposition et devis","العرض والتسعيرة"),L("You get a clear plan: the idea, what we deliver, the schedule and the price.","Vous recevez un plan clair : l’idée, les livrables, le planning et le prix.","تتوصل بخطة واضحة: الفكرة، ما سنسلّمه، الجدول والسعر.")],
+  [L("Pre-production","Pré-production","ما قبل الإنتاج"),L("Concept, moodboard, shot list, locations, crew and permits, all set before the shoot.","Concept, moodboard, liste de plans, lieux, équipe et autorisations, prêts avant le tournage.","الفكرة، لوحة الإلهام، قائمة اللقطات، الأماكن، الفريق والتراخيص، كلها جاهزة قبل التصوير.")],
+  [L("The shoot","Le tournage","التصوير"),L("Ayoub films on location with the crew and gear the project needs.","Ayoub filme sur place avec l’équipe et le matériel nécessaires.","يصوّر أيوب في الموقع بالفريق والمعدات التي يحتاجها المشروع.")],
+  [L("Edit and first cut","Montage et premier jet","المونتاج والنسخة الأولى"),L("You watch the first cut and send your notes. We refine it together.","Vous regardez le premier montage et envoyez vos retours. On l’affine ensemble.","تشاهد النسخة الأولى وترسل ملاحظاتك، ونحسّنها معاً.")],
+  [L("Colour, sound and VFX","Couleur, son et VFX","التلوين والصوت والمؤثرات"),L("Every shot is graded, mixed and finished in-house, with VFX where it helps.","Chaque plan est étalonné, mixé et finalisé chez nous, avec des VFX si besoin.","كل لقطة تُلوَّن وتُمزج وتُنهى داخلياً، مع مؤثرات بصرية عند الحاجة.")],
+  [L("Delivery","Livraison","التسليم"),L("Final files in every format you need: 16:9 film, 9:16 reels, cut-downs and stills.","Fichiers finaux dans tous les formats : film 16:9, reels 9:16, versions courtes et photos.","الملفات النهائية بكل الصيغ التي تحتاجها: فيلم 16:9، ريلز 9:16، نسخ قصيرة وصور.")]];
+ function renderSteps(){$(".bk-steps").innerHTML=STEPS().map(([h,p],i)=>`<li style="--i:${i}"><span class="n">${String(i+1).padStart(2,"0")}</span><b>${h}</b><p>${p}</p></li>`).join("")}
+ function texts(){root.querySelector(".bk-h").textContent=L("Book a call.","Réservez un appel.","احجز مكالمة.");
+  root.querySelector(".bk-l").textContent=L("Pick a day and a time that suits you. A short call to talk about your idea, no commitment.","Choisissez un jour et une heure. Un court appel pour parler de votre idée, sans engagement.","اختر اليوم والوقت المناسبين. مكالمة قصيرة للحديث عن فكرتك، دون أي التزام.");
+  root.querySelector(".bk-ph").textContent=L("How we work, once we agree.","Comment on travaille, une fois d’accord.","طريقة عملنا بعد الاتفاق.");
+  root.querySelector(".bk-pl").textContent=L("From the first call to the final files, you always know what happens next.","Du premier appel aux fichiers finaux, vous savez toujours ce qui suit.","من المكالمة الأولى إلى الملفات النهائية، تعرف دائماً الخطوة التالية.");
+  root.querySelector(".bk-note2").textContent=L("Ayoub confirms every booking personally on WhatsApp.","Ayoub confirme chaque réservation personnellement sur WhatsApp.","يؤكد أيوب كل حجز شخصياً عبر واتساب.");
+  root.querySelector(".bk-prev").setAttribute("aria-label",L("Previous month","Mois précédent","الشهر السابق"));root.querySelector(".bk-next").setAttribute("aria-label",L("Next month","Mois suivant","الشهر التالي"))}
+ texts();render();renderSteps();
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){root.classList.add("in");io.disconnect()}}),{threshold:.15});io.observe(root);
+ addEventListener("atay:lang",()=>{texts();render();renderSteps();if(sel&&slot&&root.querySelector(".bk-done"))confirmView()});
+ window.openBooking=()=>root.scrollIntoView({behavior:"smooth",block:"start"});
+})();
+</script>
 
 
 </body>
