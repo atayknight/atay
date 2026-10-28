@@ -1702,6 +1702,28 @@ html[data-theme=dark] .bk-f input{background:#1C1C1E;color:#F5F5F7;box-shadow:in
 html[data-theme=dark] .bk-kind{background:rgba(255,255,255,.08)}html[data-theme=dark] .bk-kind button{color:#D1D1D6}html[data-theme=dark] .bk-kind button[aria-pressed=true]{background:#3A3A3C;color:#fff}
 html[data-theme=dark] .bk-s{color:#8FB0F7;box-shadow:inset 0 0 0 1.5px rgba(143,176,247,.35)}html[data-theme=dark] .bk-s.on{background:#3D6BE0;color:#fff}
 @media (prefers-reduced-motion:reduce){.bk-steps li{opacity:1;transform:none;transition:none}}
+
+/* ===== Cal.com booking (replaces the request calendar once it loads) ===== */
+#book.cal-try .bk-card,#book.cal-try .bk-note2{display:none}
+.bk-cw{position:relative;border-radius:28px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04),0 30px 60px -30px rgba(20,30,60,.3);padding:clamp(6px,1.2vw,14px);min-height:560px;overflow:hidden}
+#book.cal-on .bk-cw{min-height:0}
+.bk-cw-in{width:100%;min-height:520px;overflow:auto}
+#book.cal-on .bk-cw-in{min-height:0}
+.bk-cw-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;pointer-events:none;transition:opacity .4s}
+#book.cal-on .bk-cw-load{opacity:0}
+.bk-cw-load i{width:10px;height:10px;border-radius:50%;background:#3D6BE0;animation:bkDot 1s ease-in-out infinite}
+.bk-cw-load i:nth-child(2){animation-delay:.15s}.bk-cw-load i:nth-child(3){animation-delay:.3s}
+@keyframes bkDot{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(-8px);opacity:1}}
+.bk-cw-note{margin:6px 12px 10px;color:#86868B;font:500 13px/1.45 var(--body);text-align:center}
+.bk-cw-ok{display:flex;gap:14px;align-items:center;margin:6px 6px 10px;padding:16px 18px;border-radius:20px;background:rgba(61,107,224,.08);animation:bkIn .5s cubic-bezier(.16,1,.3,1)}
+.bk-cw-ok[hidden]{display:none}
+.bk-cw-ok .bk-ok{flex:none;margin:0}
+.bk-cw-ok b{display:block;font:700 18px/1.2 var(--body);color:#1D1D1F}.bk-cw-ok p{margin:4px 0 0;color:#6E6E73;font:400 14.5px/1.45 var(--body)}
+html[data-theme=dark] .bk-cw{background:#161618;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+html[data-theme=dark] .bk-cw-load i{background:#7FA4F0}
+html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme=dark] .bk-cw-ok b{color:#F5F5F7}html[data-theme=dark] .bk-cw-ok p{color:#A1A1A6}
+@media (max-width:760px){.bk-cw{border-radius:22px;padding:4px;min-height:620px}}
+@media (prefers-reduced-motion:reduce){.bk-cw-load i{animation:none;opacity:.7}}
 </style>
 
 <div id="boot" aria-hidden="true"><div class="bx"><pre id="boot-t"></pre><div class="pb"><i id="boot-p"></i></div><button type="button" id="boot-go">Press start</button><span class="sk">Click anywhere to skip</span></div></div>
@@ -2847,6 +2869,40 @@ document.addEventListener("click",e=>{const a=e.target.closest("a[data-pj]");if(
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){root.classList.add("in");io.disconnect()}}),{threshold:.15});io.observe(root);
  addEventListener("atay:lang",()=>{texts();render();renderSteps();if(sel&&slot&&root.querySelector(".bk-done"))confirmView()});
  window.openBooking=()=>root.scrollIntoView({behavior:"smooth",block:"start"});
+})();
+</script>
+<script>/* CAL.COM BOOKING: real availability from Ayoub's Google Calendar, invites + reminders for both sides.
+   Falls back to the built-in request calendar (book.js) if Cal.com is not set up or does not load. */
+(()=>{const CAL_LINK="ataystudio/discovery-call";
+ const root=document.getElementById("book");if(!root||!CAL_LINK||!/^https?:$/.test(location.protocol))return;
+ const LG=()=>window.I18N?I18N.lang():"en";const L=(en,fr,ar)=>LG()==="fr"?fr:LG()==="ar"?ar:en;
+ const NS="atay",card=root.querySelector(".bk-card");
+ const wrap=document.createElement("div");wrap.className="bk-cw";
+ wrap.innerHTML='<div class="bk-cw-ok" hidden></div><div class="bk-cw-load"><i></i><i></i><i></i></div><div id="bk-cal-inline" class="bk-cw-in"></div><p class="bk-cw-note"></p>';
+ card.parentNode.insertBefore(wrap,card);
+ const theme=()=>document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";
+ function note(){wrap.querySelector(".bk-cw-note").textContent=L("You both get a calendar invite with reminders, and a Google Meet link. Times show in your own timezone.","Vous recevez tous les deux une invitation avec rappels et un lien Google Meet. Les horaires s’affichent dans votre fuseau.","تصلكما دعوة في التقويم مع تذكيرات ورابط Google Meet. تظهر الأوقات بتوقيتك المحلي.")}
+ function okMsg(d){const b=wrap.querySelector(".bk-cw-ok");b.hidden=false;
+  b.innerHTML=`<span class="bk-ok">✓</span><div><b>${L("You’re booked.","C’est réservé.","تم الحجز.")}</b><p>${L("The invite is in your inbox and calendar. Ayoub will see you there. Here’s what happens after the call.","L’invitation est dans votre boîte mail et votre agenda. Voici la suite après l’appel.","الدعوة في بريدك وتقويمك. إليك ما يحدث بعد المكالمة.")}</p></div>`;
+  setTimeout(()=>root.querySelector(".bk-proc")?.scrollIntoView({behavior:"smooth",block:"start"}),2600)}
+ let started=false,ready=false;
+ function start(){if(started)return;started=true;
+  (function(C,A,Lx){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true}if(ar[0]===Lx){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==="string"){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,["initNamespace",namespace])}else p(cal,ar);return}p(cal,ar)}})(window,"https://app.cal.com/embed/embed.js","init");
+  Cal("init",NS,{origin:"https://app.cal.com"});
+  const sc=document.querySelector('script[src*="app.cal.com/embed"]');if(sc)sc.addEventListener("error",fail);
+  const ui={theme:theme(),hideEventTypeDetails:false,layout:"month_view",cssVarsPerTheme:{light:{"cal-brand":"#3D6BE0"},dark:{"cal-brand":"#7FA4F0"}}};
+  Cal.ns[NS]("inline",{elementOrSelector:"#bk-cal-inline",calLink:CAL_LINK,config:{layout:"month_view",theme:theme(),useSlotsViewOnSmallScreen:"true"}});
+  Cal.ns[NS]("ui",ui);
+  Cal.ns[NS]("on",{action:"linkReady",callback:()=>{ready=true;root.classList.add("cal-on");note()}});
+  Cal.ns[NS]("on",{action:"bookingSuccessful",callback:e=>okMsg(e&&e.detail)});
+  Cal.ns[NS]("on",{action:"linkFailed",callback:()=>fail()});
+  setTimeout(()=>{if(!ready)fail()},15000);
+  new MutationObserver(()=>Cal.ns[NS]("ui",{...ui,theme:theme()})).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+ }
+ function fail(){if(ready)return;root.classList.remove("cal-on","cal-try");wrap.remove()}
+ root.classList.add("cal-try");
+ const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){start();io.disconnect()}},{rootMargin:"900px 0px"});io.observe(root);
+ addEventListener("atay:lang",()=>{if(ready)note()});
 })();
 </script>
 
