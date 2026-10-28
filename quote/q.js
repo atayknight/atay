@@ -22,6 +22,9 @@ const IC={
  d3:'<path d="M12 2.5l8.5 4.8v9.4L12 21.5l-8.5-4.8V7.3z"/><path d="M12 12l8.5-4.7M12 12v9.5M12 12L3.5 7.3"/>',
  mg:'<path d="M4 18c3-9 7-12 16-12"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="6" r="2"/><path d="M9 20h11"/>',
  film2:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="6.5" r="1.6"/><circle cx="12" cy="17.5" r="1.6"/><circle cx="6.5" cy="12" r="1.6"/><circle cx="17.5" cy="12" r="1.6"/>',
+ event:'<path d="M4 7h16v3.5a2 2 0 0 0 0 4V18H4v-3.5a2 2 0 0 0 0-4z"/><path d="M9.5 7v11" stroke-dasharray="1.6 2"/>',
+ sport:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5l4 2.9-1.5 4.6h-5L8 10.4z"/><path d="M12 3v4.5M21 10.4l-5 0M17.5 19.5l-3-4.5M6.5 19.5l3-4.5M3 10.4h5"/>',
+ collab:'<path d="M4 5h16v11H9l-5 4z"/><path d="M12 7.6l1 2.2 2.3.3-1.7 1.6.4 2.3-2-1.1-2 1.1.4-2.3-1.7-1.6 2.3-.3z"/>',
  remote:'<rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10.5l2 2 4-4"/>'};
 const svg=(k,c="")=>`<svg viewBox="0 0 24 24" class="${c}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
 /* m: "f" = filmed on location, "r" = remote (client sends footage) */
@@ -29,6 +32,8 @@ const SV={
  reel:{m:"f",n:["Social reels","Reels réseaux sociaux","ريلز للشبكات الاجتماعية"],q:["How many reels?","Combien de reels ?","كم ريل تحتاج؟"],d:["30 to 90 second vertical videos for Instagram and TikTok.","Vidéos verticales de 30 à 90 secondes pour Instagram et TikTok.","فيديوهات عمودية من 30 إلى 90 ثانية لإنستغرام وتيك توك."],u:[["reel","reels"],["reel","reels"],["ريل","ريلز"]],p:2500,def:3,max:12,x:["mg","vfx","sub"]},
  film:{m:"f",n:["Brand film","Film de marque","فيلم للعلامة"],q:["How many films?","Combien de films ?","كم فيلماً تحتاج؟"],d:["A 1 to 3 minute film that tells your story.","Un film de 1 à 3 minutes qui raconte votre histoire.","فيلم من دقيقة إلى 3 دقائق يحكي قصتك."],u:[["film","films"],["film","films"],["فيلم","أفلام"]],p:9000,def:1,max:3,x:["mg","vfx","drone","vo"]},
  shoot:{m:"f",n:["Filming only","Tournage seul","تصوير فقط"],q:["How many shoot days?","Combien de jours de tournage ?","كم يوم تصوير؟"],d:["Ayoub films as Director of Photography and hands you the footage.","Ayoub filme en directeur photo et vous remet les images.","يصوّر أيوب كمدير تصوير ويسلّمك اللقطات."],u:[["day","days"],["jour","jours"],["يوم","أيام"]],p:4500,def:1,max:10,x:["drone","light"]},
+ event:{m:"f",n:["Event coverage","Couverture d’événement","تغطية الفعاليات"],q:["How many event days?","Combien de jours d’événement ?","كم يوم فعالية؟"],d:["Conferences, launches, festivals, weddings: a highlight film plus reels.","Conférences, lancements, festivals, mariages : un film résumé et des reels.","مؤتمرات، إطلاقات، مهرجانات، أعراس: فيلم ملخّص مع ريلز."],u:[["day","days"],["jour","jours"],["يوم","أيام"]],def:1,max:7,x:["drone","fast","mg"]},
+ sport:{m:"f",n:["Sports content","Contenu sportif","محتوى رياضي"],q:["How many shoot days?","Combien de jours de tournage ?","كم يوم تصوير؟"],d:["Matches, tournaments, clubs and athletes: action footage, highlights and reels.","Matchs, tournois, clubs et athlètes : images d’action, résumés et reels.","مباريات، بطولات، أندية ورياضيون: لقطات حركة، ملخصات وريلز."],u:[["day","days"],["jour","jours"],["يوم","أيام"]],def:1,max:7,x:["drone","fast","mg"]},
  photo:{m:"f",n:["Photos","Photos","صور"],q:["How many photo sets?","Combien de séries photo ?","كم جلسة صور؟"],d:["20 edited photos per set, ready for web and print.","20 photos retouchées par série, prêtes pour le web et l’impression.","20 صورة معدّلة لكل جلسة، جاهزة للويب والطباعة."],u:[["set","sets"],["série","séries"],["جلسة","جلسات"]],p:2500,def:1,max:5,x:[]},
  edit:{m:"r",n:["Video editing","Montage vidéo","مونتاج الفيديو"],q:["How many videos to edit?","Combien de vidéos à monter ?","كم فيديو تريد مونتاجه؟"],d:["You send your footage, we cut it into a finished video with music.","Vous envoyez vos images, on les monte en vidéo finie avec musique.","ترسل لقطاتك ونحوّلها إلى فيديو جاهز مع الموسيقى."],u:[["video","videos"],["vidéo","vidéos"],["فيديو","فيديوهات"]],p:2000,def:1,max:10,x:["grade","sound","sub"]},
  grade:{m:"r",n:["Colour grading","Étalonnage","تدريج الألوان"],q:["How many videos to grade?","Combien de vidéos à étalonner ?","كم فيديو تريد تدريج ألوانه؟"],d:["A cinematic look on your finished edit.","Un rendu cinéma sur votre montage final.","لمسة سينمائية على مونتاجك النهائي."],u:[["video","videos"],["vidéo","vidéos"],["فيديو","فيديوهات"]],p:1200,def:1,max:10,x:[]},
@@ -36,16 +41,16 @@ const SV={
  d3:{m:"r",n:["3D animation","Animation 3D","تحريك ثلاثي الأبعاد"],q:["How many 3D animations?","Combien d’animations 3D ?","كم تحريكاً ثلاثي الأبعاد؟"],d:["Your product or logo in 3D, up to 15 seconds each.","Votre produit ou logo en 3D, jusqu’à 15 secondes chacun.","منتجك أو شعارك بتقنية ثلاثية الأبعاد، حتى 15 ثانية لكل واحد."],u:[["animation","animations"],["animation","animations"],["تحريك","تحريكات"]],p:4000,def:1,max:6,x:["sound"]},
  mg:{m:"r",n:["Motion graphics","Motion design","موشن جرافيك"],q:["How many motion videos?","Combien de vidéos motion ?","كم فيديو موشن تحتاج؟"],d:["Animated titles, logo animation or an explainer video.","Titres animés, logo animé ou vidéo explicative.","عناوين متحركة، تحريك الشعار أو فيديو توضيحي."],u:[["video","videos"],["vidéo","vidéos"],["فيديو","فيديوهات"]],p:1500,def:1,max:10,x:["vo","sound"]}
 };
-const XT={mg:{n:["Motion graphics","Motion design","موشن جرافيك"],p:800},vfx:{n:["Visual effects","Effets visuels","مؤثرات بصرية"],p:1500},sub:{n:["Subtitles","Sous-titres","ترجمة مكتوبة"],p:300},drone:{n:["Drone shots","Plans drone","لقطات بالدرون"],p:1500},vo:{n:["Voice-over","Voix off","تعليق صوتي"],p:1200},light:{n:["Lighting kit","Kit lumière","معدات الإضاءة"],p:1000},grade:{n:["Colour grading","Étalonnage","تدريج الألوان"],p:800},sound:{n:["Sound design","Sound design","تصميم صوتي"],p:600}};
+const XT={mg:{n:["Motion graphics","Motion design","موشن جرافيك"],p:800},vfx:{n:["Visual effects","Effets visuels","مؤثرات بصرية"],p:1500},sub:{n:["Subtitles","Sous-titres","ترجمة مكتوبة"],p:300},drone:{n:["Drone shots","Plans drone","لقطات بالدرون"],p:1500},vo:{n:["Voice-over","Voix off","تعليق صوتي"],p:1200},light:{n:["Lighting kit","Kit lumière","معدات الإضاءة"],p:1000},grade:{n:["Colour grading","Étalonnage","تدريج الألوان"],p:800},sound:{n:["Sound design","Sound design","تصميم صوتي"],p:600},fast:{n:["Express delivery (48h)","Livraison express (48 h)","تسليم سريع (48 ساعة)"],p:0}};
 const ORDER=Object.keys(SV);
 /* ---------- prices per market (researched Oct 2026; Morocco in DH, Europe in €, USA in $) ---------- */
 const PR={
- ma:{cur:"MAD",reel:2500,film:12000,shoot:4500,photo:2500,edit:2000,grade:1500,vfx:1200,d3:6000,mg:2500,
-  x:{mg:600,vfx:1200,sub:250,drone:1500,vo:1000,light:1000,grade:600,sound:600},pk:{social:8900,launch:19900,edit:9900,vfx:13900}},
- eu:{cur:"EUR",reel:450,film:2900,shoot:650,photo:450,edit:350,grade:300,vfx:250,d3:1200,mg:500,
-  x:{mg:120,vfx:250,sub:50,drone:300,vo:200,light:150,grade:120,sound:120},pk:{social:1590,launch:4290,edit:1790,vfx:2890}},
- us:{cur:"USD",reel:550,film:3500,shoot:850,photo:550,edit:450,grade:400,vfx:300,d3:1500,mg:600,
-  x:{mg:150,vfx:300,sub:60,drone:350,vo:250,light:200,grade:150,sound:150},pk:{social:1890,launch:5190,edit:2290,vfx:3490}}};
+ ma:{cur:"MAD",event:7000,sport:6000,reel:2500,film:12000,shoot:4500,photo:2500,edit:2000,grade:1500,vfx:1200,d3:6000,mg:2500,
+  x:{fast:1000,mg:600,vfx:1200,sub:250,drone:1500,vo:1000,light:1000,grade:600,sound:600},pk:{event:12900,social:8900,launch:19900,edit:9900,vfx:13900}},
+ eu:{cur:"EUR",event:1200,sport:1100,reel:450,film:2900,shoot:650,photo:450,edit:350,grade:300,vfx:250,d3:1200,mg:500,
+  x:{fast:200,mg:120,vfx:250,sub:50,drone:300,vo:200,light:150,grade:120,sound:120},pk:{event:2390,social:1590,launch:4290,edit:1790,vfx:2890}},
+ us:{cur:"USD",event:1500,sport:1400,reel:550,film:3500,shoot:850,photo:550,edit:450,grade:400,vfx:300,d3:1500,mg:600,
+  x:{fast:250,mg:150,vfx:300,sub:60,drone:350,vo:250,light:200,grade:150,sound:150},pk:{event:2890,social:1890,launch:5190,edit:2290,vfx:3490}}};
 const DEPOSIT=40;  /* % to start */
 /* ready-made packages: i = [service, amount, extras] */
 const PK={
@@ -55,6 +60,9 @@ const PK={
  launch:{m:"f",ic:"film",i:[["film",1,["drone"]],["reel",4,[]],["photo",1,[]]],
   n:["Brand Launch","Lancement de marque","إطلاق العلامة"],
   b:[["1 brand film with drone shots","4 reels cut from the same shoot","20 edited photos","For a launch, a new season or an event"],["1 film de marque avec plans drone","4 reels issus du même tournage","20 photos retouchées","Pour un lancement, une saison ou un événement"],["فيلم للعلامة مع لقطات درون","4 ريلز من نفس التصوير","20 صورة معدّلة","لإطلاق جديد أو موسم أو حدث"]]},
+ event:{m:"f",ic:"event",i:[["event",1,["drone","fast"]],["reel",3,[]]],
+  n:["Event Day","Pack Événement","باقة الفعالية"],
+  b:[["A full day filming your event","1 highlight film with drone shots","3 reels, delivered within 48 hours","For launches, festivals, sports days"],["Une journée complète de tournage","1 film résumé avec plans drone","3 reels livrés sous 48 h","Lancements, festivals, journées sportives"],["يوم كامل لتصوير فعاليتك","فيلم ملخّص مع لقطات درون","3 ريلز تُسلَّم خلال 48 ساعة","للإطلاقات والمهرجانات والأيام الرياضية"]]},
  edit:{m:"r",pop:1,ic:"edit",i:[["edit",5,["grade","sub"]]],
   n:["Edit Pack","Pack Montage","باقة المونتاج"],
   b:[["5 videos edited from your footage","Colour grading on every video","Subtitles included","Delivered in every format you need"],["5 vidéos montées à partir de vos images","Étalonnage sur chaque vidéo","Sous-titres inclus","Livré dans tous les formats utiles"],["5 فيديوهات من لقطاتك","تدريج الألوان لكل فيديو","الترجمة المكتوبة مشمولة","بكل الصيغ التي تحتاجها"]]},
@@ -97,9 +105,9 @@ const W={
   wa1:"مرحباً أيوب، هذا مشروعي ({id}):",waT:"المجموع: {x}",waD:"للبدء: {x}",waW:"متى: {x}",waN:"ملاحظة: {x}",waM:"عمل عن بُعد (سأرسل اللقطات)",waL:"اختياراتي: {l}",
   none:"لا يوجد رابط مشروع هنا",noneL:"اطلب رابطك الخاص من أيوب، أو راسله عبر واتساب.",goSite:"زيارة الاستوديو",
   steps:[["مكالمة التعارف","مكالمة قصيرة للاتفاق على الفكرة والأسلوب والمواعيد."],["ما قبل الإنتاج","لوحة الإلهام وقائمة اللقطات والتخطيط، كل شيء جاهز قبل البدء."],["التصوير أو لقطاتك","يصوّر أيوب في الموقع، أو يشتغل على اللقطات التي ترسلها."],["المونتاج والألوان والمؤثرات","تشاهد النسخة الأولى وترسل ملاحظاتك، ثم نُكمل اللمسة النهائية."],["التسليم","الملفات النهائية بكل الصيغ التي تحتاجها، جاهزة للنشر."]]}};
-Object.assign(W.en,{pack:"Start with a package?",packL:"Our most chosen bundles, or build your own.",own:"Build my own",ownD:"Pick exactly what you need, one by one.",save:"Save {n}%",mo:"/ month",pop:"Most chosen",waP:"Package: {x}"});
-Object.assign(W.fr,{pack:"Commencer par un pack ?",packL:"Nos offres les plus choisies, ou composez la vôtre.",own:"Composer la mienne",ownD:"Choisissez exactement ce qu’il vous faut.",save:"−{n} %",mo:"/ mois",pop:"Le plus choisi",waP:"Pack : {x}"});
-Object.assign(W.ar,{pack:"تبدأ بباقة جاهزة؟",packL:"الباقات الأكثر طلباً، أو اصنع باقتك.",own:"أصنع باقتي",ownD:"اختر ما تحتاجه بالضبط، خطوة بخطوة.",save:"وفّر {n}٪",mo:"/ شهرياً",pop:"الأكثر طلباً",waP:"الباقة: {x}"});
+Object.assign(W.en,{mC:"Brand collaboration or something else",mCd:"A brand partnership, sponsored content, a music video, a documentary… Tell Ayoub the idea and get a custom quote.",cus:"What are you planning?",cusL:"Pick what fits, then tell Ayoub a bit more.",cusT:["Brand collaboration","Sponsored or creator content","Music video","Documentary","Something else"],cusN:"Your idea",cusP:"The brand, the idea, where and for whom…",quote:"Custom quote",quoteL:"Ayoub replies within 24 hours with a quote made for your project.",waC:"Project type: {x}",waI:"Idea: {x}",pack:"Start with a package?",packL:"Our most chosen bundles, or build your own.",own:"Build my own",ownD:"Pick exactly what you need, one by one.",save:"Save {n}%",mo:"/ month",pop:"Most chosen",waP:"Package: {x}"});
+Object.assign(W.fr,{mC:"Collaboration de marque ou autre",mCd:"Partenariat de marque, contenu sponsorisé, clip, documentaire… Décrivez l’idée à Ayoub et recevez un devis sur mesure.",cus:"Que préparez-vous ?",cusL:"Choisissez ce qui correspond, puis dites-en un peu plus.",cusT:["Collaboration de marque","Contenu sponsorisé ou créateur","Clip musical","Documentaire","Autre chose"],cusN:"Votre idée",cusP:"La marque, l’idée, le lieu, le public…",quote:"Devis sur mesure",quoteL:"Ayoub vous répond sous 24 h avec un devis adapté à votre projet.",waC:"Type de projet : {x}",waI:"Idée : {x}",pack:"Commencer par un pack ?",packL:"Nos offres les plus choisies, ou composez la vôtre.",own:"Composer la mienne",ownD:"Choisissez exactement ce qu’il vous faut.",save:"−{n} %",mo:"/ mois",pop:"Le plus choisi",waP:"Pack : {x}"});
+Object.assign(W.ar,{mC:"تعاون مع علامة أو شيء آخر",mCd:"شراكة مع علامة، محتوى مموّل، فيديو كليب، وثائقي… أخبر أيوب بالفكرة واحصل على عرض سعر خاص.",cus:"ماذا تخطط؟",cusL:"اختر ما يناسب، ثم أخبر أيوب بالمزيد.",cusT:["تعاون مع علامة تجارية","محتوى مموّل أو صنّاع محتوى","فيديو كليب","وثائقي","شيء آخر"],cusN:"فكرتك",cusP:"العلامة، الفكرة، المكان والجمهور…",quote:"عرض سعر خاص",quoteL:"يرد أيوب خلال 24 ساعة بعرض سعر مصمَّم لمشروعك.",waC:"نوع المشروع: {x}",waI:"الفكرة: {x}",pack:"تبدأ بباقة جاهزة؟",packL:"الباقات الأكثر طلباً، أو اصنع باقتك.",own:"أصنع باقتي",ownD:"اختر ما تحتاجه بالضبط، خطوة بخطوة.",save:"وفّر {n}٪",mo:"/ شهرياً",pop:"الأكثر طلباً",waP:"الباقة: {x}"});
 const tr=(l,k,v={})=>String(W[l][k]).replace(/\{(\w+)\}/g,(_,x)=>v[x]??"");
 const LOC={en:"en-GB",fr:"fr-FR",ar:"ar-MA"};
 function money(n,cur,l){const v=Math.round(n);if(cur==="MAD"){const s=new Intl.NumberFormat(LOC[l],{maximumFractionDigits:0}).format(v);return l==="ar"?s+" درهم":s+" DH"}
@@ -122,15 +130,15 @@ const LINK=n=>"atayknight.com/quote/"+(n.trim()?"#"+slug(n):"");
 function flow(name,mk){
  let l=langGuess();const P=PR[mk]||PR.ma,cur=P.cur;const M=v=>money(v,cur,l),T=(k,v)=>tr(l,k,v);
  const price=k=>P[k],xp=x=>P.x[x];
- const st={mode:null,pk:null,pick:[],q:{},x:{},when:-1,note:""};ORDER.forEach(k=>{st.q[k]=SV[k].def;st.x[k]=[]});
+ const st={mode:null,pk:null,pick:[],q:{},x:{},when:-1,note:"",ct:[],idea:""};ORDER.forEach(k=>{st.q[k]=SV[k].def;st.x[k]=[]});
  const packs=m=>Object.keys(PK).filter(k=>PK[k].m===m);
  const pkVal=k=>PK[k].i.reduce((s,[sv,q,xs])=>s+q*(price(sv)+xs.reduce((a,x)=>a+xp(x),0)),0);
  const pkSave=k=>Math.round((1-P.pk[k]/pkVal(k))*100);
- function steps(){const s=["hi","mode"];if(st.mode&&packs(st.mode).length)s.push("pack");
+ function steps(){if(st.mode==="c")return["hi","mode","cus","when","sum"];const s=["hi","mode"];if(st.mode&&packs(st.mode).length)s.push("pack");
   if(st.pk&&st.pk!=="own"){s.push("when","sum");return s}
   s.push("what");st.pick.forEach(k=>s.push("q:"+k));s.push("when","sum");return s}
  let at=0,dir=1;
- function calc(){if(st.pk&&st.pk!=="own"){const t=P.pk[st.pk];return{pack:st.pk,lines:[],total:t,dep:Math.round(t*DEPOSIT/100)}}
+ function calc(){if(st.mode==="c")return{custom:1,lines:[],total:0,dep:0};if(st.pk&&st.pk!=="own"){const t=P.pk[st.pk];return{pack:st.pk,lines:[],total:t,dep:Math.round(t*DEPOSIT/100)}}
   let total=0;const lines=st.pick.map(k=>{const q=st.q[k],xs=st.x[k];let t=q*price(k);xs.forEach(x=>t+=q*xp(x));total+=t;return{k,q,xs,t}});
   return{lines,total,dep:Math.round(total*DEPOSIT/100)}}
  app.className="w";
@@ -147,9 +155,11 @@ function flow(name,mk){
   $(".w-prog i").style.width=(at/(S.length-1))*100+"%";let h="";
   if(id==="hi")h=`<div class="w-hi"><img src="../img/portrait.webp" alt="" width="96" height="96" onerror="this.style.visibility='hidden'"><h1>${name?T("hi",{c:`<em>${esc(name)}</em>`}):T("hiNo")}</h1><p class="w-lead">${T("intro")}</p><p class="w-time">◷ ${T("time")}</p></div>`;
   if(id==="mode")h=`<h2 class="w-h">${T("mode")}</h2><p class="w-l">${T("modeL")}</p><div class="w-modes">
-    ${[["f","film2",T("mF"),T("mFd")],["r","remote",T("mR"),T("mRd")]].map(([m,ic,t,d])=>`<button type="button" class="w-mode${st.mode===m?" on":""}" data-mode="${m}" aria-pressed="${st.mode===m}">${svg(ic,"w-mi")}<b>${t}</b><span>${d}</span>${m==="r"?`<em class="w-tag">${T("remote")}</em>`:""}<i class="w-ck"></i></button>`).join("")}</div>`;
+    ${[["f","film2",T("mF"),T("mFd")],["r","remote",T("mR"),T("mRd")],["c","collab",T("mC"),T("mCd")]].map(([m,ic,t,d])=>`<button type="button" class="w-mode${st.mode===m?" on":""}" data-mode="${m}" aria-pressed="${st.mode===m}">${svg(ic,"w-mi")}<b>${t}</b><span>${d}</span>${m==="r"?`<em class="w-tag">${T("remote")}</em>`:""}<i class="w-ck"></i></button>`).join("")}</div>`;
   if(id==="pack")h=`<h2 class="w-h">${T("pack")}</h2><p class="w-l">${T("packL")}</p><div class="w-pks">${packs(st.mode).map(pkCard).join("")}
     <button type="button" class="w-pk w-own${st.pk==="own"?" on":""}" data-pk="own" aria-pressed="${st.pk==="own"}"><div class="w-pkh">${svg("mg","w-pki")}<b>${T("own")}</b></div><p>${T("ownD")}</p><i class="w-ck"></i></button></div>`;
+  if(id==="cus")h=`<h2 class="w-h">${T("cus")}</h2><p class="w-l">${T("cusL")}</p><div class="w-chs">${W[l].cusT.map((c,i)=>`<button type="button" class="w-chip${st.ct.includes(i)?" on":""}" data-ct="${i}" aria-pressed="${st.ct.includes(i)}">${c}</button>`).join("")}</div>
+    <label class="w-note"><span>${T("cusN")}</span><textarea class="w-idea" rows="4" placeholder="${T("cusP")}">${esc(st.idea)}</textarea></label>`;
   if(id==="what")h=`<h2 class="w-h">${T("what")}</h2><p class="w-l">${T("whatL")}</p><div class="w-tiles">${ORDER.filter(k=>SV[k].m===st.mode).map(k=>`<button type="button" class="w-tile${st.pick.includes(k)?" on":""}" data-k="${k}" aria-pressed="${st.pick.includes(k)}">${svg(k,"w-ti")}<b>${sN(k,l)}</b><span>${T("from",{x:M(price(k))})}</span><i class="w-ck"></i></button>`).join("")}</div><p class="w-err" hidden>${T("pick")}</p>`;
   if(id.startsWith("q:")){const k=id.slice(2),q=st.q[k],mx=SV[k].max;
    h=`<div class="w-qh">${svg(k,"w-qi")}<div><h2 class="w-h">${SV[k].q[LI[l]]}</h2><p class="w-l">${SV[k].d[LI[l]]}</p></div></div>
@@ -159,7 +169,10 @@ function flow(name,mk){
     <div class="w-line"><span>${sN(k,l)}</span><b data-line>${M(C.lines.find(x=>x.k===k)?.t||0)}</b></div>`}
   if(id==="when")h=`<h2 class="w-h">${T("when")}</h2><div class="w-opts">${W[l].whenO.map((o,i)=>`<button type="button" class="w-opt${st.when===i?" on":""}" data-w="${i}" aria-pressed="${st.when===i}"><i class="w-rd"></i>${o}</button>`).join("")}</div>
     <label class="w-note"><span>${T("note")} <em>${T("noteO")}</em></span><textarea rows="3" placeholder="${T("noteP")}">${esc(st.note)}</textarea></label>`;
-  if(id==="sum"){const p=C.pack&&PK[C.pack];
+  if(id==="sum"&&C.custom){h=`<h2 class="w-h">${T("sum")}</h2><div class="w-sum"><ul><li class="w-lp">${svg("collab","w-si")}<div><b>${st.ct.map(i=>W[l].cusT[i]).join(", ")||T("mC")}</b>${st.idea.trim()?`<small>${esc(st.idea.trim().slice(0,160))}</small>`:""}</div></li></ul>
+    <div class="w-big"><span>${T("total")}</span><b class="w-cq">${T("quote")}</b></div><p class="w-dep">${T("quoteL")}</p>
+    <button type="button" class="w-send">${WA_I}<span>${T("send")}</span></button><p class="w-sl">${T("sendL")}</p><a class="w-call" href="/#book">${T("call")}</a><button type="button" class="w-chg">${T("change")}</button></div>`}
+  else if(id==="sum"){const p=C.pack&&PK[C.pack];
    h=`<h2 class="w-h">${T("sum")}</h2><p class="w-l">${T("sumL")}</p><div class="w-sum">
     <ul>${p?`<li class="w-lp">${svg(p.ic,"w-si")}<div><b>${p.n[LI[l]]}</b><small>${p.b[LI[l]].slice(0,3).join(" · ")}</small></div><span>${M(C.total)}${p.mo?` ${T("mo")}`:""}</span></li>`:
      C.lines.map(L=>`<li>${svg(L.k,"w-si")}<div><b>${L.q} × ${sN(L.k,l)}</b>${L.xs.length?`<small>+ ${L.xs.map(x=>xN(x,l)).join(", ")}</small>`:""}</div><span>${M(L.t)}</span></li>`).join("")}</ul>
@@ -171,12 +184,12 @@ function flow(name,mk){
   const nx=$(".w-next"),bk=$(".w-back"),tot=$(".w-tot");
   bk.style.visibility=at===0?"hidden":"visible";
   nx.hidden=id==="sum";nx.textContent=id==="hi"?T("start"):S[at+1]==="sum"?T("see"):T("next");
-  nx.classList.toggle("dim",(id==="mode"&&!st.mode)||(id==="pack"&&!st.pk)||(id==="what"&&!st.pick.length));
+  nx.classList.toggle("dim",(id==="cus"&&!st.ct.length&&!st.idea.trim())||(id==="mode"&&!st.mode)||(id==="pack"&&!st.pk)||(id==="what"&&!st.pick.length));
   tot.hidden=!(C.total>0)||id==="sum"||id==="hi";$("b",tot).textContent=M(C.total);
   const f=stage.querySelector("h1,h2");if(f&&!RM&&at>0){f.setAttribute("tabindex","-1");f.focus({preventScroll:true})}
   scrollTo({top:0,behavior:"instant"})}
  function go(d){const id=steps()[at];
-  if(d>0&&((id==="mode"&&!st.mode)||(id==="pack"&&!st.pk)))return;
+  if(d>0&&((id==="mode"&&!st.mode)||(id==="pack"&&!st.pk)||(id==="cus"&&!st.ct.length&&!st.idea.trim())))return;
   if(d>0&&id==="what"&&!st.pick.length){$(".w-err").hidden=false;return}
   dir=d;at+=d;draw()}
  function refreshQ(k){const C=calc(),q=st.q[k],r=$(".w-qty input");$(".w-qty output b").textContent=q;$(".w-qty output span").textContent=uN(k,l,q);r.value=q;r.style.setProperty("--f",((q-1)/((SV[k].max-1)||1))*100+"%");
@@ -188,20 +201,25 @@ function flow(name,mk){
   const lg=t.closest("[data-l]");if(lg){l=lg.dataset.l;store.set("atay-lang",l);frame();return}
   if(t.closest(".q-th")){const n=de.getAttribute("data-theme")==="dark"?"light":"dark";store.set("atay-theme",n);theme(n);return}
   const md=t.closest("[data-mode]");if(md){if(st.mode!==md.dataset.mode){st.mode=md.dataset.mode;st.pk=null;st.pick=[]}draw();auto();return}
+  const ct=t.closest("[data-ct]");if(ct){const i=+ct.dataset.ct;st.ct=st.ct.includes(i)?st.ct.filter(x=>x!==i):[...st.ct,i];ct.classList.toggle("on");ct.setAttribute("aria-pressed",ct.classList.contains("on"));$(".w-next").classList.toggle("dim",!st.ct.length&&!st.idea.trim());return}
   const pk=t.closest("[data-pk]");if(pk){st.pk=pk.dataset.pk;draw();auto();return}
   const tl=t.closest("[data-k]");if(tl){const k=tl.dataset.k;st.pick=st.pick.includes(k)?st.pick.filter(x=>x!==k):[...st.pick,k];st.pick.sort((a,b)=>ORDER.indexOf(a)-ORDER.indexOf(b));draw();return}
   const sp=t.closest(".w-st");if(sp){const k=steps()[at].slice(2);st.q[k]=Math.max(1,Math.min(SV[k].max,st.q[k]+ +sp.dataset.d));refreshQ(k);return}
   const xx=t.closest("[data-x]");if(xx){const k=steps()[at].slice(2),x=xx.dataset.x;st.x[k]=st.x[k].includes(x)?st.x[k].filter(y=>y!==x):[...st.x[k],x];xx.classList.toggle("on");xx.setAttribute("aria-pressed",xx.classList.contains("on"));refreshQ(k);return}
   const w=t.closest("[data-w]");if(w){st.when=+w.dataset.w;$$(".w-opt").forEach(b=>{const on=+b.dataset.w===st.when;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});return}
-  if(t.closest(".w-chg")){dir=-1;at=steps().indexOf("pack");if(at<0)at=1;draw();return}
+  if(t.closest(".w-chg")){dir=-1;at=steps().indexOf(st.mode==="c"?"cus":"pack");if(at<0)at=1;draw();return}
   if(t.closest(".w-send"))return send()};
- app.oninput=e=>{if(e.target.matches(".w-qty input")){const k=steps()[at].slice(2);st.q[k]=+e.target.value;refreshQ(k)}if(e.target.matches(".w-note textarea"))st.note=e.target.value};
+ app.oninput=e=>{if(e.target.matches(".w-qty input")){const k=steps()[at].slice(2);st.q[k]=+e.target.value;refreshQ(k)}if(e.target.matches(".w-idea")){st.idea=e.target.value;$(".w-next").classList.toggle("dim",!st.ct.length&&!st.idea.trim());return}if(e.target.matches(".w-note textarea"))st.note=e.target.value};
  addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.target.matches("textarea,button,a")&&!$(".w-next").hidden){e.preventDefault();go(1)}});
  function send(){const C=calc(),p=C.pack&&PK[C.pack];
+  if(C.custom){const msg=[T("wa1",{id:name||"—"}),st.ct.length?T("waC",{x:st.ct.map(i=>W[l].cusT[i]).join(", ")}):null,st.idea.trim()?T("waI",{x:st.idea.trim()}):null,st.when>=0?T("waW",{x:W[l].whenO[st.when]}):null,st.note.trim()?T("waN",{x:st.note.trim()}):null].filter(Boolean).join("\n");
+   window.open("https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(msg),"_blank","noopener");return thanks()}
   const body=p?[T("waP",{x:p.n[LI[l]]+" ("+M(C.total)+(p.mo?" "+T("mo"):"")+")"}),...p.b[LI[l]].slice(0,3).map(x=>"• "+x)]
    :C.lines.map(L=>"• "+L.q+" × "+sN(L.k,l)+(L.xs.length?" (+ "+L.xs.map(x=>xN(x,l)).join(", ")+")":"")+": "+M(L.t));
   const msg=[T("wa1",{id:name||"—"}).replace(" ()",""),...(st.mode==="r"?[T("waM")]:[]),...body,"",T("waT",{x:M(C.total)+(p&&p.mo?" "+T("mo"):"")}),T("waD",{x:M(C.dep)}),st.when>=0?T("waW",{x:W[l].whenO[st.when]}):null,st.note.trim()?T("waN",{x:st.note.trim()}):null].filter(x=>x!==null).join("\n");
   window.open("https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(msg),"_blank","noopener");
+  thanks()}
+ function thanks(){
   const sh=document.createElement("div");sh.className="q-thx";sh.setAttribute("role","dialog");sh.setAttribute("aria-modal","true");
   sh.innerHTML=`<div class="q-tc" dir="${l==="ar"?"rtl":"ltr"}"><span class="q-ok">✓</span><h2>${T("thanks")}</h2><p>${T("thanksL")}</p><h3>${T("nextT")}</h3><ol>${W[l].steps.map(([a,b],i)=>`<li style="--d:${200+i*90}ms"><b>${a}</b><span>${b}</span></li>`).join("")}</ol><button type="button" class="q-close">OK</button></div>`;
   document.body.appendChild(sh);sh.addEventListener("click",e=>{if(e.target===sh||e.target.closest(".q-close"))sh.remove()});$(".q-close",sh).focus()}

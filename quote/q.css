@@ -251,3 +251,8 @@ html[data-theme=dark] .w-sv{background:#0F2A17;color:#7EE2A0}
 .mk-th td{padding-top:18px;border:0;font:700 13px/1 var(--body);color:var(--acc);text-transform:uppercase;letter-spacing:.04em}
 .e-mc{width:min(640px,100%)!important}
 .w-sum li.w-lp{grid-template-columns:40px 1fr}.w-lp>span{grid-column:2;font:800 20px/1 var(--display)!important}
+.w-chs{display:flex;flex-wrap:wrap;gap:10px}
+.w-chip{all:unset;box-sizing:border-box;cursor:pointer;padding:13px 18px;border-radius:99px;background:var(--card);box-shadow:var(--soft),inset 0 0 0 1.5px var(--line);font:600 15.5px/1.2 var(--body);transition:background .2s,box-shadow .2s,transform .15s}
+.w-chip:active{transform:scale(.97)}.w-chip:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.w-chip.on{background:var(--brand);color:#fff;box-shadow:0 10px 20px -12px rgba(61,107,224,.9)}
+.w-cq{font-size:clamp(28px,6vw,40px)!important;color:var(--acc)}

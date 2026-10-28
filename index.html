@@ -1724,6 +1724,17 @@ html[data-theme=dark] .bk-cw-load i{background:#7FA4F0}
 html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme=dark] .bk-cw-ok b{color:#F5F5F7}html[data-theme=dark] .bk-cw-ok p{color:#A1A1A6}
 @media (max-width:760px){.bk-cw{border-radius:22px;padding:4px;min-height:620px}}
 @media (prefers-reduced-motion:reduce){.bk-cw-load i{animation:none;opacity:.7}}
+
+/* ===== one assistant (Nour) + Book a call float ===== */
+.ai-fab{display:none!important}
+.wa-float.bk-fl{background:#3D6BE0!important;color:#fff!important;clip-path:none!important;border-radius:99px!important;padding:13px 18px 13px 15px!important;font:600 15px/1 var(--body)!important;font-stretch:100%!important;text-transform:none!important;letter-spacing:0;box-shadow:0 14px 30px -12px rgba(61,107,224,.85)!important;gap:9px}
+.wa-float.bk-fl:hover{filter:brightness(1.08)}
+.wa-float.bk-fl svg{width:18px;height:18px}
+@media (max-width:760px){.wa-float.bk-fl{display:none!important}}
+.ai-chip.ai-tour{background:#3D6BE0!important;color:#fff!important;box-shadow:none!important}
+.dock .dk-call{display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.dock .dk-call svg{width:17px;height:17px}
+.dock .dk-go{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none}
 </style>
 
 <div id="boot" aria-hidden="true"><div class="bx"><pre id="boot-t"></pre><div class="pb"><i id="boot-p"></i></div><button type="button" id="boot-go">Press start</button><span class="sk">Click anywhere to skip</span></div></div>
@@ -1735,7 +1746,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
     <button class="hchip" id="coins-btn" type="button" aria-label="Coins collected"><span class="coin" aria-hidden="true"></span><span id="coins">000</span></button>
     <button class="hchip" id="quest-btn" type="button" aria-expanded="false" aria-controls="qlog"><span class="keys" id="hkeys"></span><span id="quest-n">0/3</span></button>
     <button class="hchip theme-ic" id="theme-btn" type="button" aria-pressed="false" aria-label="Dark mode"><svg class="moon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6z"/></svg><svg class="sun" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg></button><button class="hchip" id="set-btn" type="button" aria-expanded="false" aria-controls="setp" aria-label="Settings and language"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="flex:none"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span id="lang-code" style="margin-inline-start:5px;font:600 12px/1 var(--body)">EN</span></button>
-    <a class="go" href="#contact" data-i18n="go">Start a project</a>
+    <a class="go" href="/quote/" data-i18n="go">Start a project</a>
   </div>
 </header>
 <div class="setp" id="setp" hidden><h3 class="px" data-i18n="set-h">Settings</h3>
@@ -1743,7 +1754,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
   <div class="row"><span data-i18n="set-game">Game mode</span><span class="seg"><button type="button" data-game="on" aria-pressed="true">On</button><button type="button" data-game="off" aria-pressed="false">Off</button></span></div>
   <div class="row"><span data-i18n="set-snd">Sound</span><button class="hchip" id="snd" type="button" aria-pressed="false">♪ Off</button></div>
 </div>
-<a class="wa-float" href="https://wa.me/212699146214?text=Hi%20Atay%20Studio%2C%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" aria-label="Chat with Atay Studio on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.3-.7a11.3 11.3 0 0 1-4.6-4c-.6-.9-1.1-2-1.1-3.1a3.3 3.3 0 0 1 1-2.4 1.1 1.1 0 0 1 .8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.3 8.3 0 0 0 1.6 2 7.6 7.6 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.6.4a2.4 2.4 0 0 1-.2 1.5z"/></svg><span data-i18n="wa">WhatsApp</span></a>
+<a class="wa-float bk-fl" href="#book" aria-label="Book a call"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-i18n="nav-b">Book a call</span></a>
 <div class="qlog" id="qlog" hidden><h3 class="px">Quest log · find the 3 keys</h3><ul id="qlist"></ul><span class="px" style="color:var(--muted);font-size:10px">Collect all three to unlock the egg. Coins come from exploring.</span></div>
 
 <main id="top">
@@ -1764,7 +1775,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
           <button type="button" data-k="VFX" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 6.3L21 12l-6.8 2.7L12 21l-2.2-6.3L3 12l6.8-2.7z"/></svg></span><span data-i18n="hx-vfx">VFX</span></button>
         </div>
         <div class="hx-cta">
-          <a class="hx-go" href="https://wa.me/212699146214?text=Hi%20Atay%20Studio%2C%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener"><span class="hx-comet" aria-hidden="true"></span><span data-i18n="hx-go">Start a project</span><i aria-hidden="true"></i></a>
+          <a class="hx-go" href="/quote/"><span class="hx-comet" aria-hidden="true"></span><span data-i18n="hx-go">Start a project</span><i aria-hidden="true"></i></a>
           <a class="hx-ghost" href="#work" data-i18n="cta2">See the work</a>
         </div>
       </div>
@@ -1896,7 +1907,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
 </div></div><!--SEO-FOOT-END--><footer><div class="wrap"><a class="brand" href="#top"><span class="mark icon" aria-hidden="true"></span>Atay Studio</a><span class="end px"><span>Thanks for playing · © 2026 Atay Studio · Marrakech</span><button class="estar" type="button" aria-label="A hidden star">✦</button><a href="#top" style="color:var(--yel);text-decoration:none">Continue? ▲</a></span></div></footer>
 
 <dialog id="dlg" aria-labelledby="dlg-t"></dialog>
-<dialog id="egg" aria-labelledby="egg-t"><div class="in"><span class="px" style="color:var(--cyan)">Easter egg unlocked · 3 / 3 keys</span><h3 id="egg-t">You found the egg</h3><p>Copper, jade and crystal: every key collected. You have explored the whole world of Atay Studio. The next level is the project you bring us.</p><a class="gbtn" href="#contact" id="egg-go" style="flex:none;padding:14px 22px">▶ Start a project</a><button class="hchip" type="button" id="egg-x">Keep exploring</button></div></dialog>
+<dialog id="egg" aria-labelledby="egg-t"><div class="in"><span class="px" style="color:var(--cyan)">Easter egg unlocked · 3 / 3 keys</span><h3 id="egg-t">You found the egg</h3><p>Copper, jade and crystal: every key collected. You have explored the whole world of Atay Studio. The next level is the project you bring us.</p><a class="gbtn" href="/quote/" id="egg-go" style="flex:none;padding:14px 22px">▶ Start a project</a><button class="hchip" type="button" id="egg-x">Keep exploring</button></div></dialog>
 <canvas id="confetti" aria-hidden="true"></canvas>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -2394,7 +2405,7 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
   pp.querySelectorAll(".pp-tile").forEach((t,k)=>t.classList.toggle("on",k===i))}
  function render(p){const L=clipsOf(p);const kv=[[T("Client","Client"),p.client],p.dir&&[T("Director","Réalisation"),p.dir],p.prod&&[T("Production","Production"),p.prod],[T("Our role","Notre rôle"),p.role.join(" · ")],[T("Location","Lieu"),LOC[p.id]],[T("Format","Format"),L.length>1?(()=>{const r=L.map(arOf),n=x=>x<1?"9:16":x<1.5?"4:3":"16:9",u=[...new Set(r.map(n))];return `${L.length} ${T("reels","reels")} · ${u.join(" / ")}`})():(p.fmt||p.ar)],p.dur&&[T("Runtime","Durée"),tc(p.dur).slice(0,5)],[T("Category","Catégorie"),T(...(CAT[p.cat]||[p.cat,p.cat]))]].filter(x=>x&&x[1]);
   const more=P.filter(x=>x.id!==p.id).sort((a,b)=>(b.cat===p.cat)-(a.cat===p.cat)).slice(0,10);
-  pp.innerHTML=`<nav class="pp-nav" aria-label="Project"><div class="pp-in"><button class="pp-back" type="button" data-close>‹ <span>${T("All work","Tous les projets")}</span></button><b class="pp-nt">${esc(p.t)}</b><span class="pp-links"><a href="#pp-reels">${T("Reels","Reels")}</a><a href="#pp-credits">${T("Credits","Crédits")}</a></span><a class="pp-buy" href="${WA(`Hi Atay Studio, I'd like a project like "${p.t}".`)}" target="_blank" rel="noopener">${T("Start a project","Lancer un projet")}</a></div></nav>
+  pp.innerHTML=`<nav class="pp-nav" aria-label="Project"><div class="pp-in"><button class="pp-back" type="button" data-close>‹ <span>${T("All work","Tous les projets")}</span></button><b class="pp-nt">${esc(p.t)}</b><span class="pp-links"><a href="#pp-reels">${T("Reels","Reels")}</a><a href="#pp-credits">${T("Credits","Crédits")}</a></span><a class="pp-buy" href="/quote/">${T("Start a project","Lancer un projet")}</a></div></nav>
   <header class="pp-hero rv"><span class="pp-eb">${esc(T(...(CAT[p.cat]||[p.cat,p.cat])))} · ${esc(p.client)}</span><h1>${esc(p.t)}</h1><p>${esc(p.d||"")}</p>
    <div class="pp-cta"><a class="pp-btn" href="#pp-stage" data-play>${T("Watch","Regarder")} ▸</a><a class="pp-link" href="${WA(`Hi Atay Studio, I'd like a project like "${p.t}".`)}" target="_blank" rel="noopener">${T("Get a project like this","Un projet comme celui-ci")} ›</a></div></header>
   <section class="pp-stage rv" id="pp-stage"><div class="pp-media"></div><div class="pp-under"><span class="pp-cap"></span><a class="pp-ext" target="_blank" rel="noopener"></a></div></section>
@@ -2445,8 +2456,8 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
  /* ---------- assistant ---------- */
  const fab=document.createElement("button");fab.className="ai-fab";fab.type="button";fab.setAttribute("aria-haspopup","dialog");
  fab.innerHTML=`<span class="orb" aria-hidden="true"></span><span class="lbl"></span>`;
- const box=document.createElement("section");box.className="ai";box.setAttribute("role","dialog");box.setAttribute("aria-label","Atay assistant");box.setAttribute("aria-hidden","true");
- box.innerHTML=`<header class="ai-hd"><span class="orb" aria-hidden="true"><i></i></span><span class="tx"><b>Atay assistant</b><small class="ai-sub"></small></span><button class="ai-x" type="button" aria-label="Close">×</button></header>
+ const box=document.createElement("section");box.className="ai";box.setAttribute("role","dialog");box.setAttribute("aria-label","Nour, the Atay Studio guide");box.setAttribute("aria-hidden","true");
+ box.innerHTML=`<header class="ai-hd"><span class="orb" aria-hidden="true"><i></i></span><span class="tx"><b>Nour</b><small class="ai-sub"></small></span><button class="ai-x" type="button" aria-label="Close">×</button></header>
   <div class="ai-log" aria-live="polite"></div><div class="ai-chips"></div>
   <form class="ai-f"><textarea rows="1" aria-label="Message"></textarea><button class="ai-send" type="submit" aria-label="Send">↑</button></form><div class="ai-note"></div>`;
  document.body.append(fab,box);
@@ -2567,8 +2578,9 @@ HOW TO BEHAVE:
 
  /* open / close */
  let greeted=false;
+ function tourChip(){const b=document.createElement("button");b.type="button";b.className="ai-chip ai-tour";b.textContent="✦ "+T("Show me around","Faire la visite");b.addEventListener("click",()=>{closeBox();setTimeout(()=>window.nourTour&&nourTour(),350)});chipsEl.prepend(b)}
  function openBox(){document.documentElement.classList.add("ai-open");box.setAttribute("aria-hidden","false");
-  if(!greeted){greeted=true;bubble("bot").textContent=T("Hi! I’m the Atay Studio assistant. I can show you work that fits your idea, explain how we shoot, or help you turn it into a brief. What are you making?","Bonjour ! Je suis l’assistant d’Atay Studio. Je peux vous montrer des projets proches de votre idée, expliquer notre façon de tourner, ou vous aider à écrire un brief. Que préparez-vous ?");chips(CHIPS())}
+  if(!greeted){greeted=true;bubble("bot").textContent=T("Hi! I’m Nour, the Atay Studio guide. Ask me anything about our work, or tell me what you’re making and I’ll help you plan it.","Salut ! Je suis Nour, le guide d’Atay Studio. Posez-moi une question sur nos projets, ou dites-moi ce que vous préparez et je vous aide.");chips(CHIPS().slice(2,4));tourChip()}
   setTimeout(()=>{if(matchMedia("(pointer:fine)").matches)ta.focus()},250)}
  function closeBox(){document.documentElement.classList.remove("ai-open");box.setAttribute("aria-hidden","true");fab.focus({preventScroll:true})}
  window.openAssistant=(q)=>{openBox();if(q)ask(q)};
@@ -2647,7 +2659,7 @@ HOW TO BEHAVE:
 <script>/* PHONE + TABLET: menu sheet, bottom action dock, trusted-by strip */
 (()=>{const $=id=>document.getElementById(id),de=document.documentElement;
  const LG=()=>window.I18N?I18N.lang():"en";
- const TX={menu:["Menu","Menu","القائمة"],close:["Close","Fermer","إغلاق"],start:["Start a project","Lancer un projet","ابدأ مشروعاً"],ask:["Ask Atay","Demander à Atay","اسأل أطاي"],wa:["WhatsApp","WhatsApp","واتساب"],theme:["Appearance","Apparence","المظهر"],light:["Light","Clair","فاتح"],dark:["Dark","Sombre","داكن"],lang:["Language","Langue","اللغة"],
+ const TX={menu:["Menu","Menu","القائمة"],close:["Close","Fermer","إغلاق"],start:["Start a project","Lancer un projet","ابدأ مشروعاً"],call:["Book a call","Réserver un appel","احجز مكالمة"],ask:["Ask Nour","Demander à Atay","اسأل أطاي"],wa:["WhatsApp","WhatsApp","واتساب"],theme:["Appearance","Apparence","المظهر"],light:["Light","Clair","فاتح"],dark:["Dark","Sombre","داكن"],lang:["Language","Langue","اللغة"],
   hi:["Film, edit, colour and VFX from Marrakech.","Tournage, montage, couleur et VFX depuis Marrakech.","تصوير ومونتاج وتلوين ومؤثرات بصرية من مراكش."],reply:["You talk to Ayoub directly, no middlemen","Vous parlez directement à Ayoub, sans intermédiaire","تتحدث مع أيوب مباشرة، بدون وسطاء"],
   tour:["Take the tour with Nour","Visite guidée avec Nour","جولة مع نور"],trust:["Trusted by brands, festivals and tourism boards","Ils nous font confiance : marques, festivals et offices du tourisme","علامات تجارية ومهرجانات ومكاتب سياحة وثقت بنا"]};
  const t=k=>TX[k][LG()==="fr"?1:LG()==="ar"?2:0];
@@ -2662,7 +2674,7 @@ HOW TO BEHAVE:
  const sh=document.createElement("nav");sh.className="mnu";sh.id="mnu";sh.setAttribute("aria-label","Site menu");sh.hidden=true;document.body.append(sh);
  function renderSheet(){const dark=de.getAttribute("data-theme")==="dark",l=LG();
   sh.innerHTML=`<div class="mnu-in"><p class="mnu-hi">${t("hi")}</p><ul>${NAV.map((n,i)=>`<li style="--i:${i}"><a href="#${n[0]}"><small>0${i+1}</small>${navLabel(n)}<span aria-hidden="true">›</span></a></li>`).join("")}</ul>
-  <div class="mnu-cta"><a class="mnu-wa" href="${WA}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>${t("start")}</a><button type="button" class="mnu-ask">✦ ${t("ask")}</button><button type="button" class="mnu-ask mnu-tour">${t("tour")}</button></div>
+  <div class="mnu-cta"><a class="mnu-wa" href="/quote/"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2-6.2-2.3 6.2-2.3z"/></svg>${t("start")}</a><button type="button" class="mnu-ask">✦ ${t("ask")}</button><button type="button" class="mnu-ask mnu-tour">${t("tour")}</button></div>
   <p class="mnu-note">${t("reply")}</p>
   <div class="mnu-set"><div><span>${t("theme")}</span><span class="mseg"><button type="button" data-th="light" aria-pressed="${!dark}">${t("light")}</button><button type="button" data-th="dark" aria-pressed="${dark}">${t("dark")}</button></span></div>
   <div><span>${t("lang")}</span><span class="mseg"><button type="button" data-lg="en" aria-pressed="${l==="en"}">EN</button><button type="button" data-lg="fr" aria-pressed="${l==="fr"}">FR</button><button type="button" data-lg="ar" aria-pressed="${l==="ar"}" lang="ar">ع</button></span></div></div></div>`}
@@ -2679,9 +2691,9 @@ HOW TO BEHAVE:
 
  /* bottom action dock (phones) */
  const dock=document.createElement("div");dock.className="dock";dock.setAttribute("role","group");dock.setAttribute("aria-label","Quick actions");
- const renderDock=()=>{dock.innerHTML=`<button type="button" class="dk-ask"><i aria-hidden="true"></i>${t("ask")}</button><a class="dk-go" href="${WA}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.3-.7a11.3 11.3 0 0 1-4.6-4c-.6-.9-1.1-2-1.1-3.1a3.3 3.3 0 0 1 1-2.4 1.1 1.1 0 0 1 .8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.3 8.3 0 0 0 1.6 2 7.6 7.6 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.6.4a2.4 2.4 0 0 1-.2 1.5z"/></svg>${t("start")}</a>`};
+ const renderDock=()=>{dock.innerHTML=`<a class="dk-ask dk-call" href="#book"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>${t("call")}</a><a class="dk-go" href="/quote/"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2-6.2-2.3 6.2-2.3z"/></svg>${t("start")}</a>`};
  renderDock();document.body.append(dock);
- dock.addEventListener("click",e=>{if(e.target.closest(".dk-ask"))window.openAssistant&&openAssistant()});
+ 
  /* hide the dock while the contact form is on screen (it has its own buttons) */
  const ct=$("contact");if(ct)new IntersectionObserver(es=>de.classList.toggle("at-contact",es[0].isIntersecting&&es[0].intersectionRatio>.25),{threshold:[0,.25,.5]}).observe(ct);
 
@@ -2735,7 +2747,7 @@ HOW TO BEHAVE:
   bub.hidden=false;nr.classList.add("talk");clearTimeout(nr._tt);nr._tt=setTimeout(()=>nr.classList.remove("talk"),1400);
   bub.classList.remove("pop");void bub.offsetWidth;bub.classList.add("pop")}
  function hush(){bub.hidden=true;nr.classList.remove("talk")}
- function home(){const p=phone(),S=p?56:68,low=document.body.classList.contains("at-top")||touring||de.classList.contains("at-contact");if(!p){nr.style.setProperty("--x",(innerWidth-S-20)+"px");nr.style.setProperty("--y",(innerHeight-S-(document.body.classList.contains("at-top")?82:150))+"px");nr.classList.remove("bdown","rt");nr.classList.add("dr");return}nr.classList.remove("dr");const y=innerHeight-S-(low?16:76);const right=document.body.classList.contains("at-top")&&!touring;nr.style.setProperty("--x",(right?innerWidth-S-12:12)+"px");nr.style.setProperty("--y",y+"px");nr.classList.remove("bdown");nr.classList.toggle("rt",right)}
+ function home(){const p=phone(),S=p?56:68,low=document.body.classList.contains("at-top")||touring||de.classList.contains("at-contact");if(!p){nr.style.setProperty("--x",(innerWidth-S-20)+"px");nr.style.setProperty("--y",(innerHeight-S-(document.body.classList.contains("at-top")?24:80))+"px");nr.classList.remove("bdown","rt");nr.classList.add("dr");return}nr.classList.remove("dr");const y=innerHeight-S-(low?16:76);const right=document.body.classList.contains("at-top")&&!touring;nr.style.setProperty("--x",(right?innerWidth-S-12:12)+"px");nr.style.setProperty("--y",y+"px");nr.classList.remove("bdown");nr.classList.toggle("rt",right)}
  function placeNear(el){if(phone()||!el){home();return}
   const r=el.getBoundingClientRect(),W=innerWidth,H=innerHeight,S=74;
   let x=r.right+14,y=Math.max(90,Math.min(H-S-210,r.top+10));
@@ -2750,20 +2762,20 @@ HOW TO BEHAVE:
   cancelAnimationFrame(follow);follow=requestAnimationFrame(track);
   nr.classList.remove("hop");void nr.offsetWidth;nr.classList.add("hop");
   const btns=[];if(i>0)btns.push([L("Back","Retour","رجوع"),()=>go(i-1)]);
-  if(s.end){btns.push([L("Start a project","Lancer un projet","ابدأ مشروعاً"),{href:WA},true]);btns.push([L("Ask me anything","Posez-moi une question","اسألني"),()=>{end();window.openAssistant&&openAssistant()}]);btns.push([L("Done","Terminé","انتهى"),end])}
+  if(s.end){btns.push([L("Start a project","Lancer un projet","ابدأ مشروعاً"),{href:"/quote/"},true]);btns.push([L("Done","Terminé","انتهى"),end])}
   else btns.push([L("Next","Suivant","التالي")+` (${i+1}/${STEPS.length})`,()=>go(i+1),true]);
   say(s.t(),s.tip&&s.tip(),btns)}
  function end(){touring=false;cancelAnimationFrame(follow);spot.hidden=true;de.classList.remove("nr-tour");home();ls.set("nour-done","1");
   say(L("Have fun exploring! Tap me any time if you need me.","Bonne visite ! Touchez-moi si besoin.","استمتع بالاستكشاف! المسني متى احتجتني."),"",[[L("OK","OK","حسناً"),hush,true]]);setTimeout(()=>{if(!touring)hush()},5000)}
  function menuBubble(){say(L("Need a hand? I can show you around or help you plan a project.","Besoin d’aide ? Je peux vous faire visiter ou vous aider à préparer un projet.","تحتاج مساعدة؟ يمكنني أن أريك المكان أو أساعدك في التخطيط لمشروعك."),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true],[L("Plan my project","Préparer mon projet","خطّط لمشروعي"),()=>{hush();window.openAssistant&&openAssistant(LG()==="ar"?"ساعدني في كتابة ملخص":LG()==="fr"?"Aidez-moi à écrire un brief":"Help me write a brief")}],[L("Not now","Plus tard","ليس الآن"),()=>{ls.set("nour-done","1");hush()}]])}
- bot.addEventListener("click",()=>{if(touring){go(step)}else if(!bub.hidden)hush();else menuBubble()});
+ bot.addEventListener("click",()=>{if(touring){go(step)}else{hush();ls.set("nour-done","1");window.openAssistant&&openAssistant()}});
  nr.querySelector(".nr-x").addEventListener("click",()=>{if(touring)end();else{ls.set("nour-done","1");hush()}});
  addEventListener("keydown",e=>{if(e.key==="Escape"&&touring)end()});
  addEventListener("resize",()=>{if(!touring)home()});home();new MutationObserver(()=>{if(!touring)home()}).observe(document.body,{attributes:true,attributeFilter:["class"]});new MutationObserver(()=>{if(!touring)home()}).observe(de,{attributes:true,attributeFilter:["class"]});
  /* greet first-time visitors once they scroll past the hero (never over the hero buttons), then step back */
  setTimeout(()=>nr.classList.add("in"),1600);
  let greeted=false;const greet=()=>{if(greeted||ls.get("nour-done")||touring||de.classList.contains("pp-open")||de.classList.contains("ai-open")||de.classList.contains("mnu-open"))return;if(document.body.classList.contains("at-top"))return;greeted=true;
-  say(L("Hi! I'm Nour. Want a quick tour of the studio?","Salut ! Je suis Nour. Une petite visite du studio ?","مرحباً! أنا نور. هل تريد جولة سريعة في الاستوديو؟"),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true],[L("Not now","Plus tard","ليس الآن"),()=>{ls.set("nour-done","1");hush()}]]);
+  say(L("Hi! I'm Nour. Tap me to ask anything, or take a quick tour.","Salut ! Je suis Nour. Touchez-moi pour poser une question, ou faites la visite.","مرحباً! أنا نور. المسني لتسألني أي شيء، أو خذ جولة سريعة."),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true]]);
   setTimeout(()=>{if(!touring)hush()},9000)};
  new MutationObserver(()=>setTimeout(greet,1200)).observe(document.body,{attributes:true,attributeFilter:["class"]});
  /* eyes follow the pointer on desktop, blink now and then */
@@ -2910,6 +2922,8 @@ document.addEventListener("click",e=>{const a=e.target.closest("a[data-pj]");if(
 })();
 </script>
 
+
+<script>/* Arabic for Nour-as-assistant strings */(()=>{const A=window.AR_T||(window.AR_T={});Object.assign(A,{"Hi! I’m Nour, the Atay Studio guide. Ask me anything about our work, or tell me what you’re making and I’ll help you plan it.":"مرحباً! أنا نور، دليل Atay Studio. اسألني أي شيء عن أعمالنا، أو أخبرني بما تحضّره وسأساعدك في التخطيط له.","Show me around":"جولة في الموقع"})})();</script>
 
 </body>
 </html>
