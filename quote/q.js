@@ -51,7 +51,14 @@ const PR={
   x:{fast:200,mg:120,vfx:250,sub:50,drone:300,vo:200,light:150,grade:120,sound:120},pk:{event:2390,social:1590,launch:4290,edit:1790,vfx:2890}},
  us:{cur:"USD",event:1500,sport:1400,reel:550,film:3500,shoot:850,photo:550,edit:450,grade:400,vfx:300,d3:1500,mg:600,
   x:{fast:250,mg:150,vfx:300,sub:60,drone:350,vo:250,light:200,grade:150,sound:150},pk:{event:2890,social:1890,launch:5190,edit:2290,vfx:3490}}};
-const DEPOSIT=40;  /* % to start */
+let DEPOSIT=40;  /* % to start */
+let SALE={pct:0,until:"",name:""},CLIENTS={};
+const ckey=n=>n.trim().toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[\s_]+/g,"-").replace(/-+/g,"-").replace(/^-|-$/g,"");
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const activeSale=()=>SALE&&+SALE.pct>0&&(!SALE.until||todayISO()<=SALE.until)?SALE:null;
+function applyData(j){if(!j)return;if(j.deposit!=null)DEPOSIT=+j.deposit;["ma","eu","us"].forEach(m=>{if(!j[m])return;Object.keys(j[m]).forEach(k=>{if(k==="x"||k==="pk")Object.assign(PR[m][k],j[m][k]);else if(k!=="cur")PR[m][k]=j[m][k]})});SALE=j.sale||SALE;CLIENTS=j.clients||{}}
+const snapshot=()=>JSON.parse(JSON.stringify({deposit:DEPOSIT,sale:SALE,clients:CLIENTS,ma:PR.ma,eu:PR.eu,us:PR.us}));
+const fmtD=(iso,l)=>{try{return new Intl.DateTimeFormat({en:"en-GB",fr:"fr-FR",ar:"ar-MA"}[l],{day:"numeric",month:"long"}).format(new Date(iso+"T12:00:00"))}catch(e){return iso}};
 /* ready-made packages: i = [service, amount, extras] */
 const PK={
  social:{m:"f",pop:1,mo:1,ic:"reel",i:[["reel",4,["sub","mg"]]],
@@ -105,9 +112,9 @@ const W={
   wa1:"مرحباً أيوب، هذا مشروعي ({id}):",waT:"المجموع: {x}",waD:"للبدء: {x}",waW:"متى: {x}",waN:"ملاحظة: {x}",waM:"عمل عن بُعد (سأرسل اللقطات)",waL:"اختياراتي: {l}",
   none:"لا يوجد رابط مشروع هنا",noneL:"اطلب رابطك الخاص من أيوب، أو راسله عبر واتساب.",goSite:"زيارة الاستوديو",
   steps:[["مكالمة التعارف","مكالمة قصيرة للاتفاق على الفكرة والأسلوب والمواعيد."],["ما قبل الإنتاج","لوحة الإلهام وقائمة اللقطات والتخطيط، كل شيء جاهز قبل البدء."],["التصوير أو لقطاتك","يصوّر أيوب في الموقع، أو يشتغل على اللقطات التي ترسلها."],["المونتاج والألوان والمؤثرات","تشاهد النسخة الأولى وترسل ملاحظاتك، ثم نُكمل اللمسة النهائية."],["التسليم","الملفات النهائية بكل الصيغ التي تحتاجها، جاهزة للنشر."]]}};
-Object.assign(W.en,{mC:"Brand collaboration or something else",mCd:"A brand partnership, sponsored content, a music video, a documentary… Tell Ayoub the idea and get a custom quote.",cus:"What are you planning?",cusL:"Pick what fits, then tell Ayoub a bit more.",cusT:["Brand collaboration","Sponsored or creator content","Music video","Documentary","Something else"],cusN:"Your idea",cusP:"The brand, the idea, where and for whom…",quote:"Custom quote",quoteL:"Ayoub replies within 24 hours with a quote made for your project.",waC:"Project type: {x}",waI:"Idea: {x}",pack:"Start with a package?",packL:"Our most chosen bundles, or build your own.",own:"Build my own",ownD:"Pick exactly what you need, one by one.",save:"Save {n}%",mo:"/ month",pop:"Most chosen",waP:"Package: {x}"});
-Object.assign(W.fr,{mC:"Collaboration de marque ou autre",mCd:"Partenariat de marque, contenu sponsorisé, clip, documentaire… Décrivez l’idée à Ayoub et recevez un devis sur mesure.",cus:"Que préparez-vous ?",cusL:"Choisissez ce qui correspond, puis dites-en un peu plus.",cusT:["Collaboration de marque","Contenu sponsorisé ou créateur","Clip musical","Documentaire","Autre chose"],cusN:"Votre idée",cusP:"La marque, l’idée, le lieu, le public…",quote:"Devis sur mesure",quoteL:"Ayoub vous répond sous 24 h avec un devis adapté à votre projet.",waC:"Type de projet : {x}",waI:"Idée : {x}",pack:"Commencer par un pack ?",packL:"Nos offres les plus choisies, ou composez la vôtre.",own:"Composer la mienne",ownD:"Choisissez exactement ce qu’il vous faut.",save:"−{n} %",mo:"/ mois",pop:"Le plus choisi",waP:"Pack : {x}"});
-Object.assign(W.ar,{mC:"تعاون مع علامة أو شيء آخر",mCd:"شراكة مع علامة، محتوى مموّل، فيديو كليب، وثائقي… أخبر أيوب بالفكرة واحصل على عرض سعر خاص.",cus:"ماذا تخطط؟",cusL:"اختر ما يناسب، ثم أخبر أيوب بالمزيد.",cusT:["تعاون مع علامة تجارية","محتوى مموّل أو صنّاع محتوى","فيديو كليب","وثائقي","شيء آخر"],cusN:"فكرتك",cusP:"العلامة، الفكرة، المكان والجمهور…",quote:"عرض سعر خاص",quoteL:"يرد أيوب خلال 24 ساعة بعرض سعر مصمَّم لمشروعك.",waC:"نوع المشروع: {x}",waI:"الفكرة: {x}",pack:"تبدأ بباقة جاهزة؟",packL:"الباقات الأكثر طلباً، أو اصنع باقتك.",own:"أصنع باقتي",ownD:"اختر ما تحتاجه بالضبط، خطوة بخطوة.",save:"وفّر {n}٪",mo:"/ شهرياً",pop:"الأكثر طلباً",waP:"الباقة: {x}"});
+Object.assign(W.en,{gift:"🎁 {n}% off, just for you",saleG:"🎁 {x}: {n}% off{u}",until:" until {d}",dYou:"Your discount ({n}%)",dSale:"{x} ({n}%)",offer:"Special offer",waX:"Discount ({n}%): −{x}",mC:"Brand collaboration or something else",mCd:"A brand partnership, sponsored content, a music video, a documentary… Tell Ayoub the idea and get a custom quote.",cus:"What are you planning?",cusL:"Pick what fits, then tell Ayoub a bit more.",cusT:["Brand collaboration","Sponsored or creator content","Music video","Documentary","Something else"],cusN:"Your idea",cusP:"The brand, the idea, where and for whom…",quote:"Custom quote",quoteL:"Ayoub replies within 24 hours with a quote made for your project.",waC:"Project type: {x}",waI:"Idea: {x}",pack:"Start with a package?",packL:"Our most chosen bundles, or build your own.",own:"Build my own",ownD:"Pick exactly what you need, one by one.",save:"Save {n}%",mo:"/ month",pop:"Most chosen",waP:"Package: {x}"});
+Object.assign(W.fr,{gift:"🎁 {n} % de remise, rien que pour vous",saleG:"🎁 {x} : −{n} %{u}",until:" jusqu’au {d}",dYou:"Votre remise ({n} %)",dSale:"{x} ({n} %)",offer:"Offre spéciale",waX:"Remise ({n} %) : −{x}",mC:"Collaboration de marque ou autre",mCd:"Partenariat de marque, contenu sponsorisé, clip, documentaire… Décrivez l’idée à Ayoub et recevez un devis sur mesure.",cus:"Que préparez-vous ?",cusL:"Choisissez ce qui correspond, puis dites-en un peu plus.",cusT:["Collaboration de marque","Contenu sponsorisé ou créateur","Clip musical","Documentaire","Autre chose"],cusN:"Votre idée",cusP:"La marque, l’idée, le lieu, le public…",quote:"Devis sur mesure",quoteL:"Ayoub vous répond sous 24 h avec un devis adapté à votre projet.",waC:"Type de projet : {x}",waI:"Idée : {x}",pack:"Commencer par un pack ?",packL:"Nos offres les plus choisies, ou composez la vôtre.",own:"Composer la mienne",ownD:"Choisissez exactement ce qu’il vous faut.",save:"−{n} %",mo:"/ mois",pop:"Le plus choisi",waP:"Pack : {x}"});
+Object.assign(W.ar,{gift:"🎁 خصم {n}٪ خاص بك",saleG:"🎁 {x}: خصم {n}٪{u}",until:" حتى {d}",dYou:"خصمك ({n}٪)",dSale:"{x} ({n}٪)",offer:"عرض خاص",waX:"الخصم ({n}٪): −{x}",mC:"تعاون مع علامة أو شيء آخر",mCd:"شراكة مع علامة، محتوى مموّل، فيديو كليب، وثائقي… أخبر أيوب بالفكرة واحصل على عرض سعر خاص.",cus:"ماذا تخطط؟",cusL:"اختر ما يناسب، ثم أخبر أيوب بالمزيد.",cusT:["تعاون مع علامة تجارية","محتوى مموّل أو صنّاع محتوى","فيديو كليب","وثائقي","شيء آخر"],cusN:"فكرتك",cusP:"العلامة، الفكرة، المكان والجمهور…",quote:"عرض سعر خاص",quoteL:"يرد أيوب خلال 24 ساعة بعرض سعر مصمَّم لمشروعك.",waC:"نوع المشروع: {x}",waI:"الفكرة: {x}",pack:"تبدأ بباقة جاهزة؟",packL:"الباقات الأكثر طلباً، أو اصنع باقتك.",own:"أصنع باقتي",ownD:"اختر ما تحتاجه بالضبط، خطوة بخطوة.",save:"وفّر {n}٪",mo:"/ شهرياً",pop:"الأكثر طلباً",waP:"الباقة: {x}"});
 const tr=(l,k,v={})=>String(W[l][k]).replace(/\{(\w+)\}/g,(_,x)=>v[x]??"");
 const LOC={en:"en-GB",fr:"fr-FR",ar:"ar-MA"};
 function money(n,cur,l){const v=Math.round(n);if(cur==="MAD"){const s=new Intl.NumberFormat(LOC[l],{maximumFractionDigits:0}).format(v);return l==="ar"?s+" درهم":s+" DH"}
@@ -131,6 +138,8 @@ function flow(name,mk){
  let l=langGuess();const P=PR[mk]||PR.ma,cur=P.cur;const M=v=>money(v,cur,l),T=(k,v)=>tr(l,k,v);
  const price=k=>P[k],xp=x=>P.x[x];
  const st={mode:null,pk:null,pick:[],q:{},x:{},when:-1,note:"",ct:[],idea:""};ORDER.forEach(k=>{st.q[k]=SV[k].def;st.x[k]=[]});
+ const myD=+(CLIENTS[ckey(name)]||0),sale=activeSale(),DISC=myD>0?myD:sale?+sale.pct:0;
+ const dLabel=()=>myD>0?T("dYou",{n:DISC}):T("dSale",{x:(sale&&sale.name)||T("offer"),n:DISC});
  const packs=m=>Object.keys(PK).filter(k=>PK[k].m===m);
  const pkVal=k=>PK[k].i.reduce((s,[sv,q,xs])=>s+q*(price(sv)+xs.reduce((a,x)=>a+xp(x),0)),0);
  const pkSave=k=>Math.round((1-P.pk[k]/pkVal(k))*100);
@@ -138,9 +147,10 @@ function flow(name,mk){
   if(st.pk&&st.pk!=="own"){s.push("when","sum");return s}
   s.push("what");st.pick.forEach(k=>s.push("q:"+k));s.push("when","sum");return s}
  let at=0,dir=1;
- function calc(){if(st.mode==="c")return{custom:1,lines:[],total:0,dep:0};if(st.pk&&st.pk!=="own"){const t=P.pk[st.pk];return{pack:st.pk,lines:[],total:t,dep:Math.round(t*DEPOSIT/100)}}
+ const fin=(o,sub)=>{const d=Math.round(sub*DISC/100),total=sub-d;return{...o,sub,d,total,dep:Math.round(total*DEPOSIT/100)}};
+ function calc(){if(st.mode==="c")return{custom:1,lines:[],total:0,dep:0};if(st.pk&&st.pk!=="own")return fin({pack:st.pk,lines:[]},P.pk[st.pk]);
   let total=0;const lines=st.pick.map(k=>{const q=st.q[k],xs=st.x[k];let t=q*price(k);xs.forEach(x=>t+=q*xp(x));total+=t;return{k,q,xs,t}});
-  return{lines,total,dep:Math.round(total*DEPOSIT/100)}}
+  return fin({lines},total)}
  app.className="w";
  function frame(){de.setAttribute("lang",l);de.setAttribute("dir",l==="ar"?"rtl":"ltr");
   app.innerHTML=`<header class="w-top"><a class="q-brand" href="/">${ICON}<b>Atay Studio</b></a><div class="q-tools"><div class="q-lang" role="group" aria-label="Language">${["en","fr","ar"].map(x=>`<button type="button" data-l="${x}" aria-pressed="${x===l}">${x==="ar"?"ع":x.toUpperCase()}</button>`).join("")}</div><button type="button" class="q-th" aria-label="Dark mode">${MOON}</button></div></header>
@@ -153,7 +163,7 @@ function flow(name,mk){
    <div class="w-pkp"><span class="w-pkv">${M(P.pk[k])}${p.mo?` <small>${T("mo")}</small>`:""}</span>${sv>=5?`<s>${M(pkVal(k))}</s><em class="w-sv">${T("save",{n:sv})}</em>`:""}</div><i class="w-ck"></i></button>`};
  function draw(){const S=steps();at=Math.max(0,Math.min(at,S.length-1));const id=S[at],stage=$(".w-stage"),C=calc();
   $(".w-prog i").style.width=(at/(S.length-1))*100+"%";let h="";
-  if(id==="hi")h=`<div class="w-hi"><img src="../img/portrait.webp" alt="" width="96" height="96" onerror="this.style.visibility='hidden'"><h1>${name?T("hi",{c:`<em>${esc(name)}</em>`}):T("hiNo")}</h1><p class="w-lead">${T("intro")}</p><p class="w-time">◷ ${T("time")}</p></div>`;
+  if(id==="hi")h=`<div class="w-hi"><img src="../img/portrait.webp" alt="" width="96" height="96" onerror="this.style.visibility='hidden'"><h1>${name?T("hi",{c:`<em>${esc(name)}</em>`}):T("hiNo")}</h1><p class="w-lead">${T("intro")}</p>${DISC?`<p class="w-gift">${myD>0?T("gift",{n:DISC}):T("saleG",{x:(sale&&sale.name)||T("offer"),n:DISC,u:sale&&sale.until?T("until",{d:fmtD(sale.until,l)}):""})}</p>`:""}<p class="w-time">◷ ${T("time")}</p></div>`;
   if(id==="mode")h=`<h2 class="w-h">${T("mode")}</h2><p class="w-l">${T("modeL")}</p><div class="w-modes">
     ${[["f","film2",T("mF"),T("mFd")],["r","remote",T("mR"),T("mRd")],["c","collab",T("mC"),T("mCd")]].map(([m,ic,t,d])=>`<button type="button" class="w-mode${st.mode===m?" on":""}" data-mode="${m}" aria-pressed="${st.mode===m}">${svg(ic,"w-mi")}<b>${t}</b><span>${d}</span>${m==="r"?`<em class="w-tag">${T("remote")}</em>`:""}<i class="w-ck"></i></button>`).join("")}</div>`;
   if(id==="pack")h=`<h2 class="w-h">${T("pack")}</h2><p class="w-l">${T("packL")}</p><div class="w-pks">${packs(st.mode).map(pkCard).join("")}
@@ -174,8 +184,9 @@ function flow(name,mk){
     <button type="button" class="w-send">${WA_I}<span>${T("send")}</span></button><p class="w-sl">${T("sendL")}</p><a class="w-call" href="/#book">${T("call")}</a><button type="button" class="w-chg">${T("change")}</button></div>`}
   else if(id==="sum"){const p=C.pack&&PK[C.pack];
    h=`<h2 class="w-h">${T("sum")}</h2><p class="w-l">${T("sumL")}</p><div class="w-sum">
-    <ul>${p?`<li class="w-lp">${svg(p.ic,"w-si")}<div><b>${p.n[LI[l]]}</b><small>${p.b[LI[l]].slice(0,3).join(" · ")}</small></div><span>${M(C.total)}${p.mo?` ${T("mo")}`:""}</span></li>`:
+    <ul>${p?`<li class="w-lp">${svg(p.ic,"w-si")}<div><b>${p.n[LI[l]]}</b><small>${p.b[LI[l]].slice(0,3).join(" · ")}</small></div><span>${M(C.sub)}${p.mo?` ${T("mo")}`:""}</span></li>`:
      C.lines.map(L=>`<li>${svg(L.k,"w-si")}<div><b>${L.q} × ${sN(L.k,l)}</b>${L.xs.length?`<small>+ ${L.xs.map(x=>xN(x,l)).join(", ")}</small>`:""}</div><span>${M(L.t)}</span></li>`).join("")}</ul>
+    ${C.d?`<div class="w-r"><span>${T("sub")}</span><b>${M(C.sub)}</b></div><div class="w-r w-dc"><span>${dLabel()}</span><b>−${M(C.d)}</b></div>`:""}
     <div class="w-big"><span>${T("total")}</span><b data-total>${M(C.total)}${p&&p.mo?`<small> ${T("mo")}</small>`:""}</b></div>
     <p class="w-dep">${T("dep",{n:DEPOSIT})}: <b>${M(C.dep)}</b></p>
     <button type="button" class="w-send">${WA_I}<span>${T("send")}</span></button><p class="w-sl">${T("sendL")}</p>
@@ -216,7 +227,7 @@ function flow(name,mk){
    window.open("https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(msg),"_blank","noopener");return thanks()}
   const body=p?[T("waP",{x:p.n[LI[l]]+" ("+M(C.total)+(p.mo?" "+T("mo"):"")+")"}),...p.b[LI[l]].slice(0,3).map(x=>"• "+x)]
    :C.lines.map(L=>"• "+L.q+" × "+sN(L.k,l)+(L.xs.length?" (+ "+L.xs.map(x=>xN(x,l)).join(", ")+")":"")+": "+M(L.t));
-  const msg=[T("wa1",{id:name||"—"}).replace(" ()",""),...(st.mode==="r"?[T("waM")]:[]),...body,"",T("waT",{x:M(C.total)+(p&&p.mo?" "+T("mo"):"")}),T("waD",{x:M(C.dep)}),st.when>=0?T("waW",{x:W[l].whenO[st.when]}):null,st.note.trim()?T("waN",{x:st.note.trim()}):null].filter(x=>x!==null).join("\n");
+  const msg=[T("wa1",{id:name||"—"}).replace(" ()",""),...(st.mode==="r"?[T("waM")]:[]),...body,"",C.d?T("waX",{n:DISC,x:M(C.d)}):null,T("waT",{x:M(C.total)+(p&&p.mo?" "+T("mo"):"")}),T("waD",{x:M(C.dep)}),st.when>=0?T("waW",{x:W[l].whenO[st.when]}):null,st.note.trim()?T("waN",{x:st.note.trim()}):null].filter(x=>x!==null).join("\n");
   window.open("https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(msg),"_blank","noopener");
   thanks()}
  function thanks(){
@@ -227,45 +238,109 @@ function flow(name,mk){
 
 /* ======================================================================
    LINK MAKER (Ayoub)   atayknight.com/quote/#edit
+   Prices, offers and client discounts live in quote/prices.json on GitHub.
+   Saving writes that file with Ayoub's own GitHub key (kept only in his browser).
    ====================================================================== */
 const hist=()=>{try{return JSON.parse(store.get("atq:hist3")||"[]")}catch(e){return[]}};
+const GH={repo:"atayknight/atay",branch:"gh-pages",path:"quote/prices.json"};
+const b64u=s=>btoa(unescape(encodeURIComponent(s))),u64=s=>decodeURIComponent(escape(atob(s.replace(/\s/g,""))));
+async function publish(change,why){const tok=store.get("atq:gh");if(!tok)throw new Error("token");
+ const api=`https://api.github.com/repos/${GH.repo}/contents/${GH.path}`,h={Authorization:"Bearer "+tok,Accept:"application/vnd.github+json"};
+ const r=await fetch(api+"?ref="+GH.branch+"&t="+Date.now(),{headers:h,cache:"no-store"});
+ if(r.status===401||r.status===403)throw new Error("auth");
+ let sha,cur=snapshot();if(r.ok){const j=await r.json();sha=j.sha;try{cur=JSON.parse(u64(j.content))}catch(e){}}else if(r.status!==404)throw new Error("net");
+ change(cur);
+ const w=await fetch(api,{method:"PUT",headers:{...h,"Content-Type":"application/json"},body:JSON.stringify({message:why,content:b64u(JSON.stringify(cur,null,1)+"\n"),branch:GH.branch,sha})});
+ if(w.status===401||w.status===403||w.status===404)throw new Error("auth");if(!w.ok)throw new Error("net");applyData(cur);return cur}
 function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");document.title="Client link · Atay Studio";app.className="mk";
- let mkt="";
- app.innerHTML=`<header class="w-top"><span class="q-brand">${ICON}<b>Atay Studio</b></span><div class="q-tools"><button type="button" class="mk-l" data-open="hist">Sent <i class="e-hn"></i></button><button type="button" class="mk-l" data-open="prices">Prices</button></div></header>
+ let mkt="",disc=0;
+ const DSEG=[0,5,10,15,20];
+ app.innerHTML=`<header class="w-top"><span class="q-brand">${ICON}<b>Atay Studio</b></span><div class="q-tools"><button type="button" class="mk-l" data-open="hist">Sent <i class="e-hn"></i></button><button type="button" class="mk-l" data-open="prices">Prices &amp; offers</button></div></header>
  <div class="mk-wrap"><h1>Client link</h1><p class="mk-sub">Type the client’s name and send. They pick a package or build their own, and see the price.</p>
+  <div class="mk-sale" hidden></div>
   <section class="mk-card"><label class="mk-f"><span>Client name</span><input class="mk-c" placeholder="e.g. Kenza" autocomplete="off" autocapitalize="words"></label>
+   <div class="mk-f"><span>Discount for this client</span><div class="mk-seg mk-ds">${DSEG.map(d=>`<button type="button" data-d="${d}" aria-pressed="${d===0}">${d?d+"%":"None"}</button>`).join("")}<input class="mk-dn" type="number" min="0" max="90" placeholder="Other %" aria-label="Other discount"></div>
+    <p class="mk-hint mk-dh">Saved with the client’s name, so the link stays short.</p></div>
    <p class="mk-link"><span>Their link</span><b>atayknight.com/quote/</b></p>
    <details class="mk-more"><summary>Prices shown</summary><div class="mk-seg">${[["","Auto"],["ma","Morocco DH"],["eu","Europe €"],["us","USA $"]].map(([v,t])=>`<button type="button" data-m="${v}" aria-pressed="${v===""}">${t}</button>`).join("")}</div>
     <p class="mk-hint">Auto shows DH to clients in Morocco, € in Europe and the rest of the world, $ in the Americas.</p></details></section>
   <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-act="wa">${WA_I} Send on WhatsApp</button><button type="button" class="mk-btn" data-act="copy">Copy link</button><button type="button" class="mk-btn mk-gh" data-act="open">Preview</button></div>
+  <p class="mk-gh-st"></p>
  </div><div class="e-toast" role="status" aria-live="polite"></div><div class="e-modal" hidden></div>`;
  const inp=$(".mk-c"),url=()=>"https://"+LINK(inp.value)+(mkt&&inp.value.trim()?"@"+mkt:mkt?"#@"+mkt:"");
- const showLink=()=>{$(".mk-link b").textContent=url().replace("https://","")};inp.addEventListener("input",showLink);
- const toast=t=>{const el=$(".e-toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),2600)};
+ const setDisc=d=>{disc=Math.max(0,Math.min(90,+d||0));$$(".mk-ds button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.d===disc&&(DSEG.includes(disc))));if(!DSEG.includes(disc))$(".mk-dn").value=disc;else $(".mk-dn").value=""};
+ const showLink=()=>{$(".mk-link b").textContent=url().replace("https://","");const k=ckey(inp.value);if(k&&CLIENTS[k]!=null&&!inp._touchedDisc)setDisc(CLIENTS[k])};
+ inp.addEventListener("input",()=>{inp._touchedDisc=false;showLink()});
+ const toast=(t,ms)=>{const el=$(".e-toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),ms||2800)};
  const hn=()=>{$(".e-hn").textContent=hist().length||""};hn();
+ const ghState=()=>{$(".mk-gh-st").innerHTML=store.get("atq:gh")?`<span class="mk-dot ok"></span>GitHub connected: price changes and discounts save to your site. <button type="button" class="mk-a" data-open="gh">Change</button>`:`<span class="mk-dot"></span>To save price changes and discounts, <button type="button" class="mk-a" data-open="gh">connect GitHub</button> once.`};ghState();
+ const saleBox=()=>{const s=activeSale(),b=$(".mk-sale");b.hidden=!s;if(s)b.innerHTML=`🎁 Offer on now: <b>${s.pct}% off</b>${s.until?" until "+fmtD(s.until,"en"):""}. Clients see it unless they have their own discount.`};saleBox();
  const copy=t=>{if(navigator.clipboard&&isSecureContext)navigator.clipboard.writeText(t).catch(()=>fb(t));else fb(t)};
  const fb=t=>{const ta=document.createElement("textarea");ta.value=t;ta.style.cssText="position:fixed;opacity:0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}ta.remove()};
- function remember(u){const n=inp.value.trim()||"(no name)";const h=hist().filter(x=>x.url!==u);h.unshift({c:n,d:new Date().toISOString().slice(0,10),url:u});store.set("atq:hist3",JSON.stringify(h.slice(0,80)));hn()}
+ function remember(u){const n=inp.value.trim()||"(no name)";const h=hist().filter(x=>x.url!==u);h.unshift({c:n,d:new Date().toISOString().slice(0,10),url:u,disc});store.set("atq:hist3",JSON.stringify(h.slice(0,80)));hn()}
  const msg=u=>{const n=inp.value.trim();return `${n?"Hi "+n+"! ":"Hi! "}Here is your project link from Atay Studio. Pick a package or build your own, and you'll see the price straight away:\n${u}`};
- app.onclick=e=>{const t=e.target;
+ const errMsg=e=>e.message==="token"?"Connect GitHub first to save it":e.message==="auth"?"GitHub said no: check your key in “connect GitHub”":"Couldn’t reach GitHub. Try again in a moment";
+ async function saveDisc(){const k=ckey(inp.value);if(!k){if(disc){toast("Add the client’s name to give a discount");return false}return true}
+  if((CLIENTS[k]||0)===disc)return true;
+  if(!store.get("atq:gh")){connect("To save a client discount, connect GitHub once.");return false}
+  toast("Saving the discount…",8000);
+  try{await publish(d=>{d.clients=d.clients||{};if(disc)d.clients[k]=disc;else delete d.clients[k]},`Discount for ${inp.value.trim()}: ${disc}%`);toast(disc?`${disc}% saved for ${inp.value.trim()}. Live in about a minute.`:"Discount removed");return true}
+  catch(e){toast(errMsg(e));return false}}
+ app.onclick=async e=>{const t=e.target;
   const m=t.closest("[data-m]");if(m){mkt=m.dataset.m;$$("[data-m]").forEach(b=>b.setAttribute("aria-pressed",b===m));showLink();return}
-  const a=t.closest("[data-act]");if(a){const u=url();remember(u);
+  const d=t.closest(".mk-ds [data-d]");if(d){inp._touchedDisc=true;setDisc(d.dataset.d);return}
+  const a=t.closest("[data-act]");if(a){const u=url();const w=a.dataset.act==="wa"||a.dataset.act==="open"?window.open("about:blank","_blank"):null;
+   const ok=await saveDisc();if(!ok){if(w)w.close();return}remember(u);
    if(a.dataset.act==="copy"){copy(u);toast("Link copied")}
-   if(a.dataset.act==="open")window.open(u,"_blank","noopener");
-   if(a.dataset.act==="wa")window.open("https://wa.me/?text="+encodeURIComponent(msg(u)),"_blank","noopener");return}
-  const op=t.closest("[data-open]");if(op)op.dataset.open==="prices"?prices():sent()};
- function sheet(html){const m=$(".e-modal");m.hidden=false;m.innerHTML=`<div class="e-mc" role="dialog" aria-modal="true">${html}</div>`;m.onclick=e=>{if(e.target===m||e.target.closest("[data-x]"))m.hidden=true};return m}
+   if(a.dataset.act==="open"&&w)w.location=u;
+   if(a.dataset.act==="wa"&&w)w.location="https://wa.me/?text="+encodeURIComponent(msg(u));return}
+  const op=t.closest("[data-open]");if(op){const k=op.dataset.open;k==="prices"?prices():k==="gh"?connect():sent()}};
+ app.addEventListener("input",e=>{if(e.target.matches(".mk-dn")){inp._touchedDisc=true;disc=Math.max(0,Math.min(90,+e.target.value||0));$$(".mk-ds button").forEach(b=>b.setAttribute("aria-pressed",false))}});
+ function sheet(html){const md=$(".e-modal");md.hidden=false;md.innerHTML=`<div class="e-mc" role="dialog" aria-modal="true">${html}</div>`;md.onclick=e=>{if(e.target===md||e.target.closest("[data-x]"))md.hidden=true};const mc=md.firstElementChild;mc.close=()=>{md.hidden=true};return mc}
  function sent(){const h=hist();sheet(`<div class="e-mh"><b>Sent links</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div>
-  ${h.length?`<ul class="e-hl">${h.map(x=>`<li><div><b>${esc(x.c)}</b><span>${esc(x.d)} · ${esc(x.url.replace("https://",""))}</span></div><button type="button" class="mk-btn mk-sm" data-cp="${esc(x.url)}">Copy</button></li>`).join("")}</ul>`:`<p class="mk-hint">Links you send or copy appear here.</p>`}`).addEventListener("click",e=>{const c=e.target.closest("[data-cp]");if(c){copy(c.dataset.cp);toast("Link copied")}})}
- function prices(){const mk=["ma","eu","us"],hd=`<tr><th></th><th>Morocco</th><th>Europe</th><th>USA</th></tr>`,f=(m,v)=>money(v,PR[m].cur,"en");
-  const row=(name,get)=>`<tr><td>${name}</td>${mk.map(m=>`<td>${f(m,get(PR[m]))}</td>`).join("")}</tr>`;
-  sheet(`<div class="e-mh"><b>Prices</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div><p class="mk-hint">What clients see, by where they are. Deposit to start: ${DEPOSIT}%. To change a price, tell Claude.</p>
-   <div class="mk-tw"><table class="mk-tb"><thead>${hd}</thead><tbody>
-   <tr class="mk-th"><td colspan="4">Packages</td></tr>${Object.keys(PK).map(k=>row(PK[k].n[0]+(PK[k].mo?" (month)":""),P=>P.pk[k])).join("")}
-   <tr class="mk-th"><td colspan="4">Filming</td></tr>${ORDER.filter(k=>SV[k].m==="f").map(k=>row(SV[k].n[0]+" / "+SV[k].u[0][0],P=>P[k])).join("")}
-   <tr class="mk-th"><td colspan="4">Remote</td></tr>${ORDER.filter(k=>SV[k].m==="r").map(k=>row(SV[k].n[0]+" / "+SV[k].u[0][0],P=>P[k])).join("")}
-   <tr class="mk-th"><td colspan="4">Extras (each)</td></tr>${Object.keys(XT).map(x=>row(XT[x].n[0],P=>P.x[x])).join("")}
-   </tbody></table></div>`)}
+  ${h.length?`<ul class="e-hl">${h.map(x=>`<li><div><b>${esc(x.c)}${x.disc?` <em class="mk-pill">−${x.disc}%</em>`:""}</b><span>${esc(x.d)} · ${esc(x.url.replace("https://",""))}</span></div><button type="button" class="mk-btn mk-sm" data-cp="${esc(x.url)}">Copy</button></li>`).join("")}</ul>`:`<p class="mk-hint">Links you send or copy appear here.</p>`}`).addEventListener("click",e=>{const c=e.target.closest("[data-cp]");if(c){copy(c.dataset.cp);toast("Link copied")}})}
+ function connect(why){const has=!!store.get("atq:gh");
+  const m=sheet(`<div class="e-mh"><b>Connect GitHub</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div>
+   ${why?`<p class="mk-warn">${esc(why)}</p>`:""}<p class="mk-hint">Your prices live in a small file on your website. A GitHub key lets this page update that file for you. The key stays only in this browser. Do this once on each device you use.</p>
+   <ol class="mk-steps"><li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → New fine-grained token</a> (signed in as atayknight).</li>
+   <li>Name it <b>Atay prices</b>, expiration <b>1 year</b>.</li><li>Repository access: <b>Only select repositories</b> → <b>atay</b>.</li>
+   <li>Permissions → Repository → <b>Contents: Read and write</b>.</li><li>Generate, copy the key and paste it here.</li></ol>
+   <label class="mk-pr mk-key2"><span>GitHub key</span><input type="password" class="mk-tok" placeholder="${has?"Saved. Paste a new one to replace it":"github_pat_…"}" autocomplete="off"></label>
+   <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-save>Save and test</button>${has?`<button type="button" class="mk-btn mk-gh" data-forget>Disconnect</button>`:""}</div>`);
+  m.addEventListener("click",async e=>{if(e.target.closest("[data-forget]")){store.set("atq:gh","");try{localStorage.removeItem("atq:gh")}catch(_){ }m.close();ghState();toast("Disconnected");return}
+   if(!e.target.closest("[data-save]"))return;const v=$(".mk-tok",m).value.trim();if(v.length<20){toast("Paste the whole key");return}
+   toast("Testing the key…",8000);
+   try{const r=await fetch(`https://api.github.com/repos/${GH.repo}`,{headers:{Authorization:"Bearer "+v,Accept:"application/vnd.github+json"},cache:"no-store"});const j=r.ok?await r.json():null;
+    if(!j||!j.permissions||!j.permissions.push)throw 0;store.set("atq:gh",v);m.close();ghState();toast("Connected. You can now save prices and discounts.")}catch(_){toast("That key doesn’t have write access to atay. Check step 3 and 4.")}})}
+ function prices(){const mk=["ma","eu","us"],D=snapshot();
+  const cell=(m,path)=>{const v=path.split(".").reduce((o,k)=>o&&o[k],D[m]);return `<td><input type="number" min="0" step="10" data-mk="${m}" data-p="${path}" value="${v??""}" aria-label="${m} ${path}"></td>`};
+  const row=(name,path)=>`<tr><td>${name}</td>${mk.map(m=>cell(m,path)).join("")}</tr>`;
+  const cl=Object.entries(D.clients||{});
+  const s=D.sale||{};
+  const m=sheet(`<div class="e-mh"><b>Prices &amp; offers</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div>
+   <h4>Offer for everyone</h4><p class="mk-hint">A discount on every client link, for example during Ramadan or a launch. Leave it at 0 for no offer. A client’s own discount replaces it.</p>
+   <div class="mk-row3"><label class="mk-pr"><span>Discount %</span><input type="number" min="0" max="90" data-sale="pct" value="${s.pct||0}"></label><label class="mk-pr"><span>Ends on <small>optional</small></span><input type="date" data-sale="until" value="${esc(s.until||"")}"></label><label class="mk-pr"><span>Name <small>optional</small></span><input type="text" data-sale="name" placeholder="e.g. Ramadan offer" value="${esc(s.name||"")}"></label></div>
+   ${cl.length?`<h4>Client discounts</h4><ul class="e-hl mk-cl">${cl.map(([k,v])=>`<li><div><b>${esc(k.replace(/-/g," "))}</b></div><em class="mk-pill">−${v}%</em><button type="button" class="mk-btn mk-sm" data-rm="${esc(k)}">Remove</button></li>`).join("")}</ul>`:""}
+   <h4>Deposit to start</h4><label class="mk-pr"><span>% of the total</span><input type="number" min="0" max="100" data-dep value="${D.deposit}"></label>
+   <h4>Prices</h4><p class="mk-hint">Morocco in DH, Europe in €, USA in $. Packages show their saving against the single prices automatically.</p>
+   <div class="mk-tw"><table class="mk-tb mk-ed"><thead><tr><th></th><th>DH</th><th>€</th><th>$</th></tr></thead><tbody>
+   <tr class="mk-th"><td colspan="4">Packages</td></tr>${Object.keys(PK).map(k=>row(PK[k].n[0]+(PK[k].mo?" /month":""),"pk."+k)).join("")}
+   <tr class="mk-th"><td colspan="4">Filming</td></tr>${ORDER.filter(k=>SV[k].m==="f").map(k=>row(SV[k].n[0]+" /"+SV[k].u[0][0],k)).join("")}
+   <tr class="mk-th"><td colspan="4">Remote</td></tr>${ORDER.filter(k=>SV[k].m==="r").map(k=>row(SV[k].n[0]+" /"+SV[k].u[0][0],k)).join("")}
+   <tr class="mk-th"><td colspan="4">Extras</td></tr>${Object.keys(XT).map(x=>row(XT[x].n[0],"x."+x)).join("")}
+   </tbody></table></div>
+   <div class="mk-act mk-stick"><button type="button" class="mk-btn mk-pri" data-save>Save and publish</button></div>`);
+  const rmd=new Set();
+  m.addEventListener("click",async e=>{const rm=e.target.closest("[data-rm]");if(rm){rmd.add(rm.dataset.rm);rm.closest("li").remove();return}
+   if(!e.target.closest("[data-save]"))return;
+   if(!store.get("atq:gh")){connect("To publish prices, connect GitHub once.");return}
+   const sale={pct:+($('[data-sale="pct"]',m).value)||0,until:$('[data-sale="until"]',m).value||"",name:$('[data-sale="name"]',m).value.trim()};
+   const dep=Math.max(0,Math.min(100,+$("[data-dep]",m).value||0));
+   const vals=$$("[data-mk]",m).map(i=>[i.dataset.mk,i.dataset.p,+i.value]).filter(x=>x[2]>0);
+   toast("Publishing…",9000);
+   try{await publish(d=>{d.sale=sale;d.deposit=dep;d.clients=d.clients||{};rmd.forEach(k=>delete d.clients[k]);
+     vals.forEach(([mk,p,v])=>{d[mk]=d[mk]||JSON.parse(JSON.stringify(PR[mk]));const ks=p.split(".");let o=d[mk];for(let i=0;i<ks.length-1;i++)o=o[ks[i]]=o[ks[i]]||{};o[ks.at(-1)]=v})},"Update prices and offers");
+    m.close();saleBox();toast("Published. Live on your site in about a minute.",4000)}catch(err){toast(errMsg(err))}})}
 }
 
 /* ---------- router ---------- */
@@ -276,5 +351,5 @@ function route(){let h=decodeURIComponent(location.hash.slice(1)||"");
  else{const m=h.match(/@(ma|eu|us)$/);if(m){mk=m[1];h=h.slice(0,-3)}name=h.replace(/[-_]+/g," ").trim().slice(0,60)}
  flow(name,mk||autoMarket())}
 addEventListener("hashchange",()=>location.reload());
-route();
+fetch("prices.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null).then(j=>{applyData(j);route()});
 })();
