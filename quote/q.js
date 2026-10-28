@@ -429,15 +429,20 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
   const m=sheet(`<div class="e-mh"><b>Connect GitHub</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div>
    ${why?`<p class="mk-warn">${esc(why)}</p>`:""}<p class="mk-hint">Your prices live in a small file on your website. A GitHub key lets this page update that file for you. The key stays only in this browser. Do this once on each device you use.</p>
    <ol class="mk-steps"><li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → New fine-grained token</a> (signed in as atayknight).</li>
-   <li>Name it <b>Atay prices</b>, expiration <b>1 year</b>.</li><li>Repository access: <b>Only select repositories</b> → <b>atay</b>.</li>
+   <li>Name it <b>Atay prices</b>, expiration <b>1 year</b>.</li><li>Repository access: <b>Only select repositories</b> → <b>atay</b> and <b>atay-clients</b>.</li>
    <li>Permissions → Repository → <b>Contents: Read and write</b>.</li><li>Generate, copy the key and paste it here.</li></ol>
    <label class="mk-pr mk-key2"><span>GitHub key</span><input type="password" class="mk-tok" placeholder="${has?"Saved. Paste a new one to replace it":"github_pat_…"}" autocomplete="off"></label>
    <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-save>Save and test</button>${has?`<button type="button" class="mk-btn mk-gh" data-forget>Disconnect</button>`:""}</div>`);
   m.addEventListener("click",async e=>{if(e.target.closest("[data-forget]")){store.set("atq:gh","");try{localStorage.removeItem("atq:gh")}catch(_){ }m.close();ghState();toast("Disconnected");return}
-   if(!e.target.closest("[data-save]"))return;const v=$(".mk-tok",m).value.trim();if(v.length<20){toast("Paste the whole key");return}
-   toast("Testing the key…",8000);
-   try{const r=await fetch(`https://api.github.com/repos/${GH.repo}`,{headers:{Authorization:"Bearer "+v,Accept:"application/vnd.github+json"},cache:"no-store"});const j=r.ok?await r.json():null;
-    if(!j||!j.permissions||!j.permissions.push)throw 0;store.set("atq:gh",v);m.close();ghState();toast("Connected. You can now save prices and discounts.")}catch(_){toast("That key doesn’t have write access to atay. Check step 3 and 4.")}})}
+   if(!e.target.closest("[data-save]"))return;const v=$(".mk-tok",m).value.replace(/\s+/g,"");if(v.length<20){toast("Paste the whole key (it starts with github_pat_)");return}
+   toast("Testing the key…",8000);let r;
+   try{r=await fetch(`https://api.github.com/repos/${GH.repo}`,{headers:{Authorization:"Bearer "+v,Accept:"application/vnd.github+json"},cache:"no-store"})}catch(_){toast("Couldn’t reach GitHub. Check your internet and try again.",6000);return}
+   if(r.status===401){toast("GitHub doesn’t recognise this key. Copy it again with the copy button and paste it whole.",7000);return}
+   if(r.status===404||r.status===403){toast("This key can’t see the atay repository. In the key settings, add atay under Repository access.",7000);return}
+   const j=r.ok?await r.json().catch(()=>null):null;
+   if(j&&j.permissions&&j.permissions.push===false){toast("This key can only read. Set Contents to Read and write.",7000);return}
+   if(!r.ok){toast("GitHub answered "+r.status+". Try again in a moment.",6000);return}
+   store.set("atq:gh",v);m.close();ghState();toast("Connected. You can now save prices, discounts and clients.",4000)})}
  async function clients(){const m=sheet(`<div class="e-mh"><b>Clients · Atay Circle</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div><p class="mk-hint">Loading…</p>`);
   const box=await crmGet();let q="";
   const tot=c=>{const o={};(c.pr||[]).forEach(p=>o[p.c]=(o[p.c]||0)+(+p.a||0));return Object.entries(o).map(([c,a])=>money(a,c,"en")).join(" + ")||"—"};
