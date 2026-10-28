@@ -1730,7 +1730,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
 <header class="hudbar" id="hud">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Atay Studio, back to the showreel"><span class="mark" aria-hidden="true"></span><span class="n">Atay Studio</span></a>
-    <nav class="hnav" aria-label="Sections"><a href="#work" data-i18n="nav-w">Work</a><a href="#process" data-i18n="nav-s">Skills</a><a href="#clients" data-i18n="nav-c">Clients</a><a href="#studio" data-i18n="nav-p">Profile</a><a href="#contact" data-i18n="nav-k">Contact</a><a href="#book" data-i18n="nav-b">Book a call</a></nav>
+    <nav class="hnav" aria-label="Sections"><a href="#work" data-i18n="nav-w">Work</a><a href="#process" data-i18n="nav-s">Skills</a><a href="#clients" data-i18n="nav-c">Clients</a><a href="#studio" data-i18n="nav-p">Profile</a><a href="#book" data-i18n="nav-b">Book a call</a><a href="#contact" data-i18n="nav-k">Contact</a></nav>
     <div class="xp"><div class="t px"><b id="lvl-name">Lobby · World map</b><span id="xp-n">XP 0%</span></div><div class="bar"><i id="xp-bar"></i></div></div>
     <button class="hchip" id="coins-btn" type="button" aria-label="Coins collected"><span class="coin" aria-hidden="true"></span><span id="coins">000</span></button>
     <button class="hchip" id="quest-btn" type="button" aria-expanded="false" aria-controls="qlog"><span class="keys" id="hkeys"></span><span id="quest-n">0/3</span></button>
@@ -1853,7 +1853,13 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
     </div>
   </section>
 
-  <section class="sec" id="contact">
+  <section class="sec" id="book" aria-labelledby="bk-h"><div class="wrap">
+    <div class="bk-head"><h2 class="bk-h" id="bk-h">Book a call.</h2><p class="bk-l"></p></div>
+    <div class="bk-card"><div class="bk-cal"><div class="bk-top"><span class="bk-mo"></span><span class="bk-nav"><button type="button" class="bk-prev">‹</button><button type="button" class="bk-next">›</button></span></div><div class="bk-wk"></div><div class="bk-grid"></div></div><div class="bk-side" aria-live="polite"></div></div>
+    <p class="bk-note2"></p>
+    <div class="bk-proc"><h2 class="bk-ph"></h2><p class="bk-pl"></p><ol class="bk-steps"></ol></div>
+  </div></section>
+<section class="sec" id="contact">
     <div class="wrap">
       <div class="contact">
         <div class="marquee px"><span>Atay Arcade</span><span>Credits: 1 · Players: 1-∞</span></div>
@@ -1879,12 +1885,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
       </div>
     </div>
   </section>
-  <section class="sec" id="book" aria-labelledby="bk-h"><div class="wrap">
-    <div class="bk-head"><h2 class="bk-h" id="bk-h">Book a call.</h2><p class="bk-l"></p></div>
-    <div class="bk-card"><div class="bk-cal"><div class="bk-top"><span class="bk-mo"></span><span class="bk-nav"><button type="button" class="bk-prev">‹</button><button type="button" class="bk-next">›</button></span></div><div class="bk-wk"></div><div class="bk-grid"></div></div><div class="bk-side" aria-live="polite"></div></div>
-    <p class="bk-note2"></p>
-    <div class="bk-proc"><h2 class="bk-ph"></h2><p class="bk-pl"></p><ol class="bk-steps"></ol></div>
-  </div></section>
+  
 </main>
 <!--SEO-FOOT-START--><div class="seo-foot"><div class="wrap sf-grid">
  <div class="sf-about"><b>Atay Studio</b><p>Atay Studio is the film studio of <strong>Ayoub Ouazzou</strong> (Atay Knight), a director of photography, video editor, colorist and 3D/VFX artist based in <strong>Marrakech, Morocco</strong>. We shoot and finish tourism films, commercials, social campaigns, festival recaps and hotel films across Morocco, and work remotely with clients worldwide, in Arabic, English and French.</p></div>
@@ -2651,7 +2652,7 @@ HOW TO BEHAVE:
   tour:["Take the tour with Nour","Visite guidée avec Nour","جولة مع نور"],trust:["Trusted by brands, festivals and tourism boards","Ils nous font confiance : marques, festivals et offices du tourisme","علامات تجارية ومهرجانات ومكاتب سياحة وثقت بنا"]};
  const t=k=>TX[k][LG()==="fr"?1:LG()==="ar"?2:0];
  const WA="https://wa.me/212699146214?text="+encodeURIComponent("Hi Atay Studio, I'd like to talk about a project.");
- const NAV=[["work","nav-w","Work"],["process","nav-s","Skills"],["clients","nav-c","Clients"],["studio","nav-p","Profile"],["contact","nav-k","Contact"],["book","nav-b","Book a call"]];
+ const NAV=[["work","nav-w","Work"],["process","nav-s","Skills"],["clients","nav-c","Clients"],["studio","nav-p","Profile"],["book","nav-b","Book a call"],["contact","nav-k","Contact"]];
  const navLabel=n=>{const a=document.querySelector(`.hnav a[href="#${n[0]}"]`);return a?a.textContent:n[2]};
 
  /* menu button + sheet */
@@ -2713,8 +2714,8 @@ HOW TO BEHAVE:
   {sel:".svc-list",t:()=>L("Four crafts under one roof: shoot, edit, colour and VFX. One team, one look, from set to screen.","Quatre métiers sous un même toit : tournage, montage, couleur et VFX. Une équipe, un regard.","أربع حِرف تحت سقف واحد: تصوير، مونتاج، تلوين ومؤثرات. فريق واحد ورؤية واحدة.")},
   {sel:"#cs-grid",t:()=>L("Pick a client to see what we made for them.","Choisissez un client pour voir ce que nous avons fait pour lui.","اختر عميلاً لترى ما صنعناه له.")},
   {sel:"#studio .pcard",t:()=>L("This is Ayoub, the founder. He shoots, edits, grades and builds the VFX himself.","Voici Ayoub, le fondateur. Il filme, monte, étalonne et crée les VFX lui-même.","هذا أيوب، المؤسس. يصوّر ويُمنتج ويلوّن ويصنع المؤثرات بنفسه.")},
-  {sel:"#req",t:()=>L("Ready? Tell us the idea, the dates and the place. Your message is written for you, just hit send.","Prêt ? Dites-nous l’idée, les dates et le lieu. Le message est prêt, il suffit de l’envoyer.","جاهز؟ أخبرنا بالفكرة والمواعيد والمكان. الرسالة تُكتب لك، فقط اضغط إرسال.")},
-  {sel:"#book .bk-card",t:()=>L("Prefer to talk first? Pick a day for a call. Just below, you can see every step once we agree on a project.","Vous préférez en parler d’abord ? Choisissez un jour pour un appel. Juste en dessous, toutes les étapes une fois le projet validé.","تفضّل الحديث أولاً؟ اختر يوماً لمكالمة. وتحتها مباشرة كل الخطوات بعد الاتفاق على المشروع."),end:true}];
+  {sel:"#book .bk-cw,#book .bk-card",t:()=>L("Prefer to talk first? Pick a day for a call. Just below: every step once we agree, including your interactive proposal.","Vous préférez en parler d’abord ? Choisissez un jour pour un appel. Juste en dessous : toutes les étapes, dont votre devis interactif.","تفضّل الحديث أولاً؟ اختر يوماً لمكالمة. وتحتها كل الخطوات بعد الاتفاق، ومنها عرضك التفاعلي.")},
+  {sel:"#req",t:()=>L("Ready? Tell us the idea, the dates and the place. Your message is written for you, just hit send.","Prêt ? Dites-nous l’idée, les dates et le lieu. Le message est prêt, il suffit de l’envoyer.","جاهز؟ أخبرنا بالفكرة والمواعيد والمكان. الرسالة تُكتب لك، فقط اضغط إرسال."),end:true}];
 
  /* the character */
  const nr=document.createElement("div");nr.className="nour";nr.setAttribute("aria-live","polite");
@@ -2852,7 +2853,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("a[data-pj]");if(
  /* the process, after a project is agreed */
  const STEPS=()=>[
   [L("Discovery call","Appel découverte","مكالمة التعارف"),L("We talk about your goal, your audience, the places and the dates.","On parle de votre objectif, de votre public, des lieux et des dates.","نتحدث عن هدفك وجمهورك والأماكن والمواعيد.")],
-  [L("Proposal and quote","Proposition et devis","العرض والتسعيرة"),L("You get a clear plan: the idea, what we deliver, the schedule and the price.","Vous recevez un plan clair : l’idée, les livrables, le planning et le prix.","تتوصل بخطة واضحة: الفكرة، ما سنسلّمه، الجدول والسعر.")],
+  [L("Proposal and quote","Proposition et devis","العرض والتسعيرة"),L("You get an interactive proposal: slide and tap to choose what you need, and watch the price update live.","Vous recevez une proposition interactive : choisissez ce qu’il vous faut avec des curseurs et voyez le prix en direct.","تتوصل بعرض تفاعلي: اختر ما تحتاجه بالمؤشرات وشاهد السعر يتحدث مباشرة.")],
   [L("Pre-production","Pré-production","ما قبل الإنتاج"),L("Concept, moodboard, shot list, locations, crew and permits, all set before the shoot.","Concept, moodboard, liste de plans, lieux, équipe et autorisations, prêts avant le tournage.","الفكرة، لوحة الإلهام، قائمة اللقطات، الأماكن، الفريق والتراخيص، كلها جاهزة قبل التصوير.")],
   [L("The shoot","Le tournage","التصوير"),L("Ayoub films on location with the crew and gear the project needs.","Ayoub filme sur place avec l’équipe et le matériel nécessaires.","يصوّر أيوب في الموقع بالفريق والمعدات التي يحتاجها المشروع.")],
   [L("Edit and first cut","Montage et premier jet","المونتاج والنسخة الأولى"),L("You watch the first cut and send your notes. We refine it together.","Vous regardez le premier montage et envoyez vos retours. On l’affine ensemble.","تشاهد النسخة الأولى وترسل ملاحظاتك، ونحسّنها معاً.")],
