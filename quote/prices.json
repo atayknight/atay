@@ -5,7 +5,9 @@
   "until": "",
   "name": ""
  },
- "clients": {},
+ "clients": {
+  "k1hz8oc89z2a": 20
+ },
  "ma": {
   "cur": "MAD",
   "event": 7000,
