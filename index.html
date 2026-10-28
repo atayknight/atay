@@ -1497,6 +1497,7 @@ html[data-theme=dark] .hx-go:hover{background-color:#fff!important}
 @media (max-width:1180px) and (min-width:761px){.hudbar .wrap .brand{margin-right:auto}}
 /* phones: keep it calm and focused */
 @media (max-width:760px){.ach,.coinpop,#boot,.lh .q,.stamp,#qlog,.contact .press{display:none!important}.estar{display:inline-block!important;padding:10px;margin:-10px}}
+
 /* ===== PHONE + TABLET navigation, dock, trusted-by strip ===== */
 .mnu-btn{display:none;align-items:center;gap:8px;flex:none;height:36px;padding:0 14px 0 12px;border:0;border-radius:99px;cursor:pointer;background:rgba(0,0,0,.06);color:#1D1D1F;font:600 13px/1 var(--body)}
 .mnu-btn .bars{position:relative;width:16px;height:10px}
@@ -1573,6 +1574,37 @@ html[data-theme=dark] .trust{background:#000}html[data-theme=dark] .trust .ti{co
 @media (prefers-reduced-motion:reduce){.tr-t{animation:none;flex-wrap:wrap;width:auto;justify-content:center}.tr-t .ti:nth-child(n+14){display:none}}
 
 
+
+.nour.dr .nr-bub{left:auto;right:calc(100% + 10px);border-radius:20px 20px 6px 20px}
+.contact .press{display:none!important}
+@media (max-width:760px){html:not(.nr-tour) body.at-top .nour{opacity:0;pointer-events:none}}
+/* ===== round 9 edits: cleaner titles, bigger hero, readable labels, bigger footer ===== */
+.hx-eyebrow{display:none!important}
+.lh{display:none!important}
+.contact .marquee{display:none!important}
+.hx-copy{max-width:min(820px,60vw)}
+.hx h1{font-size:clamp(60px,8.4vw,132px)!important;line-height:.98!important;margin:0 0 18px!important}
+.hx-copy p{font-size:clamp(17px,1.4vw,21px)!important;max-width:520px}
+.hx-shade{background:linear-gradient(90deg,#F5F5F7 0%,rgba(245,245,247,.96) 38%,rgba(245,245,247,.6) 52%,rgba(245,245,247,0) 66%),linear-gradient(0deg,#F5F5F7 0%,rgba(245,245,247,.75) 14%,rgba(245,245,247,0) 34%)!important}
+html[data-theme=dark] .hx-shade{background:linear-gradient(90deg,#000 0%,rgba(0,0,0,.96) 38%,rgba(0,0,0,.6) 52%,rgba(0,0,0,0) 66%),linear-gradient(0deg,#000 0%,rgba(0,0,0,.75) 14%,rgba(0,0,0,0) 34%)!important}
+.hx-stars.sf{-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 36%,transparent 52%)!important;mask-image:linear-gradient(90deg,#000 0%,#000 36%,transparent 52%)!important}
+@media (max-width:900px){.hx-copy{max-width:none}.hx h1{font-size:clamp(54px,15.5vw,84px)!important}
+ .hx-shade{background:linear-gradient(0deg,#F5F5F7 0%,rgba(245,245,247,.96) 46%,rgba(245,245,247,0) 68%)!important}
+ html[data-theme=dark] .hx-shade{background:linear-gradient(0deg,#000 0%,rgba(0,0,0,.96) 46%,rgba(0,0,0,0) 68%)!important}
+ .hx-stars.sf{-webkit-mask-image:linear-gradient(0deg,#000 0%,#000 42%,transparent 52%)!important;mask-image:linear-gradient(0deg,#000 0%,#000 42%,transparent 52%)!important}}
+.req label{font:700 15px/1.2 var(--body)!important;text-transform:none!important;letter-spacing:0!important;color:#1D1D1F!important;gap:8px!important}
+.req label>span{font:inherit!important;letter-spacing:0!important}
+html[data-theme=dark] .req label{color:#F5F5F7!important}
+.req input,.req select,.req textarea{font:500 16px/1.3 var(--body)!important}
+.seo-foot{font:500 15px/1.6 var(--body)!important;padding:56px 0 34px!important}
+.seo-foot b{font:800 17px/1.3 var(--body)!important;margin-bottom:12px!important}
+.seo-foot p{max-width:520px!important;font-weight:500}
+.seo-foot li{margin:0 0 7px!important}
+.seo-foot a{font-weight:600}
+.seo-foot strong{font-weight:800!important}
+footer .end,footer .end span,footer .end a{font:600 13.5px/1.4 var(--body)!important;letter-spacing:0!important;text-transform:none!important}
+footer .brand{font-weight:800}
+@media (max-width:520px){.seo-foot{font-size:14.5px!important}}
 </style>
 
 <div id="boot" aria-hidden="true"><div class="bx"><pre id="boot-t"></pre><div class="pb"><i id="boot-p"></i></div><button type="button" id="boot-go">Press start</button><span class="sk">Click anywhere to skip</span></div></div>
@@ -2572,12 +2604,12 @@ HOW TO BEHAVE:
   bub.hidden=false;nr.classList.add("talk");clearTimeout(nr._tt);nr._tt=setTimeout(()=>nr.classList.remove("talk"),1400);
   bub.classList.remove("pop");void bub.offsetWidth;bub.classList.add("pop")}
  function hush(){bub.hidden=true;nr.classList.remove("talk")}
- function home(){const p=phone(),S=p?56:68,sb=parseFloat(getComputedStyle(de).getPropertyValue("--sab"))||0;const low=!p||document.body.classList.contains("at-top")||touring||de.classList.contains("at-contact");const y=innerHeight-S-(p?(low?16:76):20)-sb;const right=p&&document.body.classList.contains("at-top")&&!touring;nr.style.setProperty("--x",(right?innerWidth-S-12:(p?12:16))+"px");nr.style.setProperty("--y",y+"px");nr.classList.remove("bdown");nr.classList.toggle("rt",right)}
+ function home(){const p=phone(),S=p?56:68,low=document.body.classList.contains("at-top")||touring||de.classList.contains("at-contact");if(!p){nr.style.setProperty("--x",(innerWidth-S-20)+"px");nr.style.setProperty("--y",(innerHeight-S-(document.body.classList.contains("at-top")?82:150))+"px");nr.classList.remove("bdown","rt");nr.classList.add("dr");return}nr.classList.remove("dr");const y=innerHeight-S-(low?16:76);const right=document.body.classList.contains("at-top")&&!touring;nr.style.setProperty("--x",(right?innerWidth-S-12:12)+"px");nr.style.setProperty("--y",y+"px");nr.classList.remove("bdown");nr.classList.toggle("rt",right)}
  function placeNear(el){if(phone()||!el){home();return}
   const r=el.getBoundingClientRect(),W=innerWidth,H=innerHeight,S=74;
   let x=r.right+14,y=Math.max(90,Math.min(H-S-210,r.top+10));
   if(x+S+330>W){x=r.left-S-14;if(x<12)x=12}
-  nr.style.setProperty("--x",x+"px");nr.style.setProperty("--y",y+"px");nr.classList.toggle("bdown",y<innerHeight*.5);nr.classList.remove("rt")}
+  nr.style.setProperty("--x",x+"px");nr.style.setProperty("--y",y+"px");nr.classList.toggle("bdown",y<innerHeight*.5);nr.classList.remove("rt","dr")}
  function highlight(el){if(!el){spot.hidden=true;return}const r=el.getBoundingClientRect(),p=10,maxH=innerHeight*.62;
   spot.hidden=false;spot.style.left=(r.left-p)+"px";spot.style.top=(Math.max(r.top,phone()?64:70)-p)+"px";spot.style.width=(r.width+p*2)+"px";spot.style.height=(Math.min(r.height,maxH)+p*2)+"px"}
  let follow=0;function track(){if(!touring)return;const s=STEPS[step],el=s&&document.querySelector(s.sel);highlight(el);if(!phone())placeNear(el);follow=requestAnimationFrame(track)}
@@ -2597,8 +2629,12 @@ HOW TO BEHAVE:
  nr.querySelector(".nr-x").addEventListener("click",()=>{if(touring)end();else{ls.set("nour-done","1");hush()}});
  addEventListener("keydown",e=>{if(e.key==="Escape"&&touring)end()});
  addEventListener("resize",()=>{if(!touring)home()});home();new MutationObserver(()=>{if(!touring)home()}).observe(document.body,{attributes:true,attributeFilter:["class"]});new MutationObserver(()=>{if(!touring)home()}).observe(de,{attributes:true,attributeFilter:["class"]});
- /* greet first-time visitors after a moment */
- setTimeout(()=>{nr.classList.add("in");if(!ls.get("nour-done")&&!de.classList.contains("pp-open")&&!de.classList.contains("ai-open"))setTimeout(()=>{if(!touring&&bub.hidden)say(L("Hi! I'm Nour. Want a quick tour of the studio?","Salut ! Je suis Nour. Une petite visite du studio ?","مرحباً! أنا نور. هل تريد جولة سريعة في الاستوديو؟"),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true],[L("Not now","Plus tard","ليس الآن"),()=>{ls.set("nour-done","1");hush()}]])},900)},2400);
+ /* greet first-time visitors once they scroll past the hero (never over the hero buttons), then step back */
+ setTimeout(()=>nr.classList.add("in"),1600);
+ let greeted=false;const greet=()=>{if(greeted||ls.get("nour-done")||touring||de.classList.contains("pp-open")||de.classList.contains("ai-open")||de.classList.contains("mnu-open"))return;if(document.body.classList.contains("at-top"))return;greeted=true;
+  say(L("Hi! I'm Nour. Want a quick tour of the studio?","Salut ! Je suis Nour. Une petite visite du studio ?","مرحباً! أنا نور. هل تريد جولة سريعة في الاستوديو؟"),"",[[L("Show me around","Faire la visite","جولة في الموقع"),()=>go(0),true],[L("Not now","Plus tard","ليس الآن"),()=>{ls.set("nour-done","1");hush()}]]);
+  setTimeout(()=>{if(!touring)hush()},9000)};
+ new MutationObserver(()=>setTimeout(greet,1200)).observe(document.body,{attributes:true,attributeFilter:["class"]});
  /* eyes follow the pointer on desktop, blink now and then */
  const eyes=nr.querySelector(".nr-eyes");
  addEventListener("pointermove",e=>{if(e.pointerType!=="mouse")return;const r=bot.getBoundingClientRect();const dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),d=Math.hypot(dx,dy)||1;eyes.style.transform=`translate(${(dx/d*3).toFixed(2)}px,${(dy/d*2.4).toFixed(2)}px)`},{passive:true});
