@@ -1,0 +1,107 @@
+{
+ "deposit": 40,
+ "sale": {
+  "pct": 0,
+  "until": "",
+  "name": ""
+ },
+ "clients": {
+  "k1hz8oc89z2a": 20
+ },
+ "ma": {
+  "cur": "MAD",
+  "event": 7000,
+  "sport": 6000,
+  "reel": 2500,
+  "film": 12000,
+  "shoot": 4500,
+  "photo": 2500,
+  "edit": 2000,
+  "grade": 1500,
+  "vfx": 1200,
+  "d3": 6000,
+  "mg": 2500,
+  "x": {
+   "fast": 1000,
+   "mg": 600,
+   "vfx": 1200,
+   "sub": 250,
+   "drone": 1500,
+   "vo": 1000,
+   "light": 1000,
+   "grade": 600,
+   "sound": 600
+  },
+  "pk": {
+   "event": 12900,
+   "social": 8900,
+   "launch": 19900,
+   "edit": 9900,
+   "vfx": 13900
+  }
+ },
+ "eu": {
+  "cur": "EUR",
+  "event": 1200,
+  "sport": 1100,
+  "reel": 450,
+  "film": 2900,
+  "shoot": 650,
+  "photo": 450,
+  "edit": 350,
+  "grade": 300,
+  "vfx": 250,
+  "d3": 1200,
+  "mg": 500,
+  "x": {
+   "fast": 200,
+   "mg": 120,
+   "vfx": 250,
+   "sub": 50,
+   "drone": 300,
+   "vo": 200,
+   "light": 150,
+   "grade": 120,
+   "sound": 120
+  },
+  "pk": {
+   "event": 2390,
+   "social": 1590,
+   "launch": 4290,
+   "edit": 1790,
+   "vfx": 2890
+  }
+ },
+ "us": {
+  "cur": "USD",
+  "event": 1500,
+  "sport": 1400,
+  "reel": 550,
+  "film": 3500,
+  "shoot": 850,
+  "photo": 550,
+  "edit": 450,
+  "grade": 400,
+  "vfx": 300,
+  "d3": 1500,
+  "mg": 600,
+  "x": {
+   "fast": 250,
+   "mg": 150,
+   "vfx": 300,
+   "sub": 60,
+   "drone": 350,
+   "vo": 250,
+   "light": 200,
+   "grade": 150,
+   "sound": 150
+  },
+  "pk": {
+   "event": 2890,
+   "social": 1890,
+   "launch": 5190,
+   "edit": 2290,
+   "vfx": 3490
+  }
+ }
+}
