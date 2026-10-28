@@ -2893,11 +2893,14 @@ document.addEventListener("click",e=>{const a=e.target.closest("a[data-pj]");if(
   const ui={theme:theme(),hideEventTypeDetails:false,layout:"month_view",cssVarsPerTheme:{light:{"cal-brand":"#3D6BE0"},dark:{"cal-brand":"#7FA4F0"}}};
   Cal.ns[NS]("inline",{elementOrSelector:"#bk-cal-inline",calLink:CAL_LINK,config:{layout:"month_view",theme:theme(),useSlotsViewOnSmallScreen:"true"}});
   Cal.ns[NS]("ui",ui);
-  Cal.ns[NS]("on",{action:"linkReady",callback:()=>{ready=true;root.classList.add("cal-on");note()}});
+  Cal.ns[NS]("on",{action:"linkReady",callback:()=>{ready=true;root.classList.add("cal-on");const b=document.getElementById("bk-cal-inline");if(b)b.style.minHeight="";note()}});
   Cal.ns[NS]("on",{action:"bookingSuccessful",callback:e=>okMsg(e&&e.detail)});
   Cal.ns[NS]("on",{action:"linkFailed",callback:()=>fail()});
   setTimeout(()=>{if(!ready)fail()},15000);
-  new MutationObserver(()=>Cal.ns[NS]("ui",{...ui,theme:theme()})).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+  let th=theme();new MutationObserver(()=>{const t=theme();if(t===th)return;th=t;if(!ready)return;
+   const box=document.getElementById("bk-cal-inline"),h=box.offsetHeight;box.style.minHeight=h+"px";root.classList.remove("cal-on");box.innerHTML="";
+   Cal.ns[NS]("inline",{elementOrSelector:"#bk-cal-inline",calLink:CAL_LINK,config:{layout:"month_view",theme:t,useSlotsViewOnSmallScreen:"true"}});
+   Cal.ns[NS]("ui",{...ui,theme:t});setTimeout(()=>{root.classList.add("cal-on");box.style.minHeight=""},4000)}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
  }
  function fail(){if(ready)return;root.classList.remove("cal-on","cal-try");wrap.remove()}
  root.classList.add("cal-try");
