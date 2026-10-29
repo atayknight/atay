@@ -56,7 +56,11 @@ let SALE={pct:0,until:"",name:""},CLIENTS={};
 /* welcome offer (after a booked call), Atay Circle loyalty tiers, business details for devis/factures */
 let WELCOME={pct:20,on:1},TIERS=[{p:0,d:0},{p:2,d:5},{p:5,d:10},{p:10,d:15}],LOYAL={};
 const TN=[["Member","Membre","عضو"],["Silver","Silver","فضي"],["Gold","Gold","ذهبي"],["Platinum","Platinum","بلاتيني"]];
-const BIZ0={name:"Atay Studio",owner:"Ayoub Ouazzou",addr:"Marrakech, Maroc",ice:"",idf:"",rc:"",tel:"+212 6 99 14 62 14",mail:"atayknight@gmail.com",web:"atayknight.com",rib:"",tva:0};
+const BIZ0={name:"Atay Studio",owner:"Ayoub Ouazzou",addr:"Lot Tasseltante 02 N° 276, Syba, Marrakech, Maroc",ice:"004064198000038",idf:"73454010",tp:"45201980",status:"Auto-entrepreneur",rc:"",tel:"+212 6 99 14 62 14",mail:"atayknight@gmail.com",web:"atayknight.com",rib:"",tva:0};
+/* invoice numbers: 001/2026, 002/2026… (sequential per year) */
+const faNo=(c,y)=>String(c).padStart(3,"0")+"/"+y;
+const faNext=y=>(+store.get("atq:fa"+y)||0)+1;
+const faUse=no=>{const m=String(no).match(/^(\d+)\s*\/\s*(\d{4})$/);if(m&&+m[1]>=(+store.get("atq:fa"+m[2])||0))store.set("atq:fa"+m[2],String(+m[1]))};
 let BIZ={...BIZ0};
 /* names never go into the public price file: only a short one-way key */
 const hk=s=>{let h1=0xdeadbeef^7,h2=0x41c6ce57^7;for(let i=0,c;i<s.length;i++){c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507);h1^=Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(36)};
@@ -296,8 +300,8 @@ function flow(name,mk){
    ====================================================================== */
 const encDoc=o=>{const b=new TextEncoder().encode(JSON.stringify(o));let x="";b.forEach(c=>x+=String.fromCharCode(c));return btoa(x).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")};
 const decDoc=t=>{const x=atob(t.replace(/-/g,"+").replace(/_/g,"/"));return JSON.parse(new TextDecoder().decode(Uint8Array.from(x,c=>c.charCodeAt(0))))};
-const DW={fr:{d:"Devis",f:"Facture",no:"N°",dt:"Date",val:"Valable jusqu’au",to:"Client",from:"Prestataire",desc:"Désignation",q:"Qté",u:"Prix unitaire",a:"Montant",sub:"Sous-total",tot:"Total",ht:"Total HT",tva:"TVA {n} %",ttc:"Total TTC",fm:"Total premier mois",then:"Puis {x} / mois",dep:"Acompte à la commande ({n} %)",paid:"Déjà réglé",due:"Reste à payer",when:"Délai souhaité",note:"Notes",terms:"Conditions",t1:"Acompte de {n} % à la commande, solde à la livraison des fichiers finaux.",t2:"Devis valable 30 jours à compter de sa date.",t3:"Paiement par virement bancaire.",sign:"Bon pour accord · date, nom et signature",pay:"Règlement",rib:"RIB",ice:"ICE",idf:"IF",rc:"RC",thx:"Merci pour votre confiance.",code:"Code de bienvenue",print:"Enregistrer en PDF",back:"Retour",mkF:"Créer la facture",save:"Enregistrer le client",due2:"À régler à réception."},
- en:{d:"Quote",f:"Invoice",no:"No.",dt:"Date",val:"Valid until",to:"Client",from:"From",desc:"Description",q:"Qty",u:"Unit price",a:"Amount",sub:"Subtotal",tot:"Total",ht:"Total excl. VAT",tva:"VAT {n}%",ttc:"Total incl. VAT",fm:"First month total",then:"Then {x} / month",dep:"Deposit to start ({n}%)",paid:"Already paid",due:"Balance due",when:"Timing",note:"Notes",terms:"Terms",t1:"{n}% deposit to start, balance on delivery of the final files.",t2:"This quote is valid for 30 days from its date.",t3:"Payment by bank transfer.",sign:"Accepted · date, name and signature",pay:"Payment",rib:"Bank account",ice:"ICE",idf:"Tax ID",rc:"RC",thx:"Thank you for your trust.",code:"Welcome code",print:"Save as PDF",back:"Back",mkF:"Make the invoice",save:"Save client",due2:"Payable on receipt."}};
+const DW={fr:{d:"Devis",f:"Facture",no:"N°",dt:"Date",val:"Valable jusqu’au",to:"Client",from:"Prestataire",desc:"Désignation",q:"Qté",u:"Prix unitaire",a:"Montant",sub:"Sous-total",tot:"Total",ht:"Total HT",tva:"TVA {n} %",ttc:"Total TTC",fm:"Total premier mois",then:"Puis {x} / mois",dep:"Acompte à la commande ({n} %)",paid:"Déjà réglé",due:"Reste à payer",when:"Délai souhaité",note:"Notes",terms:"Conditions",t1:"Acompte de {n} % à la commande, solde à la livraison des fichiers finaux.",t2:"Devis valable 30 jours à compter de sa date.",t3:"Paiement par virement bancaire.",sign:"Bon pour accord · date, nom et signature",pay:"Règlement",rib:"RIB",ice:"ICE",idf:"IF",tp:"TP",ae:"N° AE",rc:"RC",st:"Auto-entrepreneur",tvaNo:"TVA non applicable : auto-entrepreneur",thx:"Merci pour votre confiance.",code:"Code de bienvenue",print:"Enregistrer en PDF",back:"Retour",mkF:"Créer la facture",save:"Enregistrer le client",due2:"À régler à réception."},
+ en:{d:"Quote",f:"Invoice",no:"No.",dt:"Date",val:"Valid until",to:"Client",from:"From",desc:"Description",q:"Qty",u:"Unit price",a:"Amount",sub:"Subtotal",tot:"Total",ht:"Total excl. VAT",tva:"VAT {n}%",ttc:"Total incl. VAT",fm:"First month total",then:"Then {x} / month",dep:"Deposit to start ({n}%)",paid:"Already paid",due:"Balance due",when:"Timing",note:"Notes",terms:"Terms",t1:"{n}% deposit to start, balance on delivery of the final files.",t2:"This quote is valid for 30 days from its date.",t3:"Payment by bank transfer.",sign:"Accepted · date, name and signature",pay:"Payment",rib:"Bank account",ice:"ICE",idf:"Tax ID (IF)",tp:"TP",ae:"AE no.",rc:"RC",st:"Auto-entrepreneur",tvaNo:"VAT not applicable: auto-entrepreneur",thx:"Thank you for your trust.",code:"Welcome code",print:"Save as PDF",back:"Back",mkF:"Make the invoice",save:"Save client",due2:"Payable on receipt."}};
 const isAyoub=()=>!!store.get("atq:gh");
 
 /* ---------- real PDF files (A4, logo, everything) ---------- */
@@ -316,31 +320,40 @@ async function makePdf(o){await pdfLibs();try{await document.fonts.ready}catch(e
   pdf.setProperties({title:o.no+" · "+BIZ.name,author:BIZ.name,subject:(o.t==="f"?"Facture ":"Devis ")+o.no});
   const link=docUrl(o);try{pdf.setPage(1);pdf.link(0,0,210,30,{url:link})}catch(e){}
   return pdf.output("blob")}finally{host.remove()}}
-const pdfName=o=>`${o.t==="f"?"Facture":"Devis"}-${o.no}${o.cl&&o.cl.n?"-"+o.cl.n.trim().replace(/[^\wÀ-ɏ-]+/g,"-"):""}.pdf`;
+const pdfName=o=>`${o.t==="f"?"Facture":"Devis"}-${String(o.no).replace(/[\/\\]+/g,"-")}${o.cl&&o.cl.n?"-"+o.cl.n.trim().replace(/[^\wÀ-ɏ-]+/g,"-"):""}.pdf`;
 function saveBlob(b,name){const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000)}
 const canShareFile=()=>{try{return!!(navigator.canShare&&navigator.canShare({files:[new File(["x"],"a.pdf",{type:"application/pdf"})]}))}catch(e){return false}};
 async function sharePdf(b,name,text){const f=new File([b],name,{type:"application/pdf"});await navigator.share({files:[f],text})}
+/* amount in French words, for "Arrêtée la présente facture à la somme de…" (Moroccan invoice practice) */
+function n2fr(n){n=Math.round(Math.abs(+n||0));if(!n)return"zéro";
+ const U=["","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix","onze","douze","treize","quatorze","quinze","seize"],T=["","dix","vingt","trente","quarante","cinquante","soixante"];
+ const d=(n,end)=>{if(n<17)return U[n];if(n<20)return"dix-"+U[n-10];if(n<70){const t=Math.floor(n/10),u=n%10;return T[t]+(!u?"":u===1?" et un":"-"+U[u])}
+  if(n<80)return"soixante"+(n===71?" et onze":"-"+d(n-60,end));return"quatre-vingt"+(n===80?(end?"s":""):"-"+d(n-80,end))};
+ const c=(n,end)=>{const h=Math.floor(n/100),r=n%100;let s=h?(h===1?"cent":U[h]+" cent"+(!r&&end?"s":"")):"";if(r)s+=(s?" ":"")+d(r,end);return s};
+ const m=Math.floor(n/1e6),k=Math.floor(n/1e3)%1e3,u=n%1e3;
+ return[m&&c(m,true)+" million"+(m>1?"s":""),k&&(k===1?"mille":c(k,false)+" mille"),u&&c(u,true)].filter(Boolean).join(" ")}
+const curFr=(n,c)=>{const one=Math.round(+n||0)===1;return c==="EUR"?(one?"euro":"euros"):c==="USD"?(one?"dollar":"dollars"):(one?"dirham":"dirhams")};
 function docTotals(o){const sub=o.li.reduce((a,x)=>a+(+x.q||0)*(+x.u||0),0),d=Math.round(sub*(+o.dp||0)/100),tot=sub-d,tva=+BIZ.tva||0,tv=Math.round(tot*tva/100);
  return{sub,d,tot,tva,tv,ttc:tot+tv,dep:Math.round((tot+tv)*(+o.dep||0)/100),paid:+o.pd||0}}
 function docHTML(o){const w=DW[o.l]||DW.fr,l=o.l==="en"?"en":"fr",M=v=>money(v,o.c,l),X=docTotals(o),B=BIZ,f=o.t==="f";
  const addD=(iso,n)=>{const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
  const fd=iso=>{try{return new Intl.DateTimeFormat(l==="en"?"en-GB":"fr-FR",{day:"numeric",month:"long",year:"numeric"}).format(new Date(iso+"T12:00:00"))}catch(e){return iso}};
- const ids=[B.ice&&w.ice+" "+B.ice,B.idf&&w.idf+" "+B.idf,B.rc&&w.rc+" "+B.rc].filter(Boolean).join(" · ");
+ const ids=[B.ice&&w.ice+" "+B.ice,B.idf&&w.idf+" "+B.idf,B.tp&&w.tp+" "+B.tp,B.rc&&w.rc+" "+B.rc].filter(Boolean).join(" · ");
  const tr=(k,v)=>w[k].replace(/\{(\w+)\}/g,(_,x)=>v[x]);
  return `<article class="dv-page" lang="${l}">
  <header class="dv-hd"><div class="dv-br"><img class="dv-lg" src="/brand/icon-doc.png" alt="" width="44" height="44"><div><b>${esc(B.name)}</b><span>${esc(B.owner)}</span></div></div>
   <div class="dv-tt"><h1>${f?w.f:w.d}</h1><dl><div><dt>${w.no}</dt><dd>${esc(o.no)}</dd></div><div><dt>${w.dt}</dt><dd>${fd(o.dt)}</dd></div>${f?"":`<div><dt>${w.val}</dt><dd>${fd(addD(o.dt,30))}</dd></div>`}</dl></div></header>
- <section class="dv-pt"><div><h4>${w.from}</h4><b>${esc(B.name)}</b><p>${esc(B.owner)}<br>${esc(B.addr)}<br>${esc(B.tel)} · ${esc(B.mail)}${ids?`<br><small>${esc(ids)}</small>`:""}</p></div>
+ <section class="dv-pt"><div><h4>${w.from}</h4><b>${esc(B.name)}</b><p>${esc(B.owner)}${B.status?" · "+esc(B.status):""}<br>${esc(B.addr)}<br>${esc(B.tel)} · ${esc(B.mail)}${ids?`<br><small>${[B.ice&&w.ice+" "+B.ice,B.idf&&w.idf+" "+B.idf].filter(Boolean).map(esc).join(" · ")}</small>`:""}</p></div>
   <div><h4>${w.to}</h4><b>${esc(o.cl.n||"—")}</b><p>${[o.cl.ad,o.cl.em,o.cl.ice&&"ICE "+o.cl.ice].filter(Boolean).map(esc).join("<br>")}</p></div></section>
  <table class="dv-tb"><thead><tr><th>${w.desc}</th><th>${w.q}</th><th>${w.u}</th><th>${w.a}</th></tr></thead><tbody>
   ${o.li.map(x=>`<tr><td><b>${esc(x.d)}</b>${x.s?`<small>${esc(x.s)}</small>`:""}</td><td>${+x.q}</td><td>${M(+x.u)}</td><td>${M((+x.q)*(+x.u))}</td></tr>`).join("")}</tbody></table>
- <div class="dv-bt"><div class="dv-nt">${o.w?`<p><b>${w.when}${o.l==="en"?":":" :"}</b> ${esc(o.w)}</p>`:""}${o.nt?`<p><b>${w.note}${o.l==="en"?":":" :"}</b> ${esc(o.nt)}</p>`:""}${o.code?`<p><b>${w.code}${o.l==="en"?":":" :"}</b> ${esc(o.code)}</p>`:""}</div>
+ <div class="dv-bt"><div class="dv-nt">${l==="fr"&&X.ttc>0?`<p class="dv-words">${f?"Arrêtée la présente facture":"Arrêté le présent devis"} à la somme de : <b>${(w=>w[0].toUpperCase()+w.slice(1))(n2fr(X.ttc))} ${curFr(X.ttc,o.c)}</b>.</p>`:""}${o.w?`<p><b>${w.when}${o.l==="en"?":":" :"}</b> ${esc(o.w)}</p>`:""}${o.nt?`<p><b>${w.note}${o.l==="en"?":":" :"}</b> ${esc(o.nt)}</p>`:""}${o.code?`<p><b>${w.code}${o.l==="en"?":":" :"}</b> ${esc(o.code)}</p>`:""}</div>
   <dl class="dv-sum">${X.d?`<div><dt>${w.sub}</dt><dd>${M(X.sub)}</dd></div><div class="dv-dc"><dt>${esc(o.dlab||"")} (−${o.dp} %)</dt><dd>−${M(X.d)}</dd></div>`:""}
    ${X.tva?`<div><dt>${w.ht}</dt><dd>${M(X.tot)}</dd></div><div><dt>${tr("tva",{n:X.tva})}</dt><dd>${M(X.tv)}</dd></div>`:""}
-   <div class="dv-tot"><dt>${o.fm?w.fm:X.tva?w.ttc:w.tot}</dt><dd>${M(X.ttc)}</dd></div>${o.fm?`<p class="dv-then">${tr("then",{x:M(X.sub)})}</p>`:""}
+   <div class="dv-tot"><dt>${o.fm?w.fm:X.tva?w.ttc:w.tot}</dt><dd>${M(X.ttc)}</dd></div>${o.fm?`<p class="dv-then">${tr("then",{x:M(X.sub)})}</p>`:""}${!X.tva&&B.status?`<p class="dv-tvn">${w.tvaNo}</p>`:""}
    ${f?`<div><dt>${w.paid}</dt><dd>${M(X.paid)}</dd></div><div class="dv-due"><dt>${w.due}</dt><dd>${M(Math.max(0,X.ttc-X.paid))}</dd></div>`:`<div class="dv-dep"><dt>${tr("dep",{n:o.dep})}</dt><dd>${M(X.dep)}</dd></div>`}</dl></div>
  <section class="dv-tm"><div><h4>${f?w.pay:w.terms}</h4><p>${f?w.due2:tr("t1",{n:o.dep})}${f?"":"<br>"+w.t2}<br>${w.t3}${B.rib?`<br><b>${w.rib}${o.l==="en"?":":" :"}</b> ${esc(B.rib)}`:""}</p></div>${f?"":`<div class="dv-sg"><h4>${w.sign}</h4><i></i></div>`}</section>
- <footer class="dv-ft"><span>${w.thx}</span><span>${esc(B.web)} · ${esc(B.tel)}</span></footer></article>`}
+ <footer class="dv-ft"><span>${w.thx}</span><span>${esc(B.web)} · ${esc(B.tel)}</span></footer>${ids?`<p class="dv-legal">${esc(B.name)} · ${esc(B.owner)} · ${esc(ids)}</p>`:""}</article>`}
 function showDoc(o,standalone){const w=DW[o.l]||DW.fr;let doc={...o};
  const ov=document.createElement("div");ov.className="dv";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");
  const bar=()=>`<div class="dv-bar">${standalone?`<a class="dv-b" href="/">${ICON}</a>`:`<button type="button" class="dv-b" data-dv="x">← ${w.back}</button>`}<span class="dv-sp"></span>
@@ -356,9 +369,9 @@ function showDoc(o,standalone){const w=DW[o.l]||DW.fr;let doc={...o};
    makePdf(doc).then(bl=>a==="d"?saveBlob(bl,pdfName(doc)):sharePdf(bl,pdfName(doc),(doc.t==="f"?w.f:w.d)+" "+doc.no).catch(()=>{}))
     .catch(()=>{const t=document.title;document.title=doc.no+" · "+BIZ.name;print();document.title=t})
     .finally(()=>{b.disabled=false;b.innerHTML=lab});return}
-  if(a==="f"){const y=new Date().getFullYear(),c=(+store.get("atq:fa"+y)||0)+1,dep=docTotals(doc).dep;
-   const no=prompt(doc.l==="en"?"Invoice number":"Numéro de facture","FA-"+y+"-"+String(c).padStart(3,"0"));if(!no)return;
-   const pd=prompt(doc.l==="en"?"Amount already paid":"Montant déjà réglé",String(dep));store.set("atq:fa"+y,String(c));
+  if(a==="f"){const y=new Date().getFullYear(),dep=docTotals(doc).dep;
+   const no=prompt(doc.l==="en"?"Invoice number":"Numéro de facture",faNo(faNext(y),y));if(!no)return;
+   const pd=prompt(doc.l==="en"?"Amount already paid":"Montant déjà réglé",String(dep));faUse(no.trim());
    doc={...doc,t:"f",no:no.trim(),dt:todayISO(),pd:Math.max(0,+String(pd||0).replace(/[^\d.]/g,"")||0)};paint();return}
   if(a==="s"){crmAdd({n:doc.cl.n,co:"",em:doc.cl.em||"",ad:doc.cl.ad||"",ice:doc.cl.ice||""},doc.t==="f"?{d:doc.dt,t:doc.no,a:docTotals(doc).ttc,c:doc.c}:null).then(m=>alert(m));return}});
  if(!standalone)$(".dv-b",ov).focus()}
@@ -518,7 +531,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
    <div class="mk-biz"><label class="mk-pr"><span>Client or company</span><input data-o="n"></label><label class="mk-pr"><span>ICE</span><input data-o="ice"></label><label class="mk-pr"><span>Address</span><input data-o="ad"></label><label class="mk-pr"><span>Email</span><input data-o="em"></label>
    <label class="mk-pr"><span>Currency</span><select data-o="c"><option>MAD</option><option>EUR</option><option>USD</option></select></label><label class="mk-pr"><span>Language</span><select data-o="l"><option value="fr">Français</option><option value="en">English</option></select></label></div>
    <h4>Lines</h4><div class="mk-lines"></div><button type="button" class="mk-btn mk-sm" data-ln>+ Line</button>
-   <div class="mk-row3"><label class="mk-pr"><span>Discount %</span><input type="number" min="0" max="90" data-o="dp" value="0"></label><label class="mk-pr"><span>Deposit %</span><input type="number" min="0" max="100" data-o="dep" value="${DEPOSIT}"></label><label class="mk-pr mk-fo"><span>Already paid</span><input type="number" min="0" data-o="pd" value="0"></label></div>
+   <div class="mk-row3"><label class="mk-pr"><span>Discount %</span><input type="number" min="0" max="90" data-o="dp" value="0"></label><label class="mk-pr"><span>Deposit %</span><input type="number" min="0" max="100" data-o="dep" value="${DEPOSIT}"></label><label class="mk-pr mk-fo"><span>Already paid</span><input type="number" min="0" data-o="pd" value="0"></label><label class="mk-pr mk-fo"><span>Invoice no.</span><input data-o="no" value="${faNo(faNext(new Date().getFullYear()),new Date().getFullYear())}"></label></div>
    <div class="mk-act mk-stick"><button type="button" class="mk-btn mk-pri" data-mk>Create</button></div>`);
   let t="d";const addLn=()=>{const d=document.createElement("div");d.className="mk-ln";d.innerHTML=`<input placeholder="Description" data-l="d"><input type="number" min="1" value="1" data-l="q" aria-label="Qty"><input type="number" min="0" placeholder="Unit price" data-l="u" aria-label="Unit price">`;$(".mk-lines",m).appendChild(d)};addLn();addLn();
   const fo=()=>$$(".mk-fo",m).forEach(x=>x.hidden=t!=="f");fo();
@@ -528,7 +541,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
    const li=$$(".mk-ln",m).map(r=>({d:$('[data-l="d"]',r).value.trim(),q:+$('[data-l="q"]',r).value||1,u:+$('[data-l="u"]',r).value||0})).filter(x=>x.d);
    if(!li.length){toast("Add at least one line");return}
    const y=new Date().getFullYear(),dt=todayISO();let no;
-   if(t==="f"){const c=(+store.get("atq:fa"+y)||0)+1;store.set("atq:fa"+y,String(c));no="FA-"+y+"-"+String(c).padStart(3,"0")}else no="DEV-"+dt.slice(2).replace(/-/g,"")+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
+   if(t==="f"){no=o.no||faNo(faNext(y),y);faUse(no)}else no="DEV-"+dt.slice(2).replace(/-/g,"")+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
    m.close();showDoc({t,no,dt,l:o.l,c:o.c,cl:{n:o.n,ice:o.ice,ad:o.ad,em:o.em},li,dp:+o.dp||0,dlab:o.l==="en"?"Discount":"Remise",dep:+o.dep||0,pd:+o.pd||0})})}
  function prices(){const mk=["ma","eu","us"],D=snapshot();
   const cell=(m,path)=>{const v=path.split(".").reduce((o,k)=>o&&o[k],D[m]);return `<td><input type="number" min="0" step="10" data-mk="${m}" data-p="${path}" value="${v??""}" aria-label="${m} ${path}"></td>`};
@@ -544,7 +557,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
    <h4>Atay Circle <small>loyalty levels</small></h4><p class="mk-hint">Clients move up after a number of projects (each month of a monthly package counts as one). Log projects in Clients.</p>
    <div class="mk-tw"><table class="mk-tb mk-ed mk-tier"><thead><tr><th></th><th>After projects</th><th>Discount %</th></tr></thead><tbody>${(D.tiers||TIERS).slice(1).map((x,i)=>`<tr><td>${TN[i+1][0]}</td><td><input type="number" min="1" data-tp="${i+1}" value="${x.p}"></td><td><input type="number" min="0" max="90" data-td="${i+1}" value="${x.d}"></td></tr>`).join("")}</tbody></table></div>
    <h4>Your business details <small>on quotes and invoices</small></h4><p class="mk-hint">Shown on every devis and facture. This file is public, so only add what you would print on an invoice.</p>
-   <div class="mk-biz">${[["name","Business name"],["owner","Your name"],["addr","Address"],["tel","Phone"],["mail","Email"],["ice","ICE"],["idf","IF (identifiant fiscal)"],["rc","RC or auto-entrepreneur no."],["rib","RIB (bank account)"],["tva","VAT % (0 if not charged)"]].map(([k,t])=>`<label class="mk-pr"><span>${t}</span><input type="${k==="tva"?"number":"text"}" data-biz="${k}" value="${esc((D.biz||BIZ)[k]??"")}"></label>`).join("")}</div>
+   <div class="mk-biz">${[["name","Business name"],["owner","Your name"],["addr","Address"],["tel","Phone"],["mail","Email"],["ice","ICE"],["idf","IF (identifiant fiscal)"],["tp","Taxe professionnelle (TP)"],["status","Status (e.g. Auto-entrepreneur)"],["rc","RC (if any)"],["rib","RIB (bank account)"],["tva","VAT % (0 if not charged)"]].map(([k,t])=>`<label class="mk-pr"><span>${t}</span><input type="${k==="tva"?"number":"text"}" data-biz="${k}" value="${esc((D.biz||BIZ)[k]??"")}"></label>`).join("")}</div>
    <h4>Deposit to start</h4><label class="mk-pr"><span>% of the total</span><input type="number" min="0" max="100" data-dep value="${D.deposit}"></label>
    <h4>Prices</h4><p class="mk-hint">Morocco in DH, Europe in €, USA in $. Packages show their saving against the single prices automatically.</p>
    <div class="mk-tw"><table class="mk-tb mk-ed"><thead><tr><th></th><th>DH</th><th>€</th><th>$</th></tr></thead><tbody>
