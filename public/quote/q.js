@@ -587,6 +587,8 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
 function route(){let h=decodeURIComponent(location.hash.slice(1)||"");
  if(h==="edit")return maker();
  if(/^doc=/.test(location.hash.slice(1))){try{const o=decDoc(location.hash.slice(5));theme();app.className="dv-solo";document.title=o.no+" · Atay Studio";return showDoc(o,true)}catch(e){}}
+ /* the public price planner is retired: clients contact Ayoub for a quote */
+ return location.replace("/#book");
  let name="",mk="";
  if(/^p=/.test(h)){/* older long links: keep the name */try{const o=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(new URLSearchParams(location.hash.slice(1)).get("p").replace(/-/g,"+").replace(/_/g,"/")),c=>c.charCodeAt(0))));name=o.c||""}catch(e){}}
  else{const m=h.match(/@(ma|eu|us)$/);if(m){mk=m[1];h=h.slice(0,-3)}name=h.replace(/[-_]+/g," ").trim().slice(0,60)}
