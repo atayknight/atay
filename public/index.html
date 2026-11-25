@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"><script>if(location.protocol==="http:"&&/atayknight\.com$/.test(location.hostname))location.replace("https://"+location.host+location.pathname+location.search+location.hash)</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ayoub Ouazzou · Atay Studio | Director of Photography, Editor & VFX in Marrakech</title>
 <meta name="description" content="Atay Studio by Ayoub Ouazzou (Atay Knight): cinematography, video editing, colour grading and 3D/VFX in Marrakech, Morocco. Tourism films, commercials, reels and festival content.">
@@ -2423,7 +2423,7 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
   if(!pp.classList.contains("on")){prevScroll=scrollY}cur=p;render(p);pp.hidden=false;pp.scrollTop=0;document.documentElement.classList.add("pp-open");requestAnimationFrame(()=>pp.classList.add("on"));document.title=p.t+" · Atay Studio"}
  function close(noHist){fromSite=false;pp.classList.remove("on");document.documentElement.classList.remove("pp-open");setTimeout(()=>{if(!pp.classList.contains("on")){pp.hidden=true;pp.innerHTML=""}},450);cur=null;document.title="Atay Studio";scrollTo(0,prevScroll)}
  function route(){const m=location.hash.match(/^#\/work\/(.+)$/);if(m)open(decodeURIComponent(m[1]));else if(cur)close(true)}
- const goTo=h=>{if(cur)location.replace(location.href.split("#")[0]+h);else{fromSite=true;location.hash=h}};window.goProject=id=>goTo("#/work/"+encodeURIComponent(id));const leave=()=>{if(fromSite){fromSite=false;history.back()}else location.hash=""};
+ const goTo=h=>{if(cur)location.replace(location.href.split("#")[0]+h);else{fromSite=true;location.hash=h}};window.goProject=id=>goTo("#/work/"+encodeURIComponent(id));const leave=()=>{if(fromSite){fromSite=false;history.back()}else{history.replaceState(history.state,"",location.pathname+location.search);route()}};
  addEventListener("hashchange",route);
  pp.addEventListener("click",e=>{const c=e.target.closest("[data-close]");if(c){e.preventDefault();leave();return}const mc=e.target.closest(".pp-mc");if(mc){e.preventDefault();goTo(mc.getAttribute("href"));return}
   const t=e.target.closest(".pp-tile");if(t){stage(cur,+t.dataset.i);pp.querySelector(".pp-stage").scrollIntoView({behavior:RM?"auto":"smooth",block:"center"});return}

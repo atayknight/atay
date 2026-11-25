@@ -422,11 +422,13 @@ async function crmAdd(c,pr){const box=await crmGet(),k=ckey(c.n||"");if(!k)retur
  else["em","ad","ice","co","ph"].forEach(f=>{if(c[f]&&!x[f])x[f]=c[f]});
  if(pr&&!x.pr.some(p=>p.t===pr.t))x.pr.push(pr);
  try{await crmPut(box,"Client: "+x.n);return box.where==="gh"?`${x.n} saved to your clients.`:`${x.n} saved on this device. Set up the private client file to see it everywhere.`}catch(e){return"Saved on this device, but GitHub said no. Check the client file setup."}}
-function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");document.title="Client link · Atay Studio";app.className="mk";
+function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");document.title="Devis & facture · Atay Studio";app.className="mk";
  let mkt="",disc=0;
  const DSEG=[0,5,10,15,20];
- app.innerHTML=`<header class="w-top"><span class="q-brand">${ICON}<b>Atay Studio</b></span><div class="q-tools mk-tools"><button type="button" class="mk-l" data-open="crm">Clients</button><a class="mk-l" href="https://clients.atayknight.com" target="_blank" rel="noopener" style="text-decoration:none">Dashboard ↗</a><button type="button" class="mk-l" data-open="doc">Quote / invoice</button><button type="button" class="mk-l" data-open="hist">Sent <i class="e-hn"></i></button><button type="button" class="mk-l" data-open="prices">Prices &amp; offers</button></div></header>
- <div class="mk-wrap"><h1>Client link</h1><p class="mk-sub">Type the client’s name and send. They pick a package or build their own, and see the price.</p>
+ app.innerHTML=`<header class="w-top"><span class="q-brand">${ICON}<b>Atay Studio</b></span></header>
+ <div class="mk-wrap"><h1>Devis &amp; facture</h1><p class="mk-sub">Make a devis or a facture for a client, then save it as a PDF or send it.</p>
+  <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-open="doc">+ New devis / facture</button></div>
+  <div hidden><i class="e-hn"></i>
   <div class="mk-sale" hidden></div>
   <section class="mk-card"><label class="mk-f"><span>Client name</span><input class="mk-c" placeholder="e.g. Kenza" autocomplete="off" autocapitalize="words"></label>
    <div class="mk-f"><span>Discount for this client</span><div class="mk-seg mk-ds">${DSEG.map(d=>`<button type="button" data-d="${d}" aria-pressed="${d===0}">${d?d+"%":"None"}</button>`).join("")}<input class="mk-dn" type="number" min="0" max="90" placeholder="Other %" aria-label="Other discount"></div>
@@ -435,7 +437,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
    <details class="mk-more"><summary>Prices shown</summary><div class="mk-seg">${[["","Auto"],["ma","Morocco DH"],["eu","Europe €"],["us","USA $"]].map(([v,t])=>`<button type="button" data-m="${v}" aria-pressed="${v===""}">${t}</button>`).join("")}</div>
     <p class="mk-hint">Auto shows DH to clients in Morocco, € in Europe and the rest of the world, $ in the Americas.</p></details></section>
   <div class="mk-act"><button type="button" class="mk-btn mk-pri" data-act="wa">${WA_I} Send on WhatsApp</button><button type="button" class="mk-btn" data-act="copy">Copy link</button><button type="button" class="mk-btn mk-gh" data-act="open">Preview</button></div>
-  <p class="mk-gh-st"></p>
+  <p class="mk-gh-st"></p></div>
  </div><div class="e-toast" role="status" aria-live="polite"></div><div class="e-modal" hidden></div>`;
  const inp=$(".mk-c"),url=()=>"https://"+LINK(inp.value)+(mkt&&inp.value.trim()?"@"+mkt:mkt?"#@"+mkt:"");
  const setDisc=d=>{disc=Math.max(0,Math.min(90,+d||0));$$(".mk-ds button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.d===disc&&(DSEG.includes(disc))));if(!DSEG.includes(disc))$(".mk-dn").value=disc;else $(".mk-dn").value=""};
@@ -467,6 +469,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
    if(a.dataset.act==="wa"&&w)w.location="https://wa.me/?text="+encodeURIComponent(msg(u));return}
   const op=t.closest("[data-open]");if(op){const k=op.dataset.open;k==="prices"?prices():k==="gh"?connect():k==="crm"?clients():k==="doc"?docMaker():sent()}};
  app.addEventListener("input",e=>{if(e.target.matches(".mk-dn")){inp._touchedDisc=true;disc=Math.max(0,Math.min(90,+e.target.value||0));$$(".mk-ds button").forEach(b=>b.setAttribute("aria-pressed",false))}});
+ setTimeout(docMaker,0);
  function sheet(html){const md=$(".e-modal");md.hidden=false;md.innerHTML=`<div class="e-mc" role="dialog" aria-modal="true">${html}</div>`;md.onclick=e=>{if(e.target===md||e.target.closest("[data-x]"))md.hidden=true};const mc=md.firstElementChild;mc.close=()=>{md.hidden=true};return mc}
  function sent(){const h=hist();sheet(`<div class="e-mh"><b>Sent links</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div>
   ${h.length?`<ul class="e-hl">${h.map(x=>`<li><div><b>${esc(x.c)}${x.disc?` <em class="mk-pill">−${x.disc}%</em>`:""}</b><span>${esc(x.d)} · ${esc(x.url.replace("https://",""))}</span></div><button type="button" class="mk-btn mk-sm" data-cp="${esc(x.url)}">Copy</button></li>`).join("")}</ul>`:`<p class="mk-hint">Links you send or copy appear here.</p>`}`).addEventListener("click",e=>{const c=e.target.closest("[data-cp]");if(c){copy(c.dataset.cp);toast("Link copied")}})}
@@ -526,7 +529,7 @@ function maker(){de.setAttribute("dir","ltr");de.setAttribute("lang","en");docum
     if(TIERS[t].p===n&&t>0)toast(`🎉 ${c.n} is now ${TN[t][0]}: −${TIERS[t].d}% on their next projects.`,5000)}});
   paint()}
  function docMaker(){const m=sheet(`<div class="e-mh"><b>Quote / invoice</b><button type="button" class="e-ic" data-x aria-label="Close">×</button></div>
-   <p class="mk-hint">For custom projects. Client quotes from their link are made automatically, and invoice requests reach you on WhatsApp with a link to the filled-in quote.</p>
+   <p class="mk-hint">Fill in the client and the lines, then tap Create to see it and save it as a PDF.</p>
    <div class="mk-seg mk-dt"><button type="button" data-t="d" aria-pressed="true">Devis</button><button type="button" data-t="f" aria-pressed="false">Facture</button></div>
    <div class="mk-biz"><label class="mk-pr"><span>Client or company</span><input data-o="n"></label><label class="mk-pr"><span>ICE</span><input data-o="ice"></label><label class="mk-pr"><span>Address</span><input data-o="ad"></label><label class="mk-pr"><span>Email</span><input data-o="em"></label>
    <label class="mk-pr"><span>Currency</span><select data-o="c"><option>MAD</option><option>EUR</option><option>USD</option></select></label><label class="mk-pr"><span>Language</span><select data-o="l"><option value="fr">Français</option><option value="en">English</option></select></label></div>
