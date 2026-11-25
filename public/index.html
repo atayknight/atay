@@ -164,46 +164,68 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .filters button small{font:500 11px/1 var(--mono);opacity:.75}
 .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .filters button:focus-visible{outline:2px solid var(--blue-ink);outline-offset:2px}
-.drawer{--paperc:#C8C9CC;display:flex;background:#0A0B0D;border-radius:20px;overflow:hidden;height:clamp(460px,74vh,680px);box-shadow:var(--shadow)}
-.spine{flex:0 0 76px;position:relative;color:#fff;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:22px 0;border-right:1px solid #1C1E24}
-.spine .v{writing-mode:vertical-rl;transform:rotate(180deg);display:flex;gap:14px;align-items:center}
-.spine .v b{font:850 30px/1 var(--display);font-stretch:80%;text-transform:uppercase;letter-spacing:.01em}
-.spine .v span{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9097A6}
-.spine .mark{width:30px;height:30px;--mark:#fff}
-.spine small{writing-mode:vertical-rl;transform:rotate(180deg);font:500 10px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#6E7585}
-.strips{flex:1;display:flex;min-width:0;padding:16px 40px 16px 6px;gap:0}
-.strip{all:unset;cursor:pointer;display:block;position:relative;flex:1 1 0;min-width:0;min-height:0;transition:flex-grow .8s var(--ease);-webkit-tap-highlight-color:transparent}
-.strip.on{flex-grow:7}
-.strip .card{position:absolute;inset:0 -2px 0 0;border-radius:6px 2px 2px 6px;background:var(--paperc);background-image:radial-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.25),rgba(0,0,0,.08));background-size:3px 3px,100% 100%;box-shadow:-10px 0 18px -8px rgba(0,0,0,.65)}
-.strip .tab{position:absolute;right:-30px;top:var(--ty);width:32px;height:min(46%,260px);background:inherit;background:var(--paperc);background-image:radial-gradient(rgba(0,0,0,.06) 1px,transparent 1px);background-size:3px 3px;clip-path:polygon(0 0,40% 0,100% 14%,100% 86%,40% 100%,0 100%);display:flex;justify-content:center;padding-top:28px;z-index:2}
-.strip .tab span{writing-mode:vertical-rl;transform:rotate(180deg);font:500 12px/1 var(--mono);letter-spacing:.1em;color:#1B1D22;white-space:nowrap;display:flex;gap:10px}
-.strip .tab span b{font-weight:500;opacity:.55;text-transform:uppercase;font-size:10px}
-.strip .img{position:absolute;inset:14px 8px 14px 10px;overflow:hidden;border-radius:2px;background:#000}
-.strip .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.25) brightness(.92);transition:filter .8s ease,transform 6s ease-out;transform:scale(1.08)}
-.strip .img::after{content:"";position:absolute;inset:0;background:var(--duo);mix-blend-mode:var(--blend,multiply);opacity:.9;transition:opacity .8s ease}
-.strip.on .img img{filter:none;transform:scale(1)}
-.strip.on .img::after{opacity:0}
-.strip .info{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;color:#fff;display:flex;flex-direction:column;gap:6px;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .6s var(--ease);pointer-events:none}
-.strip.on .info{opacity:1;transform:none;transition-delay:.35s}
-.strip .info::before{content:"";position:absolute;inset:-60px -18px -16px;background:linear-gradient(0deg,rgba(5,6,9,.85),rgba(5,6,9,0));z-index:-1}
-.strip .info b{font:900 clamp(26px,3.2vw,44px)/.92 var(--display);font-stretch:70%;text-transform:uppercase}
-.strip .info small{font:500 11px/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:#C9CFDB}
-.strip .info em{font-style:normal;align-self:flex-start;margin-top:4px;padding:8px 12px;border-radius:999px;background:#fff;color:#0D1220;font:600 13px/1 var(--body)}
-.strip .num{position:absolute;left:14px;top:22px;z-index:1;color:#fff;font:500 11px/1 var(--mono);letter-spacing:.1em;mix-blend-mode:difference;writing-mode:vertical-rl;transform:rotate(180deg)}
-.strip:focus-visible .img{outline:2px solid #8FAEF0;outline-offset:2px}
-.drawer-foot{display:flex;justify-content:space-between;gap:12px;margin-top:12px;color:var(--muted)}
+/* WORK: featured film + project grid (phone and desktop) */
+.wgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2vw,28px) clamp(14px,1.6vw,22px)}
+.wc{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-width:0;-webkit-tap-highlight-color:transparent;opacity:0;transform:translateY(18px);animation:wcIn .7s var(--ease) forwards;animation-delay:calc(var(--i,0) * 55ms)}
+@keyframes wcIn{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.wc{animation:none;opacity:1;transform:none}}
+.wm{position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#05060A;isolation:isolate;box-shadow:0 0 0 1px rgba(127,164,240,.10),0 18px 40px -22px rgba(0,0,0,.9);transition:box-shadow .4s ease,transform .5s var(--ease)}
+.wm .bg{position:absolute;inset:-12%;background-size:cover;background-position:center;filter:blur(26px) brightness(.55) saturate(1.3);transform:scale(1.1)}
+.wm img,.wm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),opacity .5s ease}
+.wc.v .wm img,.wc.v .wm video{object-fit:contain}
+.wm video{opacity:0}
+.wc.play .wm video{opacity:1}
+.wm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,5,10,.35),rgba(4,5,10,0) 30%,rgba(4,5,10,0) 60%,rgba(4,5,10,.55));pointer-events:none;z-index:1}
+.wtag{position:absolute;left:12px;top:12px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:6px 9px 5px;border-radius:999px;background:rgba(6,7,12,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#E9ECF5;font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.wtag i{width:6px;height:6px;border-radius:50%;background:var(--red,#FF3D5A);box-shadow:0 0 8px var(--red,#FF3D5A)}
+.wnum{position:absolute;right:12px;top:12px;z-index:2;color:rgba(255,255,255,.75);font:500 11px/1 var(--mono);letter-spacing:.1em}
+.wplay{position:absolute;right:12px;bottom:12px;z-index:2;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#0B0E18;transform:scale(.6);opacity:0;transition:transform .45s var(--ease),opacity .3s ease}
+.wplay svg{width:14px;height:14px;margin-left:2px}
+.wt{display:flex;flex-direction:column;gap:5px;padding:0 2px;min-width:0}
+.wt b{font:700 16px/1.25 var(--body);color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wt small{font:500 11px/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (hover:hover) and (pointer:fine){
+ .wc:hover .wm{box-shadow:0 0 0 1px rgba(127,164,240,.45),0 24px 50px -20px rgba(59,102,214,.55);transform:translateY(-3px)}
+ .wc:hover .wm img{transform:scale(1.05)}
+ .wc:hover .wplay{transform:none;opacity:1}
+}
+.wc:focus-visible .wm{outline:2px solid var(--blue-ink);outline-offset:3px}
+/* featured */
+.wc.feat{grid-column:span 2;grid-row:span 2;gap:0}
+.wc.feat .wm{aspect-ratio:auto;flex:1 1 auto;min-height:clamp(300px,40vw,560px);border-radius:18px}
+.wc.feat .wt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(18px,2.6vw,34px);gap:10px;pointer-events:none}
+.wc.feat{position:relative}
+.wc.feat .wm::after{background:linear-gradient(180deg,rgba(4,5,10,.4),rgba(4,5,10,0) 28%,rgba(4,5,10,0) 45%,rgba(4,5,10,.88))}
+.wc.feat .wt b{font:900 clamp(30px,4.4vw,64px)/.92 var(--display);font-stretch:72%;text-transform:uppercase;color:#fff;-webkit-line-clamp:3;letter-spacing:.005em}
+.wc.feat .wt small{color:#C9CFDB;font-size:12px}
+.wc.feat .wt em{font-style:normal;align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;background:#fff;color:#0B0E18;font:600 14px/1 var(--body)}
+.wc.feat .wt em svg{width:12px;height:12px}
+.wc.feat .wplay{display:none}
+.wc.feat .wtag{left:clamp(14px,2vw,22px);top:clamp(14px,2vw,22px)}
+.wc.feat .wnum{right:clamp(14px,2vw,22px);top:clamp(14px,2vw,22px)}
+.wmore{display:flex;justify-content:center;margin-top:clamp(26px,3vw,40px)}
+.wmore button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);font:600 15px/1 var(--body);transition:border-color .3s,background .3s}
+.wmore button:hover{border-color:var(--blue-ink)}
+.wmore button small{font:500 11px/1 var(--mono);color:var(--muted)}
+.wmore button[hidden]{display:none}
+.wmore button:focus-visible{outline:2px solid var(--blue-ink);outline-offset:3px}
+@media (max-width:900px){.wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.wc.lw{grid-column:span 2}.wc.feat{grid-row:auto}.wc.feat .wm{min-height:0;aspect-ratio:16/11}}
 @media (max-width:760px){
-  .drawer{flex-direction:column;height:auto}
-  .spine{flex:none;flex-direction:row;padding:14px 16px;border-right:0;border-bottom:1px solid #1C1E24}
-  .spine .v,.spine small{writing-mode:horizontal-tb;transform:none}
-  .spine .v b{font-size:24px}.spine small{display:none}
-  .strips{flex-direction:column;height:640px;padding:6px 14px 34px}
-  .strip .card{inset:0 0 -2px 0;border-radius:6px 6px 2px 2px;box-shadow:0 -10px 18px -8px rgba(0,0,0,.65)}
-  .strip .tab{right:auto;top:auto;bottom:-24px;left:var(--tx);height:26px;width:min(48%,200px);padding:0 0 0 22px;align-items:center;justify-content:flex-start;clip-path:polygon(0 0,100% 0,90% 100%,10% 100%)}
-  .strip .tab span{writing-mode:horizontal-tb;transform:none}
-  .strip .img{inset:8px 10px 6px 10px}
-  .strip .num{writing-mode:horizontal-tb;transform:none;top:auto;bottom:6px;left:12px}
-  .strip.on .num{opacity:0}
+ .wgrid{gap:18px 12px}
+ .wc{gap:9px}
+ .wm{aspect-ratio:1/1;border-radius:12px}
+ .wc.v .wm img,.wc.v .wm video{object-fit:cover}
+ .wc.feat .wm{aspect-ratio:4/5;border-radius:16px}
+ .wc.feat.v .wm img,.wc.feat.v .wm video{object-fit:cover}
+ .wc.lw .wm{aspect-ratio:16/9}
+ .wt b{font-size:14px}
+ .wt small{font-size:10px}
+ .wtag{left:8px;top:8px;padding:5px 7px 4px;font-size:9px}
+ .wnum{right:9px;top:9px;font-size:10px}
+ .wc:not(.feat) .wtag span{display:none}
+ .filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:-16px;margin-right:-16px;padding:0 16px;-webkit-overflow-scrolling:touch}
+ .filters::-webkit-scrollbar{display:none}
+ .filters button{flex:none}
 }
 
 /* SERVICES: 3D scene grid (ref: image carousel 3D) */
@@ -769,7 +791,7 @@ body.at-top .wa-float{opacity:0;transform:translateY(24px);pointer-events:none}
 /* cursor: the Atay icon */
 @media (hover:hover) and (pointer:fine){
  html,body{cursor:url(brand/cur.png) 16 2,auto!important;cursor:-webkit-image-set(url(brand/cur.png) 1x,url(brand/cur@2x.png) 2x) 16 2,auto!important;cursor:image-set(url(brand/cur.png) 1x,url(brand/cur@2x.png) 2x) 16 2,auto!important}
- a,button,summary,label,select,[role=tab],[role=button],[data-open],canvas,video,.lp,.glbl,.strip,.cs-t{cursor:url(brand/cur-hot.png) 16 2,pointer!important;cursor:-webkit-image-set(url(brand/cur-hot.png) 1x,url(brand/cur-hot@2x.png) 2x) 16 2,pointer!important;cursor:image-set(url(brand/cur-hot.png) 1x,url(brand/cur-hot@2x.png) 2x) 16 2,pointer!important}
+ a,button,summary,label,select,[role=tab],[role=button],[data-open],canvas,video,.lp,.glbl,.strip,.wc,.cs-t{cursor:url(brand/cur-hot.png) 16 2,pointer!important;cursor:-webkit-image-set(url(brand/cur-hot.png) 1x,url(brand/cur-hot@2x.png) 2x) 16 2,pointer!important;cursor:image-set(url(brand/cur-hot.png) 1x,url(brand/cur-hot@2x.png) 2x) 16 2,pointer!important}
  input,textarea{cursor:text!important}
 }
 /* dialog: projects play right here */
@@ -1798,13 +1820,10 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
     <div class="wrap">
       <div class="lh"><span class="lv px">Level 01</span><span class="q px">Quest · <b>open 3 project files</b> for the copper key</span></div>
       <h2 class="h2" data-i18n="w-h">Selected work</h2>
-      <p class="lede" data-i18n="w-l">Every divider holds one project. Hover or tap a divider to pull it open; open it again for the credits and the film.</p>
+      <p class="lede" data-i18n="w-l">Films, commercials, reels and VFX, shot and finished by Atay Studio. Pick a project to watch it.</p>
       <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
-      <div class="drawer">
-        <div class="spine" aria-hidden="true"><span class="mark icon"></span><span class="v"><b>Atay Studio</b><span>From set to screen</span></span><small>Archive 2025<br>Marrakech</small></div>
-        <div class="strips" id="strips" role="group" aria-label="Projects"></div>
-      </div>
-      <div class="drawer-foot mono"><span id="strip-count"></span><span>Auto-plays · hover or tap to choose</span></div>
+      <div class="wgrid" id="wgrid" role="list" aria-label="Projects"></div>
+      <div class="wmore"><button type="button" id="wmore" hidden></button></div>
     </div>
   </section>
 
@@ -2062,8 +2081,8 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
 </script>
 <script>/* ARABIC: strings for data-i18n keys (AR_K) and for the dynamic modules, keyed by their English text (AR_T) */
 window.AR_K={"nav-w":"الأعمال","nav-s":"المهارات","nav-c":"العملاء","nav-p":"الملف","nav-k":"تواصل","nav-b":"احجز مكالمة","go":"ابدأ مشروعاً","set-h":"الإعدادات","set-lang":"اللغة","set-game":"وضع اللعبة","set-snd":"الصوت","wa":"واتساب",
- "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نربط علامتك التجارية بالعالم","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"اسحب للاستكشاف · مرّر للمعاينة · انقر للمشاهدة","hx-hint-t":"اسحب للاستكشاف · المس فيلماً لمشاهدته","w-l-t":"كل فاصل يحمل مشروعاً. المسه لمشاهدة الفيلم والفريق وكل الريلز.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
- "w-h":"أعمال مختارة","w-l":"كل فاصل يحمل مشروعاً. مرّر أو انقر على الفاصل لفتحه، ثم افتحه مرة أخرى لرؤية الفريق والفيلم.","s-h":"أربع حِرَف، صورة واحدة","c-h":"اختر عميلاً","c-l":"مرّر على عميل لمعاينة ما صنعناه له. انقر لفتح المشروع.",
+ "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نربط علامتك التجارية بالعالم","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"اسحب للاستكشاف · مرّر للمعاينة · انقر للمشاهدة","hx-hint-t":"اسحب للاستكشاف · المس فيلماً لمشاهدته","w-l-t":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. المس مشروعاً لمشاهدته.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
+ "w-h":"أعمال مختارة","w-l":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. اختر مشروعاً لمشاهدته.","s-h":"أربع حِرَف، صورة واحدة","c-h":"اختر عميلاً","c-l":"مرّر على عميل لمعاينة ما صنعناه له. انقر لفتح المشروع.",
  "p-h":"ملف اللاعب","p-cls":"الفئة · مدير تصوير","p-t":"مؤسس Atay Studio. يصوّر أيوب ويُمنتج ويلوّن ويصنع المؤثرات البصرية بنفسه، فالصورة التي توافق عليها في موقع التصوير هي التي تُسلَّم. مقيم في مراكش، ويعمل في كل أنحاء المغرب وعن بُعد حول العالم.",
  "k-p":"مستعد يا لاعب واحد؟ أخبرنا عن المشروع والمواعيد والمكان.","f-name":"اسمك","f-type":"نوع المشروع","o1":"إعلان تجاري","o2":"حملة على مواقع التواصل","o3":"فيلم سياحي","o4":"حدث أو مهرجان","o5":"فيديو كليب","o6":"مؤثرات بصرية أو 3D فقط","o7":"شيء آخر","f-date":"المواعيد","f-loc":"المكان","f-msg":"المشروع في بضعة أسطر","f-wa":"أرسل عبر واتساب","f-mail":"أرسل بالبريد الإلكتروني","f-note":"رسالتك مكتوبة لك، ما عليك إلا الضغط على إرسال."};
 window.AR_T={
@@ -2093,7 +2112,7 @@ window.AR_CHIPS=["أحضّر لفيلم سياحي","أرني أعمال الد�
 window.AR_TYPES=["فيلم سياحي","إعلان تجاري","ريلز لمواقع التواصل","حدث أو مهرجان","3D / مؤثرات بصرية","فيلم مؤسساتي"];
 </script>
 <script>/* touch screens get tap wording instead of hover wording */
-(()=>{if(!matchMedia("(hover: none)").matches)return;const T={"hx-hint":["hx-hint-t","Swipe to explore · tap a film to watch"],"w-l":["w-l-t","Every divider holds one project. Tap one to open the film, the credits and every reel."],"c-l":["c-l-t","Tap a client to open the work we made for them."]};
+(()=>{if(!matchMedia("(hover: none)").matches)return;const T={"hx-hint":["hx-hint-t","Swipe to explore · tap a film to watch"],"w-l":["w-l-t","Films, commercials, reels and VFX, shot and finished by Atay Studio. Tap a project to watch it."],"c-l":["c-l-t","Tap a client to open the work we made for them."]};
  for(const k in T)document.querySelectorAll(`[data-i18n="${k}"]`).forEach(el=>{el.dataset.i18n=T[k][0];el.textContent=T[k][1]})})();
 </script>
 <script>/* work filter labels follow the language */
@@ -2107,7 +2126,7 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
   "m1-no":"Mission 01 · Film touristique","m1-cl":"Client · Région Béni Mellal-Khénifra","m1-o":"Montrer la région de Béni Mellal-Khénifra comme une destination : ses canyons, ses lacs, ses villages et ses habitants.","m1-d":"Prises de vue aériennes et au sol dans toute la région, un montage guidé par l'histoire et un étalonnage chaud et naturel.","m1-x":"Film principal de 2:56 · 16:9",
   "m2-no":"Mission 02 · Campagne sociale","m2-cl":"Client · INWI","m2-o":"Une campagne verticale qui semble née pour le fil d'actualité, tournée de nuit en ville.","m2-d":"Un tournage de nuit, un montage vertical rythmé et des VFX qui placent le talent sur les écrans géants de la ville.","m2-x":"Film de campagne de 27 s · 9:16",
   "m3-no":"Mission 03 · VFX de festival","m3-cl":"Client · Festival III Points · avec Adinayev Media","m3-o":"Transformer les images du festival en récaps plus grands que la nuit elle-même.","m3-d":"VFX et compositing sur deux films récap tournés et montés par Gio Bandero : lumière, énergie et moments de scène poussés plus loin.","m3-x":"2 films récap · 4:3",
-  "w-h":"Travaux choisis","w-l":"Chaque intercalaire contient un projet. Survolez ou touchez pour l'ouvrir, puis ouvrez-le à nouveau pour les crédits et le film.",
+  "w-h":"Travaux choisis","w-l":"Films, publicités, reels et VFX, tournés et finalisés par Atay Studio. Choisissez un projet pour le regarder.",
   "s-h":"Quatre métiers, une image","c-h":"Choisissez un client","c-l":"Survolez un client pour voir le travail réalisé pour lui. Cliquez pour ouvrir le projet.",
   "p-h":"Profil du joueur","p-cls":"Classe · Directeur de la photographie","p-t":"Fondateur d'Atay Studio. Ayoub filme, monte, étalonne et crée les VFX, pour que le rendu validé sur le plateau soit celui qui est livré. Basé à Marrakech, il travaille partout au Maroc et à distance dans le monde entier.",
   "k-p":"Prêt, joueur 1 ? Parlez-nous du projet, des dates et du lieu.","f-name":"Votre nom","f-type":"Type de projet","f-date":"Dates","f-loc":"Lieu","f-msg":"Le projet en quelques lignes","f-wa":"Envoyer sur WhatsApp","f-mail":"Envoyer par e-mail","f-note":"Le message est prêt, il ne reste qu'à l'envoyer.",
@@ -2151,28 +2170,44 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
  visible(mb,v=>{on=v;if(v)sel(cur);else{clearTimeout(tm);play(-1)}},{threshold:.3});
 })();
 </script>
-<script>/* WORK: divider strips */
-(()=>{const fl=document.getElementById("filters"),box=document.getElementById("strips"),cnt=document.getElementById("strip-count");
- let cat="film",list=[],active=0,hov=false,on=false,hold=0;
- const set=i=>{active=i;[...box.children].forEach((s,k)=>{s.classList.toggle("on",k===i);s.setAttribute("aria-expanded",k===i)});cnt.textContent=`${String(i+1).padStart(2,"0")} / ${String(list.length).padStart(2,"0")} · ${list[i].t}`};
- const draw=()=>{list=P.filter(p=>cat==="all"||p.cat===cat);
-  fl.innerHTML=CATS.filter(([k])=>k!=="all").map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${k===cat}">${window.catL?catL(l):l}<small>${k==="all"?P.length:P.filter(p=>p.cat===k).length}</small></button>`).join("");
-  box.innerHTML=list.map((p,i)=>`<button class="strip" type="button" data-i="${i}" aria-label="${esc(p.t)}" style="--duo:${p.tint};--ty:${4+(i%6)*8.5}%;--tx:${4+(i%5)*11}%;z-index:${list.length-i}">
-   <span class="card"></span><span class="tab"><span>${String(i+1).padStart(2,"0")}<b>${esc(p.t.split(" · ")[0])}</b></span></span>
-   <span class="img"><img src="img/${p.id}.webp" alt="" loading="lazy"><span class="num">${String(i+1).padStart(2,"0")}</span>
-   <span class="info"><small>${esc(p.client)} · ${p.fmt||tc(p.dur)}</small><b>${esc(p.t)}</b><small>${esc(p.role.join(" · "))}</small><em>Open project ↗</em></span></span></button>`).join("");
-  set(0)};
- draw();
- fl.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.k;draw();fl.querySelector(`[data-k="${cat}"]`).focus()});
- box.addEventListener("pointerover",e=>{if(!HOVER)return;const s=e.target.closest(".strip");if(!s)return;hov=true;if(+s.dataset.i!==active)set(+s.dataset.i)});
- box.addEventListener("pointerleave",()=>{hov=false});
- box.addEventListener("focusin",e=>{const s=e.target.closest(".strip");if(s&&+s.dataset.i!==active)set(+s.dataset.i)});
- box.addEventListener("click",e=>{const s=e.target.closest(".strip");if(!s)return;const i=+s.dataset.i;
-  if(HOVER||i===active)openProject(list[i].id);else{set(i);hold=performance.now()+9000}});
- visible(box,v=>on=v,{threshold:.35});
- setInterval(()=>{if(!on||hov||RM||dlg.open||performance.now()<hold||document.activeElement?.classList.contains("strip"))return;set((active+1)%list.length)},3600)})();
-
-</script>
+<script>/* WORK: featured film + project grid */
+(()=>{const fl=document.getElementById("filters"),box=document.getElementById("wgrid"),more=document.getElementById("wmore");
+ const LG=()=>window.I18N?I18N.lang():"en",L3=(en,fr,ar)=>LG()==="fr"?fr:LG()==="ar"?ar:en;
+ const PL='<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9.5-5.5z"/></svg>';
+ const PHONE=matchMedia("(max-width:760px)");
+ let cat="all",all=false,list=[];
+ const vert=p=>/^9:16$/.test(p.ar);
+ const clip=p=>CLIPS[p.id]&&CLIPS[p.id][0];
+ const fmt=p=>vert(p)?L3("Reel","Reel","ريل")+" · 9:16":(p.fmt||p.ar);
+ function order(){const l=P.filter(p=>cat==="all"||p.cat===cat);
+  const f=l.findIndex(p=>clip(p)&&!vert(p));const i=f<0?0:f;return l.length?[l[i],...l.filter((_,k)=>k!==i)]:[]}
+ function card(p,i){const feat=i===0,c=clip(p),src=`img/${p.id}.webp`;
+  return `<button class="wc${feat?" feat":""}${vert(p)?" v":""}" type="button" data-id="${esc(p.id)}" role="listitem" aria-label="${esc(p.t)} · ${esc(p.client)}" style="--i:${Math.min(i,12)}">
+   <span class="wm">${vert(p)?`<span class="bg" style="background-image:url(${src})"></span>`:""}<img src="${src}" alt="" loading="${i<4?"eager":"lazy"}" decoding="async">${c?`<video muted playsinline loop preload="none" data-src="reel/${c}.mp4"></video>`:""}
+    <span class="wtag"><i></i><span>${esc(fmt(p))}</span></span><span class="wnum">${String(i+1).padStart(2,"0")}</span><span class="wplay">${PL}</span></span>
+   <span class="wt">${feat?`<small>${esc(p.client)} · ${esc(p.role.join(" · "))}</small>`:""}<b>${esc(p.t)}</b>${feat?`<em>${PL}${L3("Watch the project","Voir le projet","شاهد المشروع")}</em>`:`<small>${esc(p.client)} · ${esc(p.role.join(" · "))}</small>`}</span></button>`}
+ const LIMIT=9;
+ function draw(){list=order();const show=all?list:list.slice(0,LIMIT);
+  fl.innerHTML=CATS.map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${k===cat}">${window.catL?catL(l):l}<small>${k==="all"?P.length:P.filter(p=>p.cat===k).length}</small></button>`).join("");
+  box.innerHTML=show.map(card).join("");
+  const n=show.length-1,last=box.lastElementChild;if(last&&n>0&&n%2===1&&!last.classList.contains("feat"))last.classList.add("lw");
+  more.hidden=all||list.length<=LIMIT;
+  more.innerHTML=`<span>${L3("Show all projects","Voir tous les projets","عرض كل المشاريع")}</span><small>${list.length}</small>`;
+  wire()}
+ /* previews: hover on desktop; the featured film plays on its own while on screen */
+ let io;
+ function wire(){if(io)io.disconnect();
+  const start=c=>{const v=c.querySelector("video");if(!v||RM)return;if(!v.src)v.src=v.dataset.src;v.play().then(()=>c.classList.add("play")).catch(()=>{})};
+  const stop=c=>{const v=c.querySelector("video");if(!v)return;v.pause();c.classList.remove("play")};
+  box.querySelectorAll(".wc").forEach(c=>{if(HOVER&&!c.classList.contains("feat")){c.addEventListener("pointerenter",()=>start(c));c.addEventListener("pointerleave",()=>stop(c))}});
+  const f=box.querySelector(".wc.feat");
+  if(f){io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start(f):stop(f)),{threshold:.35});io.observe(f)}}
+ fl.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||b.dataset.k===cat)return;cat=b.dataset.k;all=false;draw();const nb=fl.querySelector(`[data-k="${cat}"]`);nb.focus({preventScroll:true});nb.scrollIntoView({block:"nearest",inline:"center",behavior:RM?"auto":"smooth"})});
+ more.addEventListener("click",()=>{all=true;draw();box.children[LIMIT]?.focus({preventScroll:true})});
+ box.addEventListener("click",e=>{const c=e.target.closest(".wc");if(!c)return;const p=list.find(x=>String(x.id)===c.dataset.id);if(p)openProject(p.id)});
+ addEventListener("atay:lang",draw);
+ PHONE.addEventListener?.("change",draw);
+ draw()})();</script>
 <script>/* SERVICES: 3D scene grid */
 (()=>{const SV=[
   {k:"Cinematography",sc:"#264D95",head:["Shot","on","location"],d:"Camera, light and framing for commercials, documentaries and tourism films.",hero:"a1",pj:1060940223,side:["a2","a4","a9","a5"],L:0},
@@ -2330,7 +2365,7 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
  const SFX={blip:()=>tone(880,.04,"square",.03),sel:()=>{tone(660,.06);tone(990,.08,"square",.05,.06)},coin:()=>{tone(988,.07,"square",.05);tone(1319,.22,"square",.05,.07)},key:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.14,"square",.06,i*.1)),egg:()=>[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,.16,"triangle",.07,i*.12))};
  const sb=$("snd");const sndUI=()=>{sb.textContent=snd?"♪ On":"♪ Off";sb.setAttribute("aria-pressed",String(snd))};sndUI();
  sb.addEventListener("click",()=>{snd=!snd;try{localStorage.setItem("atay-snd",snd?"1":"0")}catch(e){}sndUI();SFX.sel()});
- let lastBlip=null;document.addEventListener("pointerover",e=>{const t=e.target.closest&&e.target.closest(".gm-list a,.lvl,.cs-t,.strip,.svc-list button,.hchip,.gbtn,.filters button,.hudbar .go");if(t&&t!==lastBlip){lastBlip=t;SFX.blip()}},{passive:true});
+ let lastBlip=null;document.addEventListener("pointerover",e=>{const t=e.target.closest&&e.target.closest(".gm-list a,.lvl,.cs-t,.strip,.wc,.svc-list button,.hchip,.gbtn,.filters button,.hudbar .go");if(t&&t!==lastBlip){lastBlip=t;SFX.blip()}},{passive:true});
  document.addEventListener("click",e=>{if(e.target.closest&&e.target.closest("button,a"))SFX.sel()},{passive:true});
  /* coins */
  const cEl=$("coins");const cUI=()=>{cEl.textContent=String(st.coins).padStart(3,"0")};cUI();
@@ -2722,7 +2757,7 @@ HOW TO BEHAVE:
   {sel:".hx-copy",t:()=>L("Hi, I'm Anir, the Atay Studio star. Let me show you around! Up here is a living wall of our films.","Salut, je suis Anir, l’étoile d’Atay Studio. Je vous fais visiter ! Ici, un mur vivant de nos films.","مرحباً، أنا أنير، نجمة Atay Studio. دعني أريك المكان! هنا جدار حيّ من أفلامنا."),
    tip:()=>phone()?L("Swipe the films sideways, tap one to watch it.","Glissez les films, touchez-en un pour le voir.","اسحب الأفلام جانباً، والمس أحدها لمشاهدته."):L("Drag the wall, hover a film to preview it, click to watch.","Faites glisser le mur, survolez un film, cliquez pour le voir.","اسحب الجدار، مرّر على فيلم لمعاينته، وانقر لمشاهدته.")},
   {sel:".trust",t:()=>L("These are some of the brands, festivals and tourism boards that trusted us.","Voici quelques marques, festivals et offices du tourisme qui nous ont fait confiance.","هذه بعض العلامات والمهرجانات ومكاتب السياحة التي وثقت بنا.")},
-  {sel:"#work .drawer",t:()=>L("Our selected work. Each divider is one project: open it for the film, the credits and every reel.","Nos projets choisis. Chaque intercalaire est un projet : ouvrez-le pour le film, les crédits et les reels.","أعمالنا المختارة. كل فاصل مشروع: افتحه لمشاهدة الفيلم والفريق وكل الريلز."),tip:()=>L("Use the tabs to filter: cinematography, tourism, commercial, 3D & VFX.","Filtrez avec les onglets : cinéma, tourisme, publicité, 3D & VFX.","استعمل التبويبات للتصفية: سينما، سياحة، إعلانات، 3D ومؤثرات.")},
+  {sel:"#work .wgrid",t:()=>L("Our selected work. Open any project for the film, the credits and every reel.","Nos projets choisis. Ouvrez un projet pour le film, les crédits et les reels.","أعمالنا المختارة. افتح أي مشروع لمشاهدة الفيلم والفريق وكل الريلز."),tip:()=>L("Use the tabs to filter: cinematography, tourism, commercial, 3D & VFX.","Filtrez avec les onglets : cinéma, tourisme, publicité, 3D & VFX.","استعمل التبويبات للتصفية: سينما، سياحة، إعلانات، 3D ومؤثرات.")},
   {sel:".svc-list",t:()=>L("Four crafts under one roof: shoot, edit, colour and VFX. One team, one look, from set to screen.","Quatre métiers sous un même toit : tournage, montage, couleur et VFX. Une équipe, un regard.","أربع حِرف تحت سقف واحد: تصوير، مونتاج، تلوين ومؤثرات. فريق واحد ورؤية واحدة.")},
   {sel:"#cs-grid",t:()=>L("Pick a client to see what we made for them.","Choisissez un client pour voir ce que nous avons fait pour lui.","اختر عميلاً لترى ما صنعناه له.")},
   {sel:"#studio .pcard",t:()=>L("This is Ayoub, the founder. He shoots, edits, grades and builds the VFX himself.","Voici Ayoub, le fondateur. Il filme, monte, étalonne et crée les VFX lui-même.","هذا أيوب، المؤسس. يصوّر ويُمنتج ويلوّن ويصنع المؤثرات بنفسه.")},
