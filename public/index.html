@@ -881,6 +881,13 @@ body.at-top .wa-float{opacity:0;transform:translateY(24px);pointer-events:none}
 .hx-orbit-card{pointer-events:auto;flex:none;width:clamp(240px,21vw,290px);padding:16px 16px 14px;border-radius:26px;background:rgba(255,255,255,.78);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:0 30px 60px -28px rgba(20,30,60,.45),0 0 0 1px rgba(0,0,0,.05);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
 .hx-oc-k{font:700 14px/1.25 var(--body);color:#1D1D1F;max-width:22ch}
 .hx-oc-n{font:500 12px/1 var(--body);color:#6E6E73}
+.hx-nano{position:relative;width:100%;aspect-ratio:1;cursor:pointer}
+.hx-nano canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hx-nano i{position:absolute;width:14px;height:14px;border:0 solid rgba(61,107,224,.55)}
+.hx-nano .c1{left:2px;top:2px;border-width:1.5px 0 0 1.5px;border-radius:4px 0 0 0}.hx-nano .c2{right:2px;top:2px;border-width:1.5px 1.5px 0 0;border-radius:0 4px 0 0}
+.hx-nano .c3{left:2px;bottom:2px;border-width:0 0 1.5px 1.5px;border-radius:0 0 0 4px}.hx-nano .c4{right:2px;bottom:2px;border-width:0 1.5px 1.5px 0;border-radius:0 0 4px 0}
+html[data-theme=dark] .hx-nano i{border-color:rgba(127,180,255,.5)}
+.hx-nano-st{font:500 11px/1 var(--mono)!important;letter-spacing:.14em;text-transform:uppercase;min-height:11px}
 .hx-orbit{position:relative;width:100%;aspect-ratio:1}
 .hx-rings i{position:absolute;border-radius:50%;border:1px solid rgba(0,0,0,.09)}
 .hx-rings i:nth-child(1){inset:30%}.hx-rings i:nth-child(2){inset:15%}.hx-rings i:nth-child(3){inset:2%}
@@ -1808,14 +1815,10 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
           <a class="hx-ghost" href="/work/" data-i18n="cta2">See the work</a>
         </div>
       </div>
-      <aside class="hx-orbit-card" aria-label="Clients">
-        <span class="hx-oc-k" data-i18n="hx-tag">Connecting your brand to the world</span>
-        <div class="hx-orbit" id="hx-orbit">
-          <div class="hx-rings" aria-hidden="true"><i></i><i></i><i></i></div>
-          <div class="hx-core" aria-hidden="true"></div>
-          <div class="hx-bubbles" id="hx-bubbles"></div>
-        </div>
-        <span class="hx-oc-n" id="hx-oc-n" data-i18n="hx-oc">13 clients · Morocco and Miami</span>
+      <aside class="hx-orbit-card hx-nano-card" aria-label="Atay Studio">
+        <span class="hx-oc-k" data-i18n="hx-tag">Built frame by frame</span>
+        <div class="hx-nano"><canvas id="hx-nano" aria-hidden="true"></canvas><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
+        <span class="hx-oc-n hx-nano-st" id="hx-nano-st" aria-hidden="true">ASSEMBLING · 00%</span>
       </aside>
     </div>
     <span class="hx-hint" data-i18n="hx-hint">Drag to explore · hover to preview · click to watch</span>
@@ -2083,19 +2086,82 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
  function roll(){const L=WORDS[LK()];wi=(wi+1)%L.length;f0.classList.remove("in");f0.classList.add("out");setTimeout(()=>show(L[wi]),520)}
  setInterval(()=>{if(!RM&&on&&!document.hidden)roll()},3600);
  document.addEventListener("atay:lang",()=>{fit();show(WORDS[LK()][wi])});
- /* orbit of clients */
- const bubs=$("hx-bubbles");const CLI=[["INWI","reel/c2-s.jpg",1135769380],["III Points","reel/v1-s.jpg",1135787186],["Visit Drâa-Tafilalet","reel/ig/DSAf5irFe4o-s.jpg","visitdraa"],["Palais Amani","reel/ig/DQKSwzvCD4_-s.jpg","DQKSwzvCD4_"],["Beni Mellal-Khénifra","reel/a1-s.jpg",1060940223],["Huna Paris","reel/ig/DL420Jztv6Z-s.jpg",1050810936],["CRI Marrakech-Safi","reel/ig/DFxO77ZM3uH-s.jpg","DFxO77ZM3uH"],["Lenovo","reel/ig/DdZcdGRBWHF-s.jpg","DdZcdGRBWHF"]];
- bubs.innerHTML=CLI.map(([n,th,pj])=>`<button class="hx-bub" type="button" data-pj="${pj}" style="background-image:url(${th})" aria-label="${esc(n)}"><span>${esc(n)}</span></button>`).join("");
- const B=[...bubs.children],ring=[.33,.48,.33,.48,.33,.48,.33,.48],spd=[.1,-.07,.1,-.07,.1,-.07,.1,-.07];let ohov=false,oa=0,ov=1;
- bubs.addEventListener("pointerenter",()=>ohov=true);bubs.addEventListener("pointerleave",()=>ohov=false);
- bubs.addEventListener("click",e=>{const b=e.target.closest(".hx-bub");if(b)window.openProject(isNaN(+b.dataset.pj)?b.dataset.pj:+b.dataset.pj)});
- (function orbit(){requestAnimationFrame(orbit);if(!on)return;ov+=((ohov||RM?0:1)-ov)*.08;oa+=ov/60;const R=bubs.clientWidth/2;B.forEach((b,i)=>{const a=oa*spd[i]*Math.PI*2+i/B.length*Math.PI*2;b.style.transform=`translate(${(Math.cos(a)*R*ring[i]*2).toFixed(1)}px,${(Math.sin(a)*R*ring[i]*2).toFixed(1)}px)`})})();
  visible(root,v=>{on=v;if(!v)clearHot()},{threshold:0});
 })();
 </script>
+<script>/* HERO CARD: the Atay mark assembling itself, nano-tech style.
+   Particles stream in, lock into a voxel grid from the bottom up behind a scan line,
+   resolve into the crisp mark, hold with glints, then dissolve and rebuild. */
+(()=>{const cv=document.getElementById("hx-nano");if(!cv)return;const st=document.getElementById("hx-nano-st");
+ const ctx=cv.getContext("2d"),RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const dark=()=>document.documentElement.getAttribute("data-theme")==="dark";
+ const PAL=()=>dark()?{a:"#9DB8FF",b:"#3D6BE0",trail:"127,200,255",glow:"rgba(110,150,255,.55)",grid:"rgba(255,255,255,.06)",flash:"#FFFFFF",scan:"120,200,255"}
+                     :{a:"#5A86F0",b:"#264D95",trail:"61,107,224",glow:"rgba(61,107,224,.35)",grid:"rgba(20,30,60,.07)",flash:"#BFD3FF",scan:"61,107,224"};
+ let W=0,H=0,DPR=1,cells=[],logo=null,tinted=null,tintKey="",bg=null,G=5;
+ const img=new Image();img.src="brand/icon.svg";
+ const ease=t=>1-Math.pow(1-t,3),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),rnd=(a,b)=>a+Math.random()*(b-a);
+ /* timeline (seconds) */
+ const T_BUILD=2.6,T_RESOLVE=0.6,T_HOLD=3.2,T_DISS=1.3,T_GAP=.5,CYCLE=T_BUILD+T_RESOLVE+T_HOLD+T_DISS+T_GAP;
+ function layout(){const r=cv.getBoundingClientRect();if(!r.width)return false;DPR=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);
+  /* sample the mark */
+  const S=Math.round(Math.min(W,H)*.66);G=Math.max(4,Math.round(S/44));const o=document.createElement("canvas");o.width=o.height=S;const oc=o.getContext("2d");oc.drawImage(img,0,0,S,S);
+  const d=oc.getImageData(0,0,S,S).data;let x0=S,x1=0,y0=S,y1=0;for(let y=0;y<S;y++)for(let x=0;x<S;x++)if(d[(y*S+x)*4+3]>40){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y}
+  const ox=(W-(x1-x0))/2-x0,oy=(H-(y1-y0))/2-y0;logo={c:o,x:ox,y:oy,S,top:y0+oy,bot:y1+oy};
+  cells=[];for(let y=y0;y<=y1;y+=G)for(let x=x0;x<=x1;x+=G){let a=0,n=0;for(let j=0;j<G;j+=2)for(let i=0;i<G;i+=2){const k=((y+j)*S+(x+i))*4+3;if(y+j<S&&x+i<S){a+=d[k];n++}}
+   if(n&&a/n>110){const tx=x+ox,ty=y+oy,ang=rnd(0,Math.PI*2),rad=rnd(.55,.85)*Math.max(W,H);
+    const by=1-(ty-logo.top)/Math.max(1,logo.bot-logo.top);/* bottom first */
+    cells.push({tx,ty,sx:W/2+Math.cos(ang)*rad,sy:H/2+Math.sin(ang)*rad,del:by*1.55+rnd(0,.35),dur:rnd(.55,.85),bend:rnd(-1,1)*40,dx:rnd(-30,30),dy:rnd(-90,-30),dd:rnd(0,.5),sp:Math.random()})}}
+  /* background: dot grid + corner brackets */
+  bg=document.createElement("canvas");bg.width=cv.width;bg.height=cv.height;const b=bg.getContext("2d");b.setTransform(DPR,0,0,DPR,0,0);const P=PAL();b.fillStyle=P.grid;
+  for(let y=G/2;y<H;y+=G*2)for(let x=G/2;x<W;x+=G*2)b.fillRect(x,y,1,1);
+  tintKey="";return true}
+ function tint(P){const k=P.a+P.b+W;if(tintKey===k)return;tintKey=k;const S=logo.S;tinted=document.createElement("canvas");tinted.width=tinted.height=S;const t=tinted.getContext("2d");t.drawImage(logo.c,0,0);t.globalCompositeOperation="source-in";const g=t.createLinearGradient(0,0,S,S);g.addColorStop(0,P.a);g.addColorStop(1,P.b);t.fillStyle=g;t.fillRect(0,0,S,S)}
+ let t0=performance.now(),on=true,raf=0,lastPct=-1;
+ function status(p,done){if(!st)return;const v=done?2:Math.round(p*100);if(v===lastPct)return;lastPct=v;st.textContent=done?"ATAY STUDIO · ONLINE":`ASSEMBLING · ${String(v).padStart(2,"0")}%`}
+ function frame(now){raf=requestAnimationFrame(frame);if(!on||!logo)return;const P=PAL();tint(P);const t=((now-t0)/1000)%CYCLE;
+  ctx.clearRect(0,0,W,H);ctx.drawImage(bg,0,0,W,H);
+  const lockCol=(c,age)=>{const f=clamp(1-age/.35,0,1);if(f>0){ctx.fillStyle=P.flash;ctx.globalAlpha=.55+.45*f}else{ctx.fillStyle=(c.ty-logo.top)/(logo.bot-logo.top)<.5?P.a:P.b;ctx.globalAlpha=1}};
+  if(t<T_BUILD+T_RESOLVE){/* BUILD */
+   let locked=0;const front=logo.bot-(logo.bot-logo.top+G*2)*clamp(t/(T_BUILD*.92),0,1);
+   ctx.lineCap="round";
+   for(const c of cells){const k=(t-c.del)/c.dur;
+    if(k<0){/* waiting: drifting spark at the edge */const a=t*.6+c.sp*6.28;ctx.globalAlpha=.25;ctx.fillStyle=`rgb(${P.trail})`;ctx.fillRect(c.sx+Math.cos(a)*6,c.sy+Math.sin(a)*6,1.4,1.4);continue}
+    if(k<1){const e=ease(k),nx=c.tx-c.sx,ny=c.ty-c.sy,L=Math.hypot(nx,ny)||1,px=-ny/L,py=nx/L,b=Math.sin(e*Math.PI)*c.bend;
+     const x=c.sx+nx*e+px*b,y=c.sy+ny*e+py*b,e2=ease(Math.max(0,k-.06)),x2=c.sx+nx*e2+px*Math.sin(e2*Math.PI)*c.bend,y2=c.sy+ny*e2+py*Math.sin(e2*Math.PI)*c.bend;
+     ctx.globalAlpha=.7;ctx.strokeStyle=`rgba(${P.trail},.6)`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x,y);ctx.stroke();ctx.fillStyle=P.flash;ctx.fillRect(x-1,y-1,2,2);continue}
+    locked++;lockCol(c,t-c.del-c.dur);const g=G-1;ctx.fillRect(c.tx,c.ty,g,g)}
+   ctx.globalAlpha=1;
+   /* scan line at the build front */
+   if(t<T_BUILD){const gr=ctx.createLinearGradient(0,front-18,0,front+2);gr.addColorStop(0,`rgba(${P.scan},0)`);gr.addColorStop(1,`rgba(${P.scan},.22)`);ctx.fillStyle=gr;ctx.fillRect(W*.08,front-18,W*.84,20);
+    ctx.fillStyle=`rgba(${P.scan},.9)`;ctx.fillRect(W*.08,front,W*.84,1);ctx.fillStyle=`rgba(${P.scan},.8)`;ctx.fillRect(W*.08-3,front-2,3,5);ctx.fillRect(W*.92,front-2,3,5)}
+   /* resolve: crisp mark fades in over the voxels */
+   const r=clamp((t-T_BUILD)/T_RESOLVE,0,1);if(r>0){ctx.save();ctx.globalAlpha=ease(r);ctx.shadowColor=P.glow;ctx.shadowBlur=24*r;ctx.drawImage(tinted,logo.x,logo.y);ctx.restore()}
+   status(locked/cells.length,r>.5)}
+  else if(t<T_BUILD+T_RESOLVE+T_HOLD){/* HOLD: mark with glow, glint sweep and sparkles */
+   const h=t-T_BUILD-T_RESOLVE;ctx.save();ctx.shadowColor=P.glow;ctx.shadowBlur=18+6*Math.sin(h*2.2);ctx.drawImage(tinted,logo.x,logo.y);ctx.restore();
+   const gx=((h%1.6)/1.6)*(W+160)-80;if(h%1.6<1.2){ctx.save();ctx.globalCompositeOperation="source-atop";const g=ctx.createLinearGradient(gx-40,0,gx+40,0);g.addColorStop(0,"rgba(255,255,255,0)");g.addColorStop(.5,"rgba(255,255,255,.55)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+   for(let i=0;i<3;i++){const c=cells[(Math.floor(h*9)*7+i*131)%cells.length];if(c){ctx.globalAlpha=.7;ctx.fillStyle=P.flash;ctx.fillRect(c.tx,c.ty,G-1,G-1)}}ctx.globalAlpha=1;
+   status(1,true)}
+  else if(t<T_BUILD+T_RESOLVE+T_HOLD+T_DISS){/* DISSOLVE: top first, cells lift off and fade */
+   const k0=(t-T_BUILD-T_RESOLVE-T_HOLD)/T_DISS;
+   for(const c of cells){const ty=(c.ty-logo.top)/(logo.bot-logo.top);const k=clamp((k0*1.5-ty*.5-c.dd*.3)/.6,0,1);
+    if(k<=0){ctx.globalAlpha=1;ctx.fillStyle=ty<.5?P.a:P.b;ctx.fillRect(c.tx,c.ty,G-1,G-1);continue}
+    const e=ease(k);ctx.globalAlpha=1-e;ctx.fillStyle=k<.25?P.flash:`rgb(${P.trail})`;const s=(G-1)*(1-e*.7);ctx.fillRect(c.tx+c.dx*e,c.ty+c.dy*e,s,s)}
+   ctx.globalAlpha=1;status(1-k0,false)}
+  else status(0,false)}
+ function stillFrame(){if(!logo)return;const P=PAL();tint(P);ctx.clearRect(0,0,W,H);ctx.drawImage(bg,0,0,W,H);ctx.save();ctx.shadowColor=P.glow;ctx.shadowBlur=20;ctx.drawImage(tinted,logo.x,logo.y);ctx.restore();status(1,true)}
+ function start(){if(!layout())return;if(RM){stillFrame();return}t0=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame)}
+ const go=()=>img.complete&&img.naturalWidth?start():img.addEventListener("load",start,{once:true});
+ go();
+ let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{if(layout()&&RM)stillFrame()},150)});
+ addEventListener("atay:theme",()=>{if(layout()&&RM)stillFrame()});
+ new IntersectionObserver(es=>es.forEach(e=>{on=e.isIntersecting}),{threshold:0}).observe(cv);
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!RM)t0=performance.now()-((performance.now()-t0)%(CYCLE*1000))});
+ cv.closest(".hx-orbit-card")?.addEventListener("click",()=>{if(!RM)t0=performance.now()});
+})();</script>
 <script>/* ARABIC: strings for data-i18n keys (AR_K) and for the dynamic modules, keyed by their English text (AR_T) */
 window.AR_K={"nav-w":"الأعمال","nav-s":"المهارات","nav-c":"العملاء","nav-p":"الملف","nav-k":"تواصل","nav-b":"احجز مكالمة","go":"ابدأ مشروعاً","set-h":"الإعدادات","set-lang":"اللغة","set-game":"وضع اللعبة","set-snd":"الصوت","wa":"واتساب",
- "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نربط علامتك التجارية بالعالم","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"اسحب للاستكشاف · مرّر للمعاينة · انقر للمشاهدة","hx-hint-t":"اسحب للاستكشاف · المس فيلماً لمشاهدته","w-l-t":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. المس مشروعاً لمشاهدته.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
+ "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نبنيها لقطة بلقطة","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"اسحب للاستكشاف · مرّر للمعاينة · انقر للمشاهدة","hx-hint-t":"اسحب للاستكشاف · المس فيلماً لمشاهدته","w-l-t":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. المس مشروعاً لمشاهدته.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
  "w-h":"أعمال مختارة","w-l":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. اختر مشروعاً لمشاهدته.","s-h":"أربع حِرَف، صورة واحدة","c-h":"اختر عميلاً","c-l":"مرّر على عميل لمعاينة ما صنعناه له. انقر لفتح المشروع.",
  "p-h":"ملف اللاعب","p-cls":"الفئة · مدير تصوير","p-t":"مؤسس Atay Studio. يصوّر أيوب ويُمنتج ويلوّن ويصنع المؤثرات البصرية بنفسه، فالصورة التي توافق عليها في موقع التصوير هي التي تُسلَّم. مقيم في مراكش، ويعمل في كل أنحاء المغرب وعن بُعد حول العالم.",
  "k-p":"مستعد يا لاعب واحد؟ أخبرنا عن المشروع والمواعيد والمكان.","f-name":"اسمك","f-type":"نوع المشروع","o1":"إعلان تجاري","o2":"حملة على مواقع التواصل","o3":"فيلم سياحي","o4":"حدث أو مهرجان","o5":"فيديو كليب","o6":"مؤثرات بصرية أو 3D فقط","o7":"شيء آخر","f-date":"المواعيد","f-loc":"المكان","f-msg":"المشروع في بضعة أسطر","f-wa":"أرسل عبر واتساب","f-mail":"أرسل بالبريد الإلكتروني","f-note":"رسالتك مكتوبة لك، ما عليك إلا الضغط على إرسال."};
@@ -2144,7 +2210,7 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
   "s-h":"Quatre métiers, une image","c-h":"Choisissez un client","c-l":"Survolez un client pour voir le travail réalisé pour lui. Cliquez pour ouvrir le projet.",
   "p-h":"Profil du joueur","p-cls":"Classe · Directeur de la photographie","p-t":"Fondateur d'Atay Studio. Ayoub filme, monte, étalonne et crée les VFX, pour que le rendu validé sur le plateau soit celui qui est livré. Basé à Marrakech, il travaille partout au Maroc et à distance dans le monde entier.",
   "k-p":"Prêt, joueur 1 ? Parlez-nous du projet, des dates et du lieu.","f-name":"Votre nom","f-type":"Type de projet","f-date":"Dates","f-loc":"Lieu","f-msg":"Le projet en quelques lignes","f-wa":"Envoyer sur WhatsApp","f-mail":"Envoyer par e-mail","f-note":"Le message est prêt, il ne reste qu'à l'envoyer.",
-  "set-h":"Réglages","set-lang":"Langue","set-snd":"Son","set-game":"Mode jeu","wa":"WhatsApp","nav-m":"Missions","nav-w":"Travaux","nav-s":"Métiers","nav-c":"Clients","nav-p":"Profil","nav-k":"Contact","nav-b":"Réserver un appel","go":"Lancer un projet","hx-h1a":"Les idées prennent","hx-p":"Tournage, montage, étalonnage et VFX pour les marques, les festivals et les offices du tourisme.","hx-shoot":"Tournage","hx-edit":"Montage","hx-grade":"Couleur","hx-vfx":"VFX","hx-go":"Lancer un projet","hx-tag":"Votre marque, connectée au monde","hx-hint":"Glissez pour explorer · survolez pour prévisualiser · cliquez pour lire","hx-hint-t":"Glissez pour explorer · touchez un film pour le voir","w-l-t":"Chaque intercalaire contient un projet. Touchez-en un pour voir le film, les crédits et tous les reels.","c-l-t":"Touchez un client pour voir le travail réalisé pour lui.","hx-peek":"Cliquez pour regarder","hx-oc":"13 clients · Maroc et Miami","pi-info":"Détails","like4":"Un projet comme celui-ci","mm-h":"Carte du monde","m1-tab":"Film touristique · Béni Mellal-Khénifra","m2-tab":"Campagne sociale · 9:16","m3-tab":"VFX de festival · Miami","st-1":"Brief","st-2":"Exécution","st-3":"Résultat","pc-reel":"Voir le reel","ghint":"Faites tourner · touchez une épingle","cin-x":"Retour au globe","ps":"Appuyez sur start","ps-mute":"Jouer sans le son","ps-tag":"Production vidéo et VFX · de Marrakech au monde","ec-k":"Journal de mission terminé","ec-h":"Prochaine mission : la vôtre","ec-p":"On filme, on monte, on étalonne et on crée des mondes. Dites-nous où se passe votre projet.","ec-re":"↻ Rejouer le voyage","dk-map":"◇ Carte"};
+  "set-h":"Réglages","set-lang":"Langue","set-snd":"Son","set-game":"Mode jeu","wa":"WhatsApp","nav-m":"Missions","nav-w":"Travaux","nav-s":"Métiers","nav-c":"Clients","nav-p":"Profil","nav-k":"Contact","nav-b":"Réserver un appel","go":"Lancer un projet","hx-h1a":"Les idées prennent","hx-p":"Tournage, montage, étalonnage et VFX pour les marques, les festivals et les offices du tourisme.","hx-shoot":"Tournage","hx-edit":"Montage","hx-grade":"Couleur","hx-vfx":"VFX","hx-go":"Lancer un projet","hx-tag":"Construit image par image","hx-hint":"Glissez pour explorer · survolez pour prévisualiser · cliquez pour lire","hx-hint-t":"Glissez pour explorer · touchez un film pour le voir","w-l-t":"Chaque intercalaire contient un projet. Touchez-en un pour voir le film, les crédits et tous les reels.","c-l-t":"Touchez un client pour voir le travail réalisé pour lui.","hx-peek":"Cliquez pour regarder","hx-oc":"13 clients · Maroc et Miami","pi-info":"Détails","like4":"Un projet comme celui-ci","mm-h":"Carte du monde","m1-tab":"Film touristique · Béni Mellal-Khénifra","m2-tab":"Campagne sociale · 9:16","m3-tab":"VFX de festival · Miami","st-1":"Brief","st-2":"Exécution","st-3":"Résultat","pc-reel":"Voir le reel","ghint":"Faites tourner · touchez une épingle","cin-x":"Retour au globe","ps":"Appuyez sur start","ps-mute":"Jouer sans le son","ps-tag":"Production vidéo et VFX · de Marrakech au monde","ec-k":"Journal de mission terminé","ec-h":"Prochaine mission : la vôtre","ec-p":"On filme, on monte, on étalonne et on crée des mondes. Dites-nous où se passe votre projet.","ec-re":"↻ Rejouer le voyage","dk-map":"◇ Carte"};
  const TIPS={en:["Every frame is shot, cut and graded in-house, so the look you approve is the look that ships.","We deliver 16:9 films, 9:16 social cuts and LED-banner content from the same shoot.","Based in Marrakech, shooting across Morocco and remotely worldwide.","Hover a client in Level 03 to preview their footage.","Open 3 project files to earn the copper key.","Arabic, English and French on every production."],
   fr:["Chaque image est filmée, montée et étalonnée chez nous : le rendu validé est celui qui est livré.","Nous livrons films 16:9, formats sociaux 9:16 et contenus pour écrans LED à partir du même tournage.","Basés à Marrakech, nous tournons partout au Maroc et à distance dans le monde entier.","Survolez un client au niveau 03 pour voir ses images.","Ouvrez 3 projets pour gagner la clé de cuivre.","Arabe, anglais et français sur chaque production."],ar:["كل لقطة تُصوَّر وتُمنتج وتُلوَّن داخلياً، فما توافق عليه هو ما يُسلَّم.","نسلّم أفلام 16:9 ومقاطع 9:16 للتواصل ومحتوى شاشات LED من التصوير نفسه.","مقرّنا مراكش، ونصوّر في كل المغرب وعن بُعد حول العالم.","مرّر على عميل في المستوى 03 لمعاينة صوره.","افتح 3 مشاريع لتربح المفتاح النحاسي.","العربية والإنجليزية والفرنسية في كل إنتاج."]};
  const EN={};document.querySelectorAll("[data-i18n]").forEach(el=>{EN[el.dataset.i18n]=el.textContent});
