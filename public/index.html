@@ -39,6 +39,19 @@ html[data-theme=dark] .hx-hc{box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 
 @media (max-width:900px){.hx-scene{perspective:1100px;perspective-origin:50% 26%}.hx-plane{left:52%;top:27%}}
 @media (prefers-reduced-motion:reduce){.hx-hc{transition:none}}
 </style>
+<style>/* hero socials (replace the skill pills) */
+.hx-social a{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:9px;padding:7px 16px 7px 7px;border-radius:99px;background:#fff;color:#1D1D1F;font:600 14px/1 var(--body);box-shadow:0 6px 18px -8px rgba(20,30,60,.3),0 0 0 1px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s}
+.hx-social a:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(20,30,60,.35),0 0 0 1px rgba(0,0,0,.08)}
+.hx-social a:focus-visible{outline:2px solid #3D6BE0;outline-offset:3px}
+.hx-social .s-ig .ic{background:radial-gradient(circle at 30% 110%,#FDCB52 0%,#F56040 35%,#DD2A7B 60%,#8134AF 85%)!important;color:#fff!important}
+.hx-social .s-wa .ic{background:#25D366!important;color:#fff!important}
+html[data-theme=dark] .hx-social a{background:#161618;color:#F5F5F7;box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+</style>
+<style>/* keys quest + coins removed from the header */
+#quest-btn,#coins-btn,#qlog{display:none!important}
+html[data-theme] .hx-social .s-wa .ic{background:#25D366!important;background-color:#25D366!important;color:#fff!important}
+html[data-theme] .hx-social .s-ig .ic{background-color:#DD2A7B!important;color:#fff!important}
+</style>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1810,12 +1823,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
         <span class="hx-eyebrow" aria-label="studio by Atay"><span class="hx-type" id="hx-type"></span><i class="hx-caret"></i></span>
         <h1><span class="sr-only hx-seo">Atay Studio, Ayoub Ouazzou: director of photography, editor, colorist and VFX artist in Marrakech, Morocco. </span><span class="hx-l1" data-i18n="hx-h1a">Ideas take</span><span class="hx-cube" id="hx-cube"><span class="hx-cb" id="hx-cb"><span class="f f0">shape<i>.</i></span><span class="f f1"></span></span></span></h1>
         <p data-i18n="hx-p">Film, edit, colour and VFX for brands, festivals and tourism boards.</p>
-        <div class="hx-pills" id="hx-pills" role="group" aria-label="Filter the work by skill">
-          <button type="button" data-k="Shoot" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="10" rx="2"/><path d="M16 11l5-3v8l-5-3z"/></svg></span><span data-i18n="hx-shoot">Shoot</span></button>
-          <button type="button" data-k="Edit" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="M8.5 8.5 20 18M8.5 15.5 20 6"/></svg></span><span data-i18n="hx-edit">Edit</span></button>
-          <button type="button" data-k="Grade" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M12 4a8 8 0 0 1 0 16"/></svg></span><span data-i18n="hx-grade">Colour</span></button>
-          <button type="button" data-k="VFX" aria-pressed="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 6.3L21 12l-6.8 2.7L12 21l-2.2-6.3L3 12l6.8-2.7z"/></svg></span><span data-i18n="hx-vfx">VFX</span></button>
-        </div>
+        <div class="hx-pills hx-social" id="hx-pills" role="group" aria-label="Atay Studio on social media"><a class="s-ig" href="https://www.instagram.com/atay_knight/" target="_blank" rel="noopener"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></span><span>Instagram</span></a><a class="s-wa" href="https://wa.me/212699146214?text=Hi%20Atay%20Studio%2C%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.6L3.5 20.5l1.3-4.1a8.6 8.6 0 1 1 15.7-4.8z"/><path d="M9.2 8.4c-.4 2.9 2.6 6.2 5.8 6.4l1-1.3-1.7-1.1-.9.6c-1-.5-1.9-1.4-2.4-2.4l.6-.9-1.1-1.7z" fill="currentColor" stroke="none"/></svg></span><span>WhatsApp</span></a></div>
         <div class="hx-cta">
           <a class="hx-go" href="/#book"><span class="hx-comet" aria-hidden="true"></span><span data-i18n="hx-go">Start a project</span><i aria-hidden="true"></i></a>
           <a class="hx-ghost" href="/work/" data-i18n="cta2">See the work</a>
@@ -1829,7 +1837,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
 
   <section class="sec" id="work" style="padding-top:clamp(32px,5vw,64px)">
     <div class="wrap">
-      <div class="lh"><span class="lv px">Level 01</span><span class="q px">Quest · <b>open 3 project files</b> for the copper key</span></div>
+      <div class="lh"><span class="lv px">Level 01</span><span class="q px">The archive</span></div>
       <h2 class="h2" data-i18n="w-h">Selected work</h2>
       <p class="lede" data-i18n="w-l">Films, commercials, reels and VFX, shot and finished by Atay Studio. Pick a project to watch it.</p>
       <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
@@ -1850,7 +1858,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
   </section>
   <section class="sec cs-sec" id="clients">
     <div class="wrap">
-      <div class="lh"><span class="lv px">Level 03</span><span class="q px">Quest · <b>preview 5 clients</b> for the jade key</span></div>
+      <div class="lh"><span class="lv px">Level 03</span><span class="q px">Client select</span></div>
       <h2 class="h2" data-i18n="c-h">Select a client</h2>
       <p class="lede" data-i18n="c-l">Hover a client to preview the work we made for them. Click to open the project.</p>
       <div class="cs">
@@ -2143,8 +2151,8 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
   "p-h":"Profil du joueur","p-cls":"Classe · Directeur de la photographie","p-t":"Fondateur d'Atay Studio. Ayoub filme, monte, étalonne et crée les VFX, pour que le rendu validé sur le plateau soit celui qui est livré. Basé à Marrakech, il travaille partout au Maroc et à distance dans le monde entier.",
   "k-p":"Prêt, joueur 1 ? Parlez-nous du projet, des dates et du lieu.","f-name":"Votre nom","f-type":"Type de projet","f-date":"Dates","f-loc":"Lieu","f-msg":"Le projet en quelques lignes","f-wa":"Envoyer sur WhatsApp","f-mail":"Envoyer par e-mail","f-note":"Le message est prêt, il ne reste qu'à l'envoyer.",
   "set-h":"Réglages","set-lang":"Langue","set-snd":"Son","set-game":"Mode jeu","wa":"WhatsApp","nav-m":"Missions","nav-w":"Travaux","nav-s":"Métiers","nav-c":"Clients","nav-p":"Profil","nav-k":"Contact","nav-b":"Réserver un appel","go":"Lancer un projet","hx-h1a":"Les idées prennent","hx-p":"Tournage, montage, étalonnage et VFX pour les marques, les festivals et les offices du tourisme.","hx-shoot":"Tournage","hx-edit":"Montage","hx-grade":"Couleur","hx-vfx":"VFX","hx-go":"Lancer un projet","hx-tag":"Construit image par image","hx-hint":"Glissez pour faire tourner · survolez pour prévisualiser · cliquez pour lire","hx-hint-t":"Glissez pour explorer · touchez un film pour le voir","w-l-t":"Chaque intercalaire contient un projet. Touchez-en un pour voir le film, les crédits et tous les reels.","c-l-t":"Touchez un client pour voir le travail réalisé pour lui.","hx-peek":"Cliquez pour regarder","hx-oc":"13 clients · Maroc et Miami","pi-info":"Détails","like4":"Un projet comme celui-ci","mm-h":"Carte du monde","m1-tab":"Film touristique · Béni Mellal-Khénifra","m2-tab":"Campagne sociale · 9:16","m3-tab":"VFX de festival · Miami","st-1":"Brief","st-2":"Exécution","st-3":"Résultat","pc-reel":"Voir le reel","ghint":"Faites tourner · touchez une épingle","cin-x":"Retour au globe","ps":"Appuyez sur start","ps-mute":"Jouer sans le son","ps-tag":"Production vidéo et VFX · de Marrakech au monde","ec-k":"Journal de mission terminé","ec-h":"Prochaine mission : la vôtre","ec-p":"On filme, on monte, on étalonne et on crée des mondes. Dites-nous où se passe votre projet.","ec-re":"↻ Rejouer le voyage","dk-map":"◇ Carte"};
- const TIPS={en:["Every frame is shot, cut and graded in-house, so the look you approve is the look that ships.","We deliver 16:9 films, 9:16 social cuts and LED-banner content from the same shoot.","Based in Marrakech, shooting across Morocco and remotely worldwide.","Hover a client in Level 03 to preview their footage.","Open 3 project files to earn the copper key.","Arabic, English and French on every production."],
-  fr:["Chaque image est filmée, montée et étalonnée chez nous : le rendu validé est celui qui est livré.","Nous livrons films 16:9, formats sociaux 9:16 et contenus pour écrans LED à partir du même tournage.","Basés à Marrakech, nous tournons partout au Maroc et à distance dans le monde entier.","Survolez un client au niveau 03 pour voir ses images.","Ouvrez 3 projets pour gagner la clé de cuivre.","Arabe, anglais et français sur chaque production."],ar:["كل لقطة تُصوَّر وتُمنتج وتُلوَّن داخلياً، فما توافق عليه هو ما يُسلَّم.","نسلّم أفلام 16:9 ومقاطع 9:16 للتواصل ومحتوى شاشات LED من التصوير نفسه.","مقرّنا مراكش، ونصوّر في كل المغرب وعن بُعد حول العالم.","مرّر على عميل في المستوى 03 لمعاينة صوره.","افتح 3 مشاريع لتربح المفتاح النحاسي.","العربية والإنجليزية والفرنسية في كل إنتاج."]};
+ const TIPS={en:["Every frame is shot, cut and graded in-house, so the look you approve is the look that ships.","We deliver 16:9 films, 9:16 social cuts and LED-banner content from the same shoot.","Based in Marrakech, shooting across Morocco and remotely worldwide.","Hover a client in Level 03 to preview their footage.","Every project page plays the full film.","Arabic, English and French on every production."],
+  fr:["Chaque image est filmée, montée et étalonnée chez nous : le rendu validé est celui qui est livré.","Nous livrons films 16:9, formats sociaux 9:16 et contenus pour écrans LED à partir du même tournage.","Basés à Marrakech, nous tournons partout au Maroc et à distance dans le monde entier.","Survolez un client au niveau 03 pour voir ses images.","Chaque projet se regarde en entier.","Arabe, anglais et français sur chaque production."],ar:["كل لقطة تُصوَّر وتُمنتج وتُلوَّن داخلياً، فما توافق عليه هو ما يُسلَّم.","نسلّم أفلام 16:9 ومقاطع 9:16 للتواصل ومحتوى شاشات LED من التصوير نفسه.","مقرّنا مراكش، ونصوّر في كل المغرب وعن بُعد حول العالم.","مرّر على عميل في المستوى 03 لمعاينة صوره.","كل مشروع يُشاهَد كاملاً.","العربية والإنجليزية والفرنسية في كل إنتاج."]};
  const EN={};document.querySelectorAll("[data-i18n]").forEach(el=>{EN[el.dataset.i18n]=el.textContent});
  let lang="en";try{lang=localStorage.getItem("atay-lang")||((navigator.language||"").startsWith("fr")?"fr":(navigator.language||"").startsWith("ar")?"ar":"en")}catch(e){}
  window.I18N={tips:()=>TIPS[lang]||TIPS.en,lang:()=>lang};
@@ -2394,7 +2402,7 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
  function qUI(){document.querySelectorAll(".key").forEach(k=>k.classList.toggle("got",!!st.keys[k.dataset.k]));$("quest-n").textContent=Object.keys(st.keys).length+"/3";
   $("qlist").innerHTML=Object.entries(KEYS).map(([k,q])=>`<li class="${st.keys[k]?"done":""}">${keySvg(k).replace('class="key"','class="key got"')}<span><b>${q.n}${st.keys[k]?" ✓":""}</b>${q.goal}<br><small>${Math.min(q.cnt(),q.need)} / ${q.need}</small></span></li>`).join("");
   document.querySelectorAll(".estar").forEach(s=>s.classList.toggle("got",!!st.keys.crystal))}
- function award(k){if(st.keys[k])return;st.keys[k]=1;save();qUI();SFX.key();toast(KEYS[k].n+" found",KEYS[k].goal,"⚿");coins(50);if(Object.keys(st.keys).length===3)setTimeout(egg,2900)}
+ function award(k){return;st.keys[k]=1;save();qUI();SFX.key();toast(KEYS[k].n+" found",KEYS[k].goal,"⚿");coins(50);if(Object.keys(st.keys).length===3)setTimeout(egg,2900)}
  function check(){if(!st.keys.copper&&st.opened.length>=3)award("copper");if(!st.keys.jade&&st.clients.length>=5)award("jade");qUI()}
  const _open=window.openProject;window.openProject=function(id,rel){_open(id,rel);if(!st.opened.includes(id)){st.opened.push(id);save();coins(10);check()}};
  document.addEventListener("atay:client",e=>{if(!st.clients.includes(e.detail)){st.clients.push(e.detail);save();if(st.clients.length>1)coins(5);check()}});
@@ -2960,28 +2968,6 @@ html[data-theme=dark] .bk-gc{background:linear-gradient(135deg,rgba(127,164,240,
 html[data-theme=dark] .bk-gc b{color:#F5F5F7}html[data-theme=dark] .bk-gc p{color:#A1A1A6}html[data-theme=dark] .bk-gc .bk-cir{color:#7FA4F0}
 html[data-theme=dark] .bk-gc.on{background:linear-gradient(135deg,#3D6BE0,#264D95)}html[data-theme=dark] .bk-gc.on p{color:rgba(255,255,255,.86)}
 </style>
-<script>/* WELCOME OFFER + ATAY CIRCLE: book a call → a discount on the first month, unlocked right after booking and mentioned when the client contacts Ayoub for a quote. */
-(()=>{const root=document.getElementById("book");if(!root)return;
- const LG=()=>window.I18N?I18N.lang():"en",L=(en,fr,ar)=>LG()==="fr"?fr:LG()==="ar"?ar:en;
- let W={pct:20,on:1},T=[{p:0,d:0},{p:2,d:5},{p:5,d:10},{p:10,d:15}];
- const box=document.createElement("div");box.className="bk-gift";box.setAttribute("aria-live","polite");root.querySelector(".bk-head").appendChild(box);
- const KEY="atay-welcome",get=()=>{try{const w=JSON.parse(localStorage.getItem(KEY)||"null");return w&&/^ATAY-[A-Z0-9]{4}$/.test(w.code)?w:null}catch(e){return null}};
- const top=()=>Math.max(...T.map(x=>+x.d||0));
- const slug=n=>encodeURIComponent(n.trim().replace(/\s+/g,"-")).replace(/%2D/gi,"-");
- function paint(){if(!W.on||!(+W.pct>0)){box.hidden=true;return}box.hidden=false;const w=get(),n=+W.pct;
-  box.innerHTML=w?`<div class="bk-gc on"><span class="bk-gi">🎁</span><div><b>${L(`Welcome offer unlocked: −${n}% on your first month`,`Offre de bienvenue débloquée : −${n} % sur votre premier mois`,`تم تفعيل عرض الترحيب: خصم ${n}٪ على شهرك الأول`)}</b><p>${L("Mention this code when you contact Ayoub and it comes off your first month.","Mentionnez ce code en contactant Ayoub : la remise s’applique à votre premier mois.","اذكر هذا الرمز عند تواصلك مع أيوب وسيُخصم من شهرك الأول.")}</p><code>${w.code}</code><a class="bk-gb" href="/#contact">${L("Contact Ayoub →","Contacter Ayoub →","تواصل مع أيوب ←")}</a></div></div>`
-   :`<div class="bk-gc"><span class="bk-gi">🎁</span><div><b>${L(`Book your free call and get −${n}% on your first month`,`Réservez votre appel gratuit et profitez de −${n} % sur votre premier mois`,`احجز مكالمتك المجانية واحصل على خصم ${n}٪ على شهرك الأول`)}</b><p>${L("Your welcome code appears right after booking. Mention it when you ask Ayoub for your quote.","Votre code de bienvenue s’affiche juste après la réservation. Mentionnez-le en demandant votre devis à Ayoub.","يظهر رمز الترحيب مباشرة بعد الحجز. اذكره عندما تطلب عرض السعر من أيوب.")}</p>${top()?`<span class="bk-cir">★ ${L(`Atay Circle: the more we work together, the less you pay, up to −${top()}% on every project.`,`Atay Circle : plus on travaille ensemble, moins vous payez, jusqu’à −${top()} % sur chaque projet.`,`Atay Circle: كلما اشتغلنا معاً أكثر، دفعت أقل، حتى خصم ${top()}٪ على كل مشروع.`)}</span>`:""}</div></div>`}
- window.atayWelcome=function(name){if(!W.on||!(+W.pct>0))return null;let w=get();
-  if(!w){const A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let c="";const r=new Uint32Array(4);(window.crypto||{}).getRandomValues?crypto.getRandomValues(r):r.forEach((_,i)=>r[i]=Math.random()*1e9);r.forEach(x=>c+=A[x%A.length]);
-   w={code:"ATAY-"+c,d:new Date().toISOString().slice(0,10),n:(name||"").trim().slice(0,60)};try{localStorage.setItem(KEY,JSON.stringify(w))}catch(e){}}
-  else if(name&&!w.n){w.n=name.trim().slice(0,60);try{localStorage.setItem(KEY,JSON.stringify(w))}catch(e){}}
-  paint();return w};
- /* the built-in fallback calendar books through WhatsApp: unlock when they send it */
- root.addEventListener("click",e=>{const a=e.target.closest(".bk-done a.bk-go");if(a)setTimeout(()=>window.atayWelcome(""),300)});
- paint();fetch("/quote/prices.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j){if(j.welcome)W=j.welcome;if(Array.isArray(j.tiers)&&j.tiers.length)T=j.tiers}paint()}).catch(()=>{});
- addEventListener("atay:lang",paint);
-})();
-</script>
 <script>/* CAL.COM BOOKING: real availability from Ayoub's Google Calendar, invites + reminders for both sides.
    Falls back to the built-in request calendar (book.js) if Cal.com is not set up or does not load. */
 (()=>{const CAL_LINK="ataystudio/discovery-call";
