@@ -164,37 +164,37 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .filters button small{font:500 11px/1 var(--mono);opacity:.75}
 .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .filters button:focus-visible{outline:2px solid var(--blue-ink);outline-offset:2px}
-/* WORK: featured film + project grid (phone and desktop) */
-.wgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2vw,28px) clamp(14px,1.6vw,22px)}
-.wc{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-width:0;-webkit-tap-highlight-color:transparent;opacity:0;transform:translateY(18px);animation:wcIn .7s var(--ease) forwards;animation-delay:calc(var(--i,0) * 55ms)}
+/* WORK: featured film + masonry grid, every piece in its real format */
+.wgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:2px;grid-auto-flow:row dense;column-gap:clamp(14px,1.6vw,22px);align-items:start}
+.wc{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-width:0;padding-bottom:clamp(22px,2.4vw,32px);-webkit-tap-highlight-color:transparent;grid-column:span 1;opacity:0;transform:translateY(18px);animation:wcIn .7s var(--ease) forwards;animation-delay:calc(var(--i,0) * 50ms)}
+.wc.h{grid-column:span 2}
 @keyframes wcIn{to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.wc{animation:none;opacity:1;transform:none}}
-.wm{position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#05060A;isolation:isolate;box-shadow:0 0 0 1px rgba(127,164,240,.10),0 18px 40px -22px rgba(0,0,0,.9);transition:box-shadow .4s ease,transform .5s var(--ease)}
-.wm .bg{position:absolute;inset:-12%;background-size:cover;background-position:center;filter:blur(26px) brightness(.55) saturate(1.3);transform:scale(1.1)}
+.wm{position:relative;display:block;width:100%;aspect-ratio:var(--ar,16/9);border-radius:14px;overflow:hidden;background:#05060A;isolation:isolate;box-shadow:0 0 0 1px rgba(127,164,240,.10),0 18px 40px -22px rgba(0,0,0,.9);transition:box-shadow .4s ease,transform .5s var(--ease)}
 .wm img,.wm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),opacity .5s ease}
-.wc.v .wm img,.wc.v .wm video{object-fit:contain}
 .wm video{opacity:0}
 .wc.play .wm video{opacity:1}
-.wm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,5,10,.35),rgba(4,5,10,0) 30%,rgba(4,5,10,0) 60%,rgba(4,5,10,.55));pointer-events:none;z-index:1}
-.wtag{position:absolute;left:12px;top:12px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:6px 9px 5px;border-radius:999px;background:rgba(6,7,12,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#E9ECF5;font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
-.wtag i{width:6px;height:6px;border-radius:50%;background:var(--red,#FF3D5A);box-shadow:0 0 8px var(--red,#FF3D5A)}
+.wm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,5,10,.35),rgba(4,5,10,0) 26%,rgba(4,5,10,0) 64%,rgba(4,5,10,.5));pointer-events:none;z-index:1}
+.wtag{position:absolute;left:12px;top:12px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:6px 9px 5px;border-radius:999px;background:rgba(6,7,12,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#E9ECF5;font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;max-width:calc(100% - 60px);white-space:nowrap;overflow:hidden}
+.wtag i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--red,#FF3D5A);box-shadow:0 0 8px var(--red,#FF3D5A)}
 .wnum{position:absolute;right:12px;top:12px;z-index:2;color:rgba(255,255,255,.75);font:500 11px/1 var(--mono);letter-spacing:.1em}
-.wplay{position:absolute;right:12px;bottom:12px;z-index:2;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#0B0E18;transform:scale(.6);opacity:0;transition:transform .45s var(--ease),opacity .3s ease}
+.wplay{position:absolute;right:12px;bottom:12px;z-index:2;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#0B0E18;transform:scale(.6);opacity:0;transition:transform .45s var(--ease),opacity .3s ease}
 .wplay svg{width:14px;height:14px;margin-left:2px}
 .wt{display:flex;flex-direction:column;gap:5px;padding:0 2px;min-width:0}
 .wt b{font:700 16px/1.25 var(--body);color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.wt small{font:500 11px/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wt small{font:500 11px/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media (hover:hover) and (pointer:fine){
  .wc:hover .wm{box-shadow:0 0 0 1px rgba(127,164,240,.45),0 24px 50px -20px rgba(59,102,214,.55);transform:translateY(-3px)}
- .wc:hover .wm img{transform:scale(1.05)}
+ .wc:hover .wm img{transform:scale(1.04)}
  .wc:hover .wplay{transform:none;opacity:1}
 }
 .wc:focus-visible .wm{outline:2px solid var(--blue-ink);outline-offset:3px}
 /* featured */
-.wc.feat{grid-column:span 2;grid-row:span 2;gap:0}
-.wc.feat .wm{aspect-ratio:auto;flex:1 1 auto;min-height:clamp(300px,40vw,560px);border-radius:18px}
-.wc.feat .wt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(18px,2.6vw,34px);gap:10px;pointer-events:none}
-.wc.feat{position:relative}
+.wc.feat{grid-column:span 3;position:relative;gap:0}
+.wc.feat.full{grid-column:span 4}
+.wc.feat .wm{--ar:16/9;border-radius:18px}
+.wc.feat.full .wm{--ar:21/9}
+.wc.feat .wt{position:absolute;left:0;right:0;bottom:clamp(22px,2.4vw,32px);z-index:2;padding:clamp(18px,2.6vw,34px);gap:10px;pointer-events:none}
 .wc.feat .wm::after{background:linear-gradient(180deg,rgba(4,5,10,.4),rgba(4,5,10,0) 28%,rgba(4,5,10,0) 45%,rgba(4,5,10,.88))}
 .wc.feat .wt b{font:900 clamp(30px,4.4vw,64px)/.92 var(--display);font-stretch:72%;text-transform:uppercase;color:#fff;-webkit-line-clamp:3;letter-spacing:.005em}
 .wc.feat .wt small{color:#C9CFDB;font-size:12px}
@@ -203,21 +203,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .wc.feat .wplay{display:none}
 .wc.feat .wtag{left:clamp(14px,2vw,22px);top:clamp(14px,2vw,22px)}
 .wc.feat .wnum{right:clamp(14px,2vw,22px);top:clamp(14px,2vw,22px)}
-.wmore{display:flex;justify-content:center;margin-top:clamp(26px,3vw,40px)}
+.wmore{display:flex;justify-content:center;margin-top:clamp(6px,1vw,12px)}
 .wmore button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);font:600 15px/1 var(--body);transition:border-color .3s,background .3s}
 .wmore button:hover{border-color:var(--blue-ink)}
 .wmore button small{font:500 11px/1 var(--mono);color:var(--muted)}
 .wmore button[hidden]{display:none}
 .wmore button:focus-visible{outline:2px solid var(--blue-ink);outline-offset:3px}
-@media (max-width:900px){.wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.wc.lw{grid-column:span 2}.wc.feat{grid-row:auto}.wc.feat .wm{min-height:0;aspect-ratio:16/11}}
+@media (max-width:900px){
+ .wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .wc.feat,.wc.feat.full{grid-column:span 2}
+ .wc.feat.full .wm{--ar:16/9}
+}
 @media (max-width:760px){
- .wgrid{gap:18px 12px}
- .wc{gap:9px}
- .wm{aspect-ratio:1/1;border-radius:12px}
- .wc.v .wm img,.wc.v .wm video{object-fit:cover}
- .wc.feat .wm{aspect-ratio:4/5;border-radius:16px}
- .wc.feat.v .wm img,.wc.feat.v .wm video{object-fit:cover}
- .wc.lw .wm{aspect-ratio:16/9}
+ .wgrid{column-gap:12px}
+ .wc{gap:9px;padding-bottom:20px}
+ .wm{border-radius:12px}
+ .wc.feat .wm{border-radius:16px}
+ .wc.feat .wt{position:static;padding:10px 2px 0;gap:6px;pointer-events:auto}
+ .wc.feat .wt b{color:var(--ink);font-size:30px}
+ .wc.feat .wt small{color:var(--muted);font-size:10px}
+ .wc.feat .wt em{background:var(--ink);color:var(--paper);padding:10px 14px;font-size:13px}
  .wt b{font-size:14px}
  .wt small{font-size:10px}
  .wtag{left:8px;top:8px;padding:5px 7px 4px;font-size:9px}
@@ -1095,6 +1100,8 @@ html.pp-open .wa-float,html.pp-open .hudbar{visibility:hidden}
 .pp-media{position:relative;margin:0 auto;aspect-ratio:var(--ar,1.78);width:100%;max-height:72vh;border-radius:20px;overflow:hidden;background:#0B1022;box-shadow:0 30px 60px -24px rgba(0,0,0,.55)}
 .pp-stage.tall .pp-media{width:auto;height:min(72vh,720px);max-width:100%}
 .pp-media video,.pp-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pp-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.pp-media video[controls]{object-fit:contain;background:#000}
 .pp-under{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:16px;color:#fff}
 .pp-cap{font:600 15px/1.3 var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pp-ext{color:rgba(255,255,255,.85);text-decoration:none;font:500 14px/1 var(--body);white-space:nowrap}.pp-ext:hover{color:#fff;text-decoration:underline}
@@ -2177,7 +2184,7 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
  visible(mb,v=>{on=v;if(v)sel(cur);else{clearTimeout(tm);play(-1)}},{threshold:.3});
 })();
 </script>
-<script>/* WORK: featured film + project grid */
+<script>/* WORK: featured film + masonry grid (real formats) */
 (()=>{const fl=document.getElementById("filters"),box=document.getElementById("wgrid"),more=document.getElementById("wmore");
  const LG=()=>window.I18N?I18N.lang():"en",L3=(en,fr,ar)=>LG()==="fr"?fr:LG()==="ar"?ar:en;
  const PL='<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9.5-5.5z"/></svg>';
@@ -2188,16 +2195,18 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
  const fmt=p=>vert(p)?L3("Reel","Reel","ريل")+" · 9:16":(p.fmt||p.ar);
  function order(){const l=P.filter(p=>cat==="all"||p.cat===cat);
   const f=l.findIndex(p=>clip(p)&&!vert(p));const i=f<0?0:f;return l.length?[l[i],...l.filter((_,k)=>k!==i)]:[]}
- function card(p,i){const feat=i===0,c=clip(p),src=`img/${p.id}.webp`;
-  return `<button class="wc${feat?" feat":""}${vert(p)?" v":""}" type="button" data-id="${esc(p.id)}" role="listitem" aria-label="${esc(p.t)} · ${esc(p.client)}" style="--i:${Math.min(i,12)}">
-   <span class="wm">${vert(p)?`<span class="bg" style="background-image:url(${src})"></span>`:""}<img src="${src}" alt="" loading="${i<4?"eager":"lazy"}" decoding="async">${c?`<video muted playsinline loop preload="none" data-src="reel/${c}.mp4"></video>`:""}
+ const arCss=p=>vert(p)?"9/16":"16/9";
+ function card(p,i,full){const feat=i===0,c=clip(p),src=`img/${p.id}.webp`;
+  return `<button class="wc${feat?" feat":""}${feat&&full?" full":""}${vert(p)?" v":" h"}" type="button" data-id="${esc(p.id)}" role="listitem" aria-label="${esc(p.t)} · ${esc(p.client)}" style="--i:${Math.min(i,12)}">
+   <span class="wm" style="--ar:${arCss(p)}"><img src="${src}" alt="" loading="${i<5?"eager":"lazy"}" decoding="async">${c?`<video muted playsinline loop preload="none" data-src="reel/${c}.mp4"></video>`:""}
     <span class="wtag"><i></i><span>${esc(fmt(p))}</span></span><span class="wnum">${String(i+1).padStart(2,"0")}</span><span class="wplay">${PL}</span></span>
    <span class="wt">${feat?`<small>${esc(p.client)} · ${esc(p.role.join(" · "))}</small>`:""}<b>${esc(p.t)}</b>${feat?`<em>${PL}${L3("Watch the project","Voir le projet","شاهد المشروع")}</em>`:`<small>${esc(p.client)} · ${esc(p.role.join(" · "))}</small>`}</span></button>`}
- const LIMIT=9;
- function draw(){list=order();const show=all?list:list.slice(0,LIMIT);
+ /* masonry: each card spans as many 2px rows as it is tall */
+ const ro=new ResizeObserver(es=>es.forEach(e=>{const el=e.target;el.style.gridRowEnd="span "+Math.max(1,Math.ceil(el.getBoundingClientRect().height/2))}));
+ const LIMIT=12;
+ function draw(){list=order();const show=all?list:list.slice(0,LIMIT);const full=!show.slice(1).some(vert);
   fl.innerHTML=CATS.map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${k===cat}">${window.catL?catL(l):l}<small>${k==="all"?P.length:P.filter(p=>p.cat===k).length}</small></button>`).join("");
-  box.innerHTML=show.map(card).join("");
-  const n=show.length-1,last=box.lastElementChild;if(last&&n>0&&n%2===1&&!last.classList.contains("feat"))last.classList.add("lw");
+  ro.disconnect();box.innerHTML=show.map((p,i)=>card(p,i,full)).join("");box.querySelectorAll(".wc").forEach(c=>ro.observe(c));
   more.hidden=all||list.length<=LIMIT;
   more.innerHTML=`<span>${L3("Show all projects","Voir tous les projets","عرض كل المشاريع")}</span><small>${list.length}</small>`;
   wire()}
@@ -2441,10 +2450,19 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
  const igOf=c=>c.startsWith("ig/")?`https://www.instagram.com/reel/${c.slice(3)}/`:null;
  const WA=t=>"https://wa.me/212699146214?text="+encodeURIComponent(t);
  let cur=null,feat=0,prevScroll=0,fromSite=false;
- function stage(p,i){const L=clipsOf(p);const c=L[i];const box=pp.querySelector(".pp-stage");if(!box)return;const ar=c?arOf(c):1.6;box.style.setProperty("--ar",ar);box.classList.toggle("tall",ar<1);
-  const m=box.querySelector(".pp-media");m.innerHTML=c?`<video src="reel/${c}.mp4" poster="reel/${c}-s.jpg" muted autoplay loop playsinline></video>`:`<img src="img/${p.id}.webp" alt="">`;const v=m.querySelector("video");if(v)v.play().catch(()=>{});
-  box.querySelector(".pp-cap").textContent=c?labelOf(p,c,i):p.t;const ig=c&&igOf(c);const a=box.querySelector(".pp-ext");a.href=ig||p.url||`https://vimeo.com/${p.id}`;a.textContent=ig||p.url?T("Watch on Instagram ↗","Voir sur Instagram ↗"):T("Full film on Vimeo ↗","Film complet sur Vimeo ↗");
-  pp.querySelectorAll(".pp-tile").forEach((t,k)=>t.classList.toggle("on",k===i))}
+ const FULLV=new Set(["ig/C5g9x26tvFG", "ig/C6Jfj61ts6n", "ig/C70y-iZqWSh", "ig/C7lyAhhtVhB", "ig/C8uMd4sM22Y", "ig/DD2eS6qMtlV", "ig/DDaCUxgMje5", "ig/DE0UpYoMDHG", "ig/DEDhqX8MFfQ", "ig/DEaxkE5Mq-G", "ig/DFQxwsDMCOe", "ig/DFxO77ZM3uH", "ig/DGvhG1aM9RR", "ig/DKAGOF2IJYQ", "ig/DNqV3vs04h4", "ig/DOgal1pDdVr", "ig/DOttzG1Cu22", "ig/DOy3ckNCjc0", "ig/DP9zs1_Dkei", "ig/DQEnaFfjAiB", "ig/DQExzJbise_", "ig/DQKSwzvCD4_", "ig/DRcYfiJEd3b", "ig/DS2mOxdDLaL", "ig/DSAf5irFe4o", "ig/DSSiLJ9CjhZ", "ig/DSklfm5D4am", "ig/DT23UCblORD", "ig/DTAzf1EDOE2", "ig/DTaqbwHFOw2", "ig/DThwP7YiKZz", "ig/DVwpKYViI-m", "ig/DYK8q8Cot_p", "ig/DZvI4qQtQcx", "ig/DaOPeH0NkMw", "ig/DbEW-dLt-q_", "ig/DdZcdGRBWHF", "ig/DgGF95wIqcL", "pmp1", "pmp2", "pmp3"]);
+ const vimeoAR=p=>{const m=String(p.ar||"").match(/([\d.]+):([\d.]+)/);const r=m?(+m[1])/(+m[2]):16/9;return Math.max(.5,Math.min(r,2.4))};
+ function stage(p,i,whole){const L=clipsOf(p);const c=L[i];const box=pp.querySelector(".pp-stage");if(!box)return;
+  const vim=/^\d+$/.test(String(p.id))&&(whole||!c);const src=!vim&&c&&FULLV.has(c)?`full/${c}.mp4`:null;
+  const ar=vim?vimeoAR(p):(c?arOf(c):1.6);box.style.setProperty("--ar",ar);box.classList.toggle("tall",ar<1);
+  const m=box.querySelector(".pp-media");
+  m.innerHTML=vim?`<iframe src="https://player.vimeo.com/video/${p.id}?autoplay=1&title=0&byline=0&portrait=0&dnt=1&color=3D6BE0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${esc(p.t)}"></iframe>`
+   :src?`<video src="${src}" poster="reel/${c}-s.jpg" controls autoplay playsinline preload="auto"></video>`
+   :c?`<video src="reel/${c}.mp4" poster="reel/${c}-s.jpg" muted autoplay loop playsinline></video>`:`<img src="img/${p.id}.webp" alt="">`;
+  const v=m.querySelector("video");if(v){v.muted=!src;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})})}
+  box.querySelector(".pp-cap").textContent=vim?p.t:c?labelOf(p,c,i):p.t;const ig=!vim&&c&&igOf(c);const a=box.querySelector(".pp-ext");
+  if(vim){a.href=`https://vimeo.com/${p.id}`;a.textContent=T("Open on Vimeo ↗","Voir sur Vimeo ↗")}else{a.href=ig||p.url||`https://vimeo.com/${p.id}`;a.textContent=ig||p.url?T("Watch on Instagram ↗","Voir sur Instagram ↗"):T("Full film on Vimeo ↗","Film complet sur Vimeo ↗")}
+  pp.querySelectorAll(".pp-tile").forEach((t,k)=>t.classList.toggle("on",!vim&&k===i))}
  function render(p){const L=clipsOf(p);const kv=[[T("Client","Client"),p.client],p.dir&&[T("Director","Réalisation"),p.dir],p.prod&&[T("Production","Production"),p.prod],[T("Our role","Notre rôle"),p.role.join(" · ")],[T("Location","Lieu"),LOC[p.id]],[T("Format","Format"),L.length>1?(()=>{const r=L.map(arOf),n=x=>x<1?"9:16":x<1.5?"4:3":"16:9",u=[...new Set(r.map(n))];return `${L.length} ${T("reels","reels")} · ${u.join(" / ")}`})():(p.fmt||p.ar)],p.dur&&[T("Runtime","Durée"),tc(p.dur).slice(0,5)],[T("Category","Catégorie"),T(...(CAT[p.cat]||[p.cat,p.cat]))]].filter(x=>x&&x[1]);
   const more=P.filter(x=>x.id!==p.id).sort((a,b)=>(b.cat===p.cat)-(a.cat===p.cat)).slice(0,10);
   pp.innerHTML=`<nav class="pp-nav" aria-label="Project"><div class="pp-in"><button class="pp-back" type="button" data-close>‹ <span>${T("All work","Tous les projets")}</span></button><b class="pp-nt">${esc(p.t)}</b><span class="pp-links"><a href="#pp-reels">${T("Reels","Reels")}</a><a href="#pp-credits">${T("Credits","Crédits")}</a></span><a class="pp-buy" href="/#book">${T("Start a project","Lancer un projet")}</a></div></nav>
@@ -2458,7 +2476,7 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
   <section class="pp-sec"><div class="pp-in"><div class="pp-band rv"><h2>${T("Want a film like this?","Un film comme celui-ci ?")}</h2><p>${T("Tell us the brief, the dates and the place. We shoot, cut, grade and finish it in-house.","Dites-nous le brief, les dates et le lieu. On filme, monte, étalonne et finalise tout chez nous.")}</p><div><a class="pp-btn w" href="${WA(`Hi Atay Studio, I'd like a project like "${p.t}".`)}" target="_blank" rel="noopener">${T("Message us on WhatsApp","Écrivez-nous sur WhatsApp")}</a><a class="pp-link w" href="mailto:atayknight@gmail.com?subject=${encodeURIComponent("Project · "+p.t)}">${T("Email us","Par e-mail")} ›</a></div></div></div></section>
   <section class="pp-sec pp-alt"><div class="pp-in"><h2 class="rv">${T("More work.","Plus de projets.")}</h2><div class="pp-more">${more.map(x=>`<a class="pp-mc" href="#/work/${encodeURIComponent(x.id)}"><span style="background-image:url(${thumbOf(x)})"></span><b>${esc(x.t)}</b><small>${esc(x.client)}</small></a>`).join("")}</div></div></section>
   <footer class="pp-foot"><div class="pp-in"><button class="pp-back" type="button" data-close>‹ ${T("Back to Atay Studio","Retour à Atay Studio")}</button><span>Atay Studio · Marrakech</span></div></footer>`;
-  feat=0;stage(p,0);
+  feat=0;stage(p,0,true);
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{root:pp,threshold:.12});pp.querySelectorAll(".rv").forEach((el,k)=>{el.style.transitionDelay=Math.min(k%6,5)*.05+"s";io.observe(el)});
   pp.querySelectorAll(".pp-tile").forEach(t=>{t.addEventListener("pointerenter",()=>{if(t.querySelector("video"))return;const c=L[+t.dataset.i];const v=document.createElement("video");v.src=`reel/${c}.mp4`;v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute("playsinline","");t.querySelector(".pp-th").append(v);v.play().catch(()=>{})});t.addEventListener("pointerleave",()=>{const v=t.querySelector("video");if(v){v.pause();v.remove()}})})}
  function open(id){const p=P.find(x=>String(x.id)===String(id));if(!p)return close(true);
@@ -2468,6 +2486,7 @@ document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{co
  const goTo=h=>{if(cur)location.replace(location.href.split("#")[0]+h);else{fromSite=true;location.hash=h}};window.goProject=id=>goTo("#/work/"+encodeURIComponent(id));const leave=()=>{if(fromSite){fromSite=false;history.back()}else{history.replaceState(history.state,"",location.pathname+location.search);route()}};
  addEventListener("hashchange",route);
  pp.addEventListener("click",e=>{const c=e.target.closest("[data-close]");if(c){e.preventDefault();leave();return}const mc=e.target.closest(".pp-mc");if(mc){e.preventDefault();goTo(mc.getAttribute("href"));return}
+  if(e.target.closest("[data-play]"))stage(cur,0,true);
   const t=e.target.closest(".pp-tile");if(t){stage(cur,+t.dataset.i);pp.querySelector(".pp-stage").scrollIntoView({behavior:RM?"auto":"smooth",block:"center"});return}
   const a=e.target.closest('a[href^="#pp-"]');if(a){e.preventDefault();const el=pp.querySelector(a.getAttribute("href"));if(el)el.scrollIntoView({behavior:RM?"auto":"smooth",block:"start"})}});
  addEventListener("keydown",e=>{if(e.key==="Escape"&&cur){leave()}});
