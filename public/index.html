@@ -1770,7 +1770,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
 <header class="hudbar" id="hud">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Atay Studio, back to the showreel"><span class="mark" aria-hidden="true"></span><span class="n">Atay Studio</span></a>
-    <nav class="hnav" aria-label="Sections"><a href="#work" data-i18n="nav-w">Work</a><a href="#process" data-i18n="nav-s">Skills</a><a href="#clients" data-i18n="nav-c">Clients</a><a href="#studio" data-i18n="nav-p">Profile</a><a href="#book" data-i18n="nav-b">Book a call</a><a href="#contact" data-i18n="nav-k">Contact</a></nav>
+    <nav class="hnav" aria-label="Sections"><a href="/work/" data-i18n="nav-w">Work</a><a href="#process" data-i18n="nav-s">Skills</a><a href="#clients" data-i18n="nav-c">Clients</a><a href="#studio" data-i18n="nav-p">Profile</a><a href="#book" data-i18n="nav-b">Book a call</a><a href="#contact" data-i18n="nav-k">Contact</a></nav>
     <div class="xp"><div class="t px"><b id="lvl-name">Lobby · World map</b><span id="xp-n">XP 0%</span></div><div class="bar"><i id="xp-bar"></i></div></div>
     <button class="hchip" id="coins-btn" type="button" aria-label="Coins collected"><span class="coin" aria-hidden="true"></span><span id="coins">000</span></button>
     <button class="hchip" id="quest-btn" type="button" aria-expanded="false" aria-controls="qlog"><span class="keys" id="hkeys"></span><span id="quest-n">0/3</span></button>
@@ -1805,7 +1805,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
         </div>
         <div class="hx-cta">
           <a class="hx-go" href="/#book"><span class="hx-comet" aria-hidden="true"></span><span data-i18n="hx-go">Start a project</span><i aria-hidden="true"></i></a>
-          <a class="hx-ghost" href="#work" data-i18n="cta2">See the work</a>
+          <a class="hx-ghost" href="/work/" data-i18n="cta2">See the work</a>
         </div>
       </div>
       <aside class="hx-orbit-card" aria-label="Clients">
@@ -2207,8 +2207,8 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
  function draw(){list=order();const show=all?list:list.slice(0,LIMIT);const full=!show.slice(1).some(vert);
   fl.innerHTML=CATS.map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${k===cat}">${window.catL?catL(l):l}<small>${k==="all"?P.length:P.filter(p=>p.cat===k).length}</small></button>`).join("");
   ro.disconnect();box.innerHTML=show.map((p,i)=>card(p,i,full)).join("");box.querySelectorAll(".wc").forEach(c=>ro.observe(c));
-  more.hidden=all||list.length<=LIMIT;
-  more.innerHTML=`<span>${L3("Show all projects","Voir tous les projets","عرض كل المشاريع")}</span><small>${list.length}</small>`;
+  more.hidden=false;
+  more.innerHTML=`<span>${L3("See all work","Voir tous les projets","شاهد كل الأعمال")} →</span><small>${P.length}</small>`;
   wire()}
  /* previews: hover on desktop; the featured film plays on its own while on screen */
  let io;
@@ -2219,7 +2219,7 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
   const f=box.querySelector(".wc.feat");
   if(f){io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start(f):stop(f)),{threshold:.35});io.observe(f)}}
  fl.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||b.dataset.k===cat)return;cat=b.dataset.k;all=false;draw();const nb=fl.querySelector(`[data-k="${cat}"]`);nb.focus({preventScroll:true});nb.scrollIntoView({block:"nearest",inline:"center",behavior:RM?"auto":"smooth"})});
- more.addEventListener("click",()=>{all=true;draw();box.children[LIMIT]?.focus({preventScroll:true})});
+ more.addEventListener("click",()=>{location.href="/work/"});
  box.addEventListener("click",e=>{const c=e.target.closest(".wc");if(!c)return;const p=list.find(x=>String(x.id)===c.dataset.id);if(p)openProject(p.id)});
  addEventListener("atay:lang",draw);
  PHONE.addEventListener?.("change",draw);
@@ -2726,7 +2726,7 @@ HOW TO BEHAVE:
  const t=k=>TX[k][LG()==="fr"?1:LG()==="ar"?2:0];
  const WA="https://wa.me/212699146214?text="+encodeURIComponent("Hi Atay Studio, I'd like to talk about a project.");
  const NAV=[["work","nav-w","Work"],["process","nav-s","Skills"],["clients","nav-c","Clients"],["studio","nav-p","Profile"],["book","nav-b","Book a call"],["contact","nav-k","Contact"]];
- const navLabel=n=>{const a=document.querySelector(`.hnav a[href="#${n[0]}"]`);return a?a.textContent:n[2]};
+ const navLabel=n=>{const a=document.querySelector(`.hnav a[data-i18n="${n[1]}"]`);return a?a.textContent:n[2]};
 
  /* menu button + sheet */
  const btn=document.createElement("button");btn.type="button";btn.className="mnu-btn";btn.setAttribute("aria-expanded","false");btn.setAttribute("aria-controls","mnu");
@@ -2734,7 +2734,7 @@ HOW TO BEHAVE:
  const go=document.querySelector(".hudbar .go");if(go)go.after(btn);else document.querySelector(".hudbar .wrap").append(btn);
  const sh=document.createElement("nav");sh.className="mnu";sh.id="mnu";sh.setAttribute("aria-label","Site menu");sh.hidden=true;document.body.append(sh);
  function renderSheet(){const dark=de.getAttribute("data-theme")==="dark",l=LG();
-  sh.innerHTML=`<div class="mnu-in"><p class="mnu-hi">${t("hi")}</p><ul>${NAV.map((n,i)=>`<li style="--i:${i}"><a href="#${n[0]}"><small>0${i+1}</small>${navLabel(n)}<span aria-hidden="true">›</span></a></li>`).join("")}</ul>
+  sh.innerHTML=`<div class="mnu-in"><p class="mnu-hi">${t("hi")}</p><ul>${NAV.map((n,i)=>`<li style="--i:${i}"><a href="${n[0]==="work"?"/work/":"#"+n[0]}"><small>0${i+1}</small>${navLabel(n)}<span aria-hidden="true">›</span></a></li>`).join("")}</ul>
   <div class="mnu-cta"><a class="mnu-wa" href="/#book"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2-6.2-2.3 6.2-2.3z"/></svg>${t("start")}</a><button type="button" class="mnu-ask">✦ ${t("ask")}</button><button type="button" class="mnu-ask mnu-tour">${t("tour")}</button></div>
   <p class="mnu-note">${t("reply")}</p>
   <div class="mnu-set"><div><span>${t("theme")}</span><span class="mseg"><button type="button" data-th="light" aria-pressed="${!dark}">${t("light")}</button><button type="button" data-th="dark" aria-pressed="${dark}">${t("dark")}</button></span></div>
