@@ -84,14 +84,19 @@ html[data-theme=dark] .hx-cube.hty .f.hbf{color:#7FA4F0;-webkit-text-fill-color:
  .hero.hx h1{font-size:clamp(80px,12.4vw,196px)!important;line-height:.94!important;letter-spacing:-.04em}
 }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
 <style>/* hero v20: hovered card stays put and glows; title in Bricolage Grotesque + Instrument Serif italic */
 .hx-hc.lift{box-shadow:0 0 0 3px #3D6BE0,0 30px 60px -20px rgba(20,30,60,.6)!important;filter:brightness(1.06) saturate(1.1)}
-html:not([lang=ar]) .hero.hx h1 .hx-l1{font-family:"Bricolage Grotesque",var(--display);font-weight:750;font-variation-settings:"opsz" 96,"wdth" 92;letter-spacing:-.022em}
-html:not([lang=ar]) .hero.hx .hx-cube.hty .f.hbf{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.12em;line-height:.9}
-html:not([lang=ar]) .hero.hx .hx-cube.hty .tyc{width:.05em;height:.72em;vertical-align:-.02em}
-html:not([lang=ar]) .hero.hx .hx-cube.hty .tyd{font-family:"Bricolage Grotesque",var(--display);font-style:normal;font-weight:800}
-html:not([lang=ar]) .hero.hx .hx-cube{height:1.12em}
+html:not([lang=ar]) .hero.hx h1,html:not([lang=ar]) .hero.hx h1 .hx-l1{font-family:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;font-stretch:100%}
+html:not([lang=ar]) .hero.hx h1 .hx-l1{font-weight:860;letter-spacing:-.048em}
+.hero.hx h1 .wl{transition:font-weight .45s cubic-bezier(.2,.8,.2,1)}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .f.hbf{font-family:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;font-style:normal;font-weight:200;letter-spacing:-.05em;font-size:1em}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .tl{animation:hxWt .75s cubic-bezier(.2,.8,.2,1) both}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .tl.done{animation:none}
+@keyframes hxWt{0%{font-weight:900;opacity:0}25%{opacity:1}100%{font-weight:200}}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .tyc{width:.035em;height:.78em;vertical-align:-.03em}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .tyd{font-weight:860;font-style:normal}
+@media (prefers-reduced-motion:reduce){.hero.hx .hx-cube.hty .tl{animation:none}}
 </style>
 </head>
 <body>
@@ -2133,18 +2138,35 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
  fit();addEventListener("resize",fit);if(document.fonts)document.fonts.ready.then(fit);
  cube.classList.add("hbw","hty");f0.classList.add("hbf");
  /* the word after "Ideas take" types itself, waits, backspaces and types the next */
- const paintW=(txt,done)=>{f0.innerHTML=`<span class="ty">${esc(txt)}</span><span class="tyc" aria-hidden="true"></span>${done?'<i class="tyd">.</i>':""}`};
+ const tyBox=()=>{let t=f0.querySelector(".ty");if(!t){f0.innerHTML='<span class="ty"></span><span class="tyc" aria-hidden="true"></span>';t=f0.querySelector(".ty")}return t};
+ const setDot=on=>{let d=f0.querySelector(".tyd");if(on&&!d){d=document.createElement("i");d.className="tyd";d.textContent=".";f0.append(d)}else if(!on&&d)d.remove()};
+ const AR=()=>LK()==="ar";
+ const paintW=(txt,done)=>{const t=tyBox();t.textContent="";if(AR())t.textContent=txt;else[...txt].forEach(c=>{const e=document.createElement("span");e.className="tl done";e.textContent=c;t.append(e)});setDot(done)};
+ const addCh=(w,n)=>{const t=tyBox();if(AR()){t.textContent=w.slice(0,n);return}const e=document.createElement("span");e.className="tl";e.textContent=w[n-1];t.append(e)};
+ const delCh=(w,n)=>{const t=tyBox();if(AR()){t.textContent=w.slice(0,n);return}t.lastChild&&t.lastChild.remove()};
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));let gen=0;
- async function typeLoop(){const me=++gen;while(me===gen){const L=WORDS[LK()],w=L[wi%L.length];
-   for(let n=0;n<=w.length;n++){if(me!==gen)return;paintW(w.slice(0,n),n===w.length);await sleep(n?95+Math.random()*70:300)}
-   await sleep(2300);while(!on||document.hidden){await sleep(400);if(me!==gen)return}
-   for(let n=w.length;n>=0;n--){if(me!==gen)return;paintW(w.slice(0,n),false);await sleep(42)}
-   wi=(wi+1)%L.length;await sleep(260)}}
+ async function typeLoop(){const me=++gen;while(me===gen){const L=WORDS[LK()],w=L[wi%L.length],W=AR()?w:[...w];
+   paintW("",false);await sleep(300);
+   for(let n=1;n<=W.length;n++){if(me!==gen)return;addCh(AR()?w:W,n);await sleep(110+Math.random()*70)}
+   setDot(true);await sleep(2400);while(!on||document.hidden){await sleep(400);if(me!==gen)return}
+   setDot(false);for(let n=W.length-1;n>=0;n--){if(me!==gen)return;delCh(AR()?w:W,n);await sleep(42)}
+   wi=(wi+1)%L.length;await sleep(200)}}
  if(RM)paintW(WORDS[LK()][0],true);else typeLoop();
  document.addEventListener("atay:lang",()=>{fit();wi=0;if(RM)paintW(WORDS[LK()][0],true);else typeLoop()});
  visible(root,v=>{on=v;if(!v)clearHot()},{threshold:0});
 })();
 </script>
+<script>/* HERO TITLE: SF Pro, weight follows the pointer across "Ideas take" */
+(()=>{const l1=document.querySelector(".hero.hx .hx-l1");if(!l1||!matchMedia("(hover:hover) and (pointer:fine)").matches||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+ let spans=[],tx=-1e4,ty=-1e4,raf=0;
+ function wrap(){if(document.documentElement.lang==="ar"){spans=[];return}const t=l1.textContent;l1.setAttribute("aria-label",t);l1.innerHTML=[...t].map(c=>c===" "?" ":`<span class="wl" aria-hidden="true">${c}</span>`).join("");spans=[...l1.querySelectorAll(".wl")]}
+ function paint(){raf=0;if(spans.length&&!spans[0].isConnected)wrap();if(!spans.length&&document.documentElement.lang!=="ar"&&!l1.querySelector(".wl"))wrap();for(const s of spans){const r=s.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,d=Math.hypot(cx-tx,(cy-ty)*1.4);const k=Math.exp(-(d*d)/(2*170*170));s.style.fontWeight=Math.round(860-k*620)}}
+ const hero=document.querySelector(".hero.hx");
+ hero.addEventListener("pointermove",e=>{tx=e.clientX;ty=e.clientY;if(!raf)raf=requestAnimationFrame(paint)},{passive:true});
+ hero.addEventListener("pointerleave",()=>{tx=ty=-1e4;if(!raf)raf=requestAnimationFrame(paint)},{passive:true});
+ addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(paint)},{passive:true});
+ wrap();document.addEventListener("atay:lang",()=>setTimeout(wrap,0));
+})();</script>
 <script>/* HERO PARALLAX: stars, spiral and copy drift at different depths with the pointer and with scroll */
 (()=>{const hero=document.querySelector(".hero.hx");if(!hero||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
  const FINE=matchMedia("(hover:hover) and (pointer:fine)").matches;let tx=0,ty=0,x=0,y=0,sy=0,s=0,raf=0,last=0;
