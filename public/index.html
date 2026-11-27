@@ -60,7 +60,7 @@ html[data-theme=dark] .hx-cube.hty .f.hbf{color:#7FA4F0;-webkit-text-fill-color:
 /* hero: parallax layers (driven by --px/--py from the pointer and --sy from scroll) */
 .hero.hx{--px:0;--py:0;--sy:0}
 .hx-stars{transform:translate3d(calc(var(--px) * -10px),calc(var(--py) * -8px + var(--sy) * .35px),0)}
-.hx-scene{transform:translate3d(calc(var(--px) * -30px),calc(var(--py) * -20px + var(--sy) * .18px),0)}
+.hx-scene{transform:translate3d(0,calc(var(--sy) * .18px),0)}
 .hx-copy h1{transform:translate3d(calc(var(--px) * 18px),calc(var(--py) * 12px - var(--sy) * .22px),0)}
 .hx-copy > p{transform:translate3d(calc(var(--px) * 11px),calc(var(--py) * 8px - var(--sy) * .14px),0)}
 .hx-copy .hx-eyebrow{transform:translate3d(calc(var(--px) * 22px),calc(var(--py) * 14px - var(--sy) * .28px),0)}
@@ -83,6 +83,15 @@ html[data-theme=dark] .hx-cube.hty .f.hbf{color:#7FA4F0;-webkit-text-fill-color:
  .hero.hx .hx-copy{max-width:min(1100px,88vw)}
  .hero.hx h1{font-size:clamp(80px,12.4vw,196px)!important;line-height:.94!important;letter-spacing:-.04em}
 }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Instrument+Serif:ital@0;1&display=swap">
+<style>/* hero v20: hovered card stays put and glows; title in Bricolage Grotesque + Instrument Serif italic */
+.hx-hc.lift{box-shadow:0 0 0 3px #3D6BE0,0 30px 60px -20px rgba(20,30,60,.6)!important;filter:brightness(1.06) saturate(1.1)}
+html:not([lang=ar]) .hero.hx h1 .hx-l1{font-family:"Bricolage Grotesque",var(--display);font-weight:800;font-variation-settings:"opsz" 96,"wdth" 78;letter-spacing:-.045em}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .f.hbf{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.12em;line-height:.9}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .tyc{width:.05em;height:.72em;vertical-align:-.02em}
+html:not([lang=ar]) .hero.hx .hx-cube.hty .tyd{font-family:"Bricolage Grotesque",var(--display);font-style:normal;font-weight:800}
+html:not([lang=ar]) .hero.hx .hx-cube{height:1.12em}
 </style>
 </head>
 <body>
@@ -2066,7 +2075,7 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
  const order=items.map((it,i)=>[(i*37)%items.length,it]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
  /* the work as a spiral of cards streaming around a tilted axis */
  let skill=null,cards=[],G={};const SM=()=>innerWidth<900;
- function build(){const sm=SM();G=sm?{n:40,R:118,w:90,h:122,lk:1.75,turns:3}:{n:74,R:Math.round(Math.max(190,Math.min(300,innerHeight*.28))),w:188,h:252,lk:1.42,turns:2.7};
+ function build(){const sm=SM();G=sm?{n:36,R:140,w:112,h:150,lk:1.8,turns:2.8}:{n:62,R:Math.round(Math.max(220,Math.min(350,innerHeight*.33))),w:244,h:326,lk:1.55,turns:2.6};
   plane.style.setProperty("--cw",G.w+"px");plane.style.setProperty("--chh",G.h+"px");
   const list=[];for(let i=0;i<G.n;i++)list.push(order[i%order.length]);
   plane.innerHTML=list.map(it=>`<button class="hx-hc" type="button" data-id="${esc(it.p.id)}" style="background-image:url(${it.th})" aria-label="${esc(it.p.t)}"><i></i></button>`).join("");
@@ -2075,13 +2084,13 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
  requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.add("ready")));
  let ph=0,vel=0,drag=false,lx=0,moved=0,tx=0,ty=0,cx=0,cy=0,on=true,last=0,hold=0,sp=0,flow=RM?0:1;const SPEED=1/34,TAU=Math.PI*2,DEG=180/Math.PI;
  function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-(last||now))/1000);last=now;if(!on)return;
-  flow+=((hot||RM||now<hold?0:1)-flow)*(1-Math.pow(.02,dt));
+  if(hot)flow=0;else flow+=((RM||now<hold?0:1)-flow)*(1-Math.pow(.02,dt));
   if(!drag){ph+=vel*dt;vel*=Math.pow(.9,dt*60)}ph+=SPEED*dt*flow;
-  const k=1-Math.pow(.02,dt);cx+=(tx-cx)*k;cy+=(ty-cy)*k;const s=Math.min(1,Math.max(0,scrollY/innerHeight));sp+=(s-sp)*k;
+  const k=1-Math.pow(.02,dt);if(!hot){cx+=(tx-cx)*k;cy+=(ty-cy)*k}const s=Math.min(1,Math.max(0,scrollY/innerHeight));sp+=(s-sp)*k;
   plane.style.transform=`translateZ(${(-sp*320).toFixed(1)}px) rotateZ(${(-11+cx*3).toFixed(2)}deg) rotateY(${(-14+cx*10).toFixed(2)}deg) rotateX(${(cy*-7+sp*10).toFixed(2)}deg)`;
   const n=cards.length,LL=innerWidth*G.lk;for(let i=0;i<n;i++){const p=((i/n+ph)%1+1)%1,th=p*G.turns*TAU,x=(p-.5)*LL;
    const e=Math.min(p,1-p)/.07,o=e>=1?1:e*e*(3-2*e),c=cards[i],st=c.style;
-   st.transform=`translate3d(${x.toFixed(1)}px,0,0) rotateX(${(th*DEG).toFixed(2)}deg) translateZ(${G.R+(c===hot?80:0)}px) rotateY(-8deg)`;
+   st.transform=`translate3d(${x.toFixed(1)}px,0,0) rotateX(${(th*DEG).toFixed(2)}deg) translateZ(${G.R}px) rotateY(-8deg)`;
    st.setProperty("--d",((1-(Math.cos(th)+1)/2)*.6).toFixed(3));
    const os=o.toFixed(3);if(st.opacity!==os)st.opacity=os;st.visibility=o<.02?"hidden":"visible"}
   if(hot)placePeek(dt)}
@@ -2106,8 +2115,8 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
   x=Math.max(copy.right-sr.left+24,Math.min(sr.width-pw-24,x));y=Math.max(70,Math.min(sr.height-ph-24,y));
   const k=1-Math.pow(.004,arguments[0]||.016);qx+=(x-qx)*k;qy+=(y-qy)*k;qs+=(1-qs)*k;qr+=(0-qr)*k;
   const rx=(qr-(my-qy-ph/2)/ph*7).toFixed(2),ry=((mx-qx-pw/2)/pw*9).toFixed(2);peek.style.transform=`translate(${qx.toFixed(1)}px,${qy.toFixed(1)}px) perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${qs.toFixed(3)})`}
- if(FINE){plane.addEventListener("pointerover",e=>{const c=e.target.closest(".hx-hc");if(!c||drag||c.classList.contains("off"))return;clearTimeout(timer);timer=setTimeout(()=>setHot(c),hot?40:120)});
-  plane.addEventListener("pointerout",e=>{const c=e.target.closest(".hx-hc");if(!c||c.contains(e.relatedTarget))return;clearTimeout(timer);timer=setTimeout(()=>{if(hot===c)clearHot()},140)})}
+ if(FINE){plane.addEventListener("pointerover",e=>{const c=e.target.closest(".hx-hc");if(!c||drag||c.classList.contains("off"))return;clearTimeout(timer);timer=setTimeout(()=>setHot(c),hot?180:110)});
+  plane.addEventListener("pointerout",e=>{const c=e.target.closest(".hx-hc");if(!c||c.contains(e.relatedTarget))return;clearTimeout(timer);timer=setTimeout(()=>{if(hot===c)clearHot()},280)})}
  plane.addEventListener("click",e=>{const c=e.target.closest(".hx-hc");if(!c||moved>6)return;clearHot();window.openProject(isNaN(+c.dataset.id)?c.dataset.id:+c.dataset.id)});
  /* skill pills */
  const pills=$("hx-pills");
