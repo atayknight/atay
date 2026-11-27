@@ -69,6 +69,13 @@ html[data-theme=dark] .hx-cube.hty .f.hbf{color:#7FA4F0;-webkit-text-fill-color:
 .hx-hint{transform:translate3d(calc(var(--px) * -6px),0,0)}
 @media (prefers-reduced-motion:reduce){.hx-stars,.hx-scene,.hx-copy h1,.hx-copy > p,.hx-copy .hx-eyebrow,.hx-social,.hx-cta,.hx-hint{transform:none!important}.hx-copy{opacity:1}}
 </style>
+<style>/* client logos take their brand colour on hover */
+.cs-t.lg-t:hover .lg2,.cs-t.lg-t.on .lg2,html[data-theme=dark] .cs-t.lg-t:hover .lg2,html[data-theme=dark] .cs-t.lg-t.on .lg2{color:var(--bc,#3D6BE0)!important}
+.cs-t.lg-t:hover .lg2 small,.cs-t.lg-t.on .lg2 small{color:var(--bc,#3D6BE0)!important;opacity:.75}
+.trust .ti{transition:opacity .25s,color .3s}
+.trust .ti:hover,html[data-theme=dark] .trust .ti:hover{color:var(--bc,#3D6BE0)!important;opacity:1}
+.trust .ti:hover small{color:var(--bc,#3D6BE0)!important;opacity:.75}
+</style>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2316,7 +2323,8 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
  const g=document.getElementById("cs-grid"),scr=document.getElementById("cs-screen"),fr=document.getElementById("cs-frame"),$=id=>document.getElementById(id);
  const LOGO={"INWI":{m:"inwi",k:"wide"},"Lenovo":{m:"lenovo",k:"wide"},"Concentrix":{m:"concentrix",k:"wide"},"Huna Paris":{m:"huna",k:"sq",l:"Hüna Paris"},"Visit Drâa-Tafilalet":{m:"draa",k:"mid",l:"Visit Drâa-Tafilalet"},"Beni Mellal-Khénifra":{m:"bmk",k:"mid",l:"Béni Mellal-Khénifra"},"Visit Beni Mellal":{m:"vbm",k:"sq",l:"Visit Beni Mellal"},
   "Bifrutas":{t:'<span class="tw t-bif">bifrutas</span>'},"III Points":{t:'<span class="tw t-iii"><b>III</b> POINTS</span>'},"Hocus Pocus":{t:'<span class="tw t-hp">HOCUS<br>POCUS</span>'},"Festival Zamane":{t:'<span class="tw t-zm"><small>FESTIVAL</small>ZAMANE</span>'},"Palais Amani":{t:'<span class="tw t-pa">Palais Amani<small>FÈS</small></span>'},"CRI Marrakech-Safi":{t:'<span class="tw t-cri"><b>CRI</b><small>Marrakech-Safi</small></span>'}};
- g.innerHTML=CS.map((c,i)=>{const lg=LOGO[c.n]||{t:`<span class="tw">${esc(c.n)}</span>`};const art=`<span class="lg2">${lg.m?`<i class="mk mk-${lg.k}" style="--mk:url(logo/mk-${lg.m}.svg)" role="img" aria-label="${esc(c.n)} logo"></i>`:lg.t}${lg.l?`<em class="lbl">${esc(lg.l)}</em>`:""}</span>`;return `<button class="cs-t lg-t${c.lock?" lock":""}" type="button" data-i="${i}" aria-label="${esc(c.n)}${c.lock?" (locked)":""}">${art}<span class="no px"><span>${String(i+1).padStart(2,"0")}</span><span>${c.lock?"🔒":c.clips?"▶":"■"}</span></span><b>${esc(c.n)}</b></button>`}).join("");
+ const BCOL={inwi:"#99398A",lenovo:"#E2231A",concentrix:"#0B7A86",huna:"#B8923F",vbm:"#1F8FCF",draa:"#E07B24",bmk:"#2E8B57",iii:"#E6007E",hp:"#F29F05",zm:"#C4622D",pa:"#9A7448",cri:"#0B5EA8",bif:"#F26522"},BKEY={"Bifrutas":"bif","III Points":"iii","Hocus Pocus":"hp","Festival Zamane":"zm","Palais Amani":"pa","CRI Marrakech-Safi":"cri"};
+ g.innerHTML=CS.map((c,i)=>{const lg=LOGO[c.n]||{t:`<span class="tw">${esc(c.n)}</span>`};const bc=BCOL[lg.m||BKEY[c.n]]||"#3D6BE0";const art=`<span class="lg2">${lg.m?`<i class="mk mk-${lg.k}" style="--mk:url(logo/mk-${lg.m}.svg)" role="img" aria-label="${esc(c.n)} logo"></i>`:lg.t}${lg.l?`<em class="lbl">${esc(lg.l)}</em>`:""}</span>`;return `<button class="cs-t lg-t${c.lock?" lock":""}" type="button" data-i="${i}" style="--bc:${bc}" aria-label="${esc(c.n)}${c.lock?" (locked)":""}">${art}<span class="no px"><span>${String(i+1).padStart(2,"0")}</span><span>${c.lock?"🔒":c.clips?"▶":"■"}</span></span><b>${esc(c.n)}</b></button>`}).join("");
  const tiles=[...g.children];let cur=-1,clipI=0,cyc=0,hov=false,on=false,hold=0;
  const video=document.createElement("video");video.muted=true;video.defaultMuted=true;video.loop=true;video.playsInline=true;video.setAttribute("playsinline","");video.setAttribute("muted","");
  function sizeTo(a){const W=scr.clientWidth-48,H=scr.clientHeight-48;let w=W,h=w/a;if(h>H){h=H;w=h*a}fr.style.width=w+"px";fr.style.height=h+"px"}
@@ -2802,10 +2810,11 @@ HOW TO BEHAVE:
  /* trusted-by strip under the hero */
  const MK=[["inwi","wide"],["lenovo","wide"],["concentrix","wide"],["huna","sq"],["vbm","sq"],["draa","mid"],["bmk","mid"]];
  const TW=['<span class="tw t-iii"><b>III</b> POINTS</span>','<span class="tw t-hp">HOCUS POCUS</span>','<span class="tw t-zm"><small>FESTIVAL</small>ZAMANE</span>','<span class="tw t-pa">Palais Amani</span>','<span class="tw t-cri"><b>CRI</b><small>Marrakech-Safi</small></span>','<span class="tw t-bif">bifrutas</span>'];
- const items=[];MK.forEach((m,i)=>{items.push(`<i class="mk mk-${m[1]}" style="--mk:url(logo/mk-${m[0]}.svg)"></i>`);if(TW[i])items.push(TW[i])});
+ const BCOL={inwi:"#99398A",lenovo:"#E2231A",concentrix:"#0B7A86",huna:"#B8923F",vbm:"#1F8FCF",draa:"#E07B24",bmk:"#2E8B57",iii:"#E6007E",hp:"#F29F05",zm:"#C4622D",pa:"#9A7448",cri:"#0B5EA8",bif:"#F26522"},TWK=["iii","hp","zm","pa","cri","bif"];
+ const items=[];MK.forEach((m,i)=>{items.push([`<i class="mk mk-${m[1]}" style="--mk:url(logo/mk-${m[0]}.svg)"></i>`,BCOL[m[0]]]);if(TW[i])items.push([TW[i],BCOL[TWK[i]]])});
  const hero=document.querySelector(".hero.hx");
  if(hero){const tr=document.createElement("section");tr.className="trust";tr.setAttribute("aria-label","Clients");
-  const row=items.map(x=>`<span class="ti">${x}</span>`).join("");
+  const row=items.map(([x,c])=>`<span class="ti" style="--bc:${c}">${x}</span>`).join("");
   tr.innerHTML=`<div class="wrap"><p class="tr-l"></p></div><div class="tr-v" aria-hidden="true"><div class="tr-t">${row}${row}</div></div>`;
   hero.after(tr);tr.addEventListener("click",()=>$("clients")?.scrollIntoView({behavior:"smooth"}));tr.style.cursor="pointer"}
  const relabel=()=>{btn.querySelector(".mnu-l").textContent=de.classList.contains("mnu-open")?t("close"):t("menu");btn.setAttribute("aria-label",t("menu"));renderDock();const l=document.querySelector(".trust .tr-l");if(l)l.textContent=t("trust");if(!sh.hidden)renderSheet()};
