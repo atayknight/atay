@@ -26,19 +26,30 @@
 <meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="fr_FR"><meta property="og:locale:alternate" content="ar_MA">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://atayknight.com/#ayoub", "name": "Ayoub Ouazzou", "alternateName": ["Atay Knight", "Atayknight", "atay_knight", "أيوب وازو"], "jobTitle": "Director of Photography", "description": "Director of photography, video editor, colorist and 3D/VFX artist based in Marrakech, Morocco. Founder of Atay Studio.", "url": "https://atayknight.com/", "image": "https://atayknight.com/img/ayoub-ouazzou.jpg", "email": "mailto:atayknight@gmail.com", "telephone": "+212699146214", "address": {"@type": "PostalAddress", "addressLocality": "Marrakech", "addressRegion": "Marrakech-Safi", "addressCountry": "MA"}, "homeLocation": {"@type": "Place", "name": "Marrakech, Morocco"}, "knowsLanguage": ["ar", "en", "fr"], "knowsAbout": ["Cinematography", "Video editing", "Color grading", "Visual effects", "3D animation", "Tourism films", "Commercial video production"], "worksFor": {"@id": "https://atayknight.com/#studio"}, "sameAs": ["https://www.instagram.com/atay_knight/", "https://vimeo.com/ayoubouazzou", "https://atayknight.wixsite.com/atayknight"]}, {"@type": "ProfessionalService", "@id": "https://atayknight.com/#studio", "name": "Atay Studio", "alternateName": ["Atay Knight Studio", "AtayStudio", "استوديو أطاي"], "description": "Atay Studio by Ayoub Ouazzou (Atay Knight): cinematography, video editing, colour grading and 3D/VFX in Marrakech, Morocco. Tourism films, commercials, reels and festival content.", "url": "https://atayknight.com/", "logo": "https://atayknight.com/apple-touch-icon.png", "image": "https://atayknight.com/og.jpg", "founder": {"@id": "https://atayknight.com/#ayoub"}, "email": "atayknight@gmail.com", "telephone": "+212699146214", "address": {"@type": "PostalAddress", "addressLocality": "Marrakech", "addressRegion": "Marrakech-Safi", "addressCountry": "MA"}, "geo": {"@type": "GeoCoordinates", "latitude": 31.6295, "longitude": -7.9811}, "areaServed": [{"@type": "Country", "name": "Morocco"}, {"@type": "Place", "name": "Worldwide"}], "knowsLanguage": ["ar", "en", "fr"], "sameAs": ["https://www.instagram.com/atay_knight/", "https://vimeo.com/ayoubouazzou"], "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Film and video services", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cinematography"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Video editing"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Color grading"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D and VFX"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Tourism and hotel films"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercials and social campaigns"}}]}}, {"@type": "WebSite", "@id": "https://atayknight.com/#website", "url": "https://atayknight.com/", "name": "Atay Studio", "alternateName": ["Ayoub Ouazzou", "Atay Knight"], "publisher": {"@id": "https://atayknight.com/#studio"}, "inLanguage": ["en", "fr", "ar"]}]}</script>
 <style>html,body{margin:0}[hidden]{display:none!important}</style>
-<style>/* HERO v18: card helix */
-.hx-scene{perspective:1600px;perspective-origin:50% 50%}
-.hx-plane{left:50%;top:52%;width:0;height:0;transform-style:preserve-3d}
-.hx-hc{all:unset;box-sizing:border-box;position:absolute;left:calc(var(--cw) / -2);top:calc(var(--chh) / -2);width:var(--cw);height:var(--chh);border-radius:14px;background:#1A1A20 center/cover no-repeat;box-shadow:0 0 0 1px rgba(255,255,255,.10) inset,0 22px 40px -20px rgba(10,15,40,.55);cursor:pointer;backface-visibility:visible;will-change:transform,opacity;opacity:0;transition:box-shadow .3s,filter .4s}
-.hx-hc i{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.32),rgba(255,255,255,0) 38%),rgba(8,10,24,var(--d,0));pointer-events:none}
-.hx-hc.lift{box-shadow:0 0 0 3px #3D6BE0,0 40px 70px -20px rgba(20,30,60,.6)}
-.hx-hc:focus-visible{outline:none;box-shadow:0 0 0 3px #3D6BE0}
-.hx.filt .hx-hc.off{filter:grayscale(1) brightness(1.1) opacity(.22)}
-.hx.filt .hx-hc.on{box-shadow:0 0 0 2px #3D6BE0,0 24px 44px -18px rgba(20,30,60,.5)}
-html[data-theme=dark] .hx-hc{box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 22px 44px -18px rgba(0,0,0,.8)}
-@media (max-width:900px){.hx-scene{perspective:1100px;perspective-origin:50% 28%}.hx-plane{left:50%;top:28%}}
-@media (prefers-reduced-motion:reduce){.hx-hc{transition:none}}
+<style>/* HERO v21: rows of playing cards */
+.hx-scene{perspective:none!important;cursor:default!important}
+.hx-plane{position:absolute!important;inset:0!important;left:0!important;top:0!important;width:auto!important;height:auto!important;transform:none!important}
+.hx-diag{position:absolute;inset:0;transform:rotate(var(--dg,14deg)) scale(var(--ds,1.22));transform-origin:50% 50%;perspective:1500px;transform-style:preserve-3d}
+.hx-row{position:absolute;left:0;right:0;overflow:visible;transform-style:preserve-3d}
+.hx-track{display:flex;gap:16px;width:max-content;height:100%;will-change:transform;transform-style:preserve-3d}
+@media (max-width:900px){.hx-diag{--dg:12deg;--ds:1.25}}
+.hx-plane,.hx-diag,.hx-row,.hx-track{pointer-events:none!important}.hero.hx .hx-hc{pointer-events:auto!important}
+.hero.hx .hx-hc{all:unset;box-sizing:border-box;position:relative;flex:none;display:block;cursor:pointer;opacity:1;transform:none;transition:transform .55s cubic-bezier(.16,1,.3,1);z-index:1}
+.hero.hx .hx-hc .in{position:relative;display:block;width:100%;height:100%;border-radius:16px;overflow:hidden;background:#15151A;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 18px 36px -20px rgba(10,15,40,.55);will-change:transform}
+.hero.hx .hx-hc video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero.hx .hx-hc .cap{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;display:flex;flex-direction:column;gap:3px;color:#fff;background:linear-gradient(0deg,rgba(5,6,10,.82),rgba(5,6,10,0));opacity:0;transform:translateY(8px);transition:opacity .35s,transform .45s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.hero.hx .hx-hc .cap b{font:600 14px/1.2 var(--body)}.hero.hx .hx-hc .cap small{font:500 10px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.hero.hx .hx-hc.lift{z-index:5}
+.hero.hx .hx-hc .in{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+.hero.hx .hx-hc.lift .in{transform:scale(1.08)}
+.hero.hx .hx-hc.lift .in{box-shadow:0 0 0 2px #3D6BE0,0 30px 60px -18px rgba(20,30,60,.6)!important;filter:none!important}
+.hero.hx .hx-hc.lift .cap{opacity:1;transform:none}
+.hero.hx .hx-hc:focus-visible .in{outline:2px solid #3D6BE0;outline-offset:3px}
+html[data-theme=dark] .hero.hx .hx-hc .in{background:#0D0D10;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 18px 40px -18px rgba(0,0,0,.85)}
+@media (max-width:900px){.hx-track{gap:12px}.hero.hx .hx-hc .in{border-radius:12px}}
+@media (prefers-reduced-motion:reduce){.hero.hx .hx-hc,.hero.hx .hx-hc .in{transition:none!important}}
 </style>
+
 <style>/* hero socials (replace the skill pills) */
 .hx-social a{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:9px;padding:7px 16px 7px 7px;border-radius:99px;background:#fff;color:#1D1D1F;font:600 14px/1 var(--body);box-shadow:0 6px 18px -8px rgba(20,30,60,.3),0 0 0 1px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s}
 .hx-social a:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(20,30,60,.35),0 0 0 1px rgba(0,0,0,.08)}
@@ -78,8 +89,8 @@ html[data-theme=dark] .hx-cube.hty .f.hbf{color:#7FA4F0;-webkit-text-fill-color:
 </style>
 <style>/* hero v19: spiral spans the full width; softer veil only behind the copy; bigger title */
 @media (min-width:901px){
- .hero.hx .hx-shade{background:radial-gradient(48% 62% at 24% 64%,rgba(245,245,247,.94) 0%,rgba(245,245,247,.72) 42%,rgba(245,245,247,0) 78%)!important}
- html[data-theme=dark] .hero.hx .hx-shade{background:radial-gradient(48% 62% at 24% 64%,rgba(0,0,0,.92) 0%,rgba(0,0,0,.66) 42%,rgba(0,0,0,0) 78%)!important}
+ .hero.hx .hx-shade{background:radial-gradient(52% 68% at 22% 60%,rgba(245,245,247,.95) 0%,rgba(245,245,247,.86) 40%,rgba(245,245,247,0) 80%)!important}
+ html[data-theme=dark] .hero.hx .hx-shade{background:radial-gradient(52% 68% at 22% 60%,rgba(0,0,0,.94) 0%,rgba(0,0,0,.82) 40%,rgba(0,0,0,0) 80%)!important}
  .hero.hx .hx-copy{max-width:min(1100px,88vw)}
  .hero.hx h1{font-size:clamp(80px,12.4vw,196px)!important;line-height:.94!important;letter-spacing:-.04em}
 }
@@ -1876,7 +1887,7 @@ html[data-theme=dark] .bk-cw-ok{background:rgba(127,164,240,.12)}html[data-theme
         </div>
       </div>
     </div>
-    <span class="hx-hint" data-i18n="hx-hint">Drag to spin · hover to preview · click to watch</span>
+    <span class="hx-hint" data-i18n="hx-hint">Hover a film to focus · click to watch</span>
   </section>
 
   
@@ -2067,7 +2078,7 @@ dlg.addEventListener("close",()=>{const v=dlg.querySelector("video");if(v){v.pau
 dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-close]"))dlg.close();const o=e.target.closest("[data-open]");if(o)openProject(+o.dataset.open,o.dataset.rel.split(",").map(Number))});
 
 </script>
-<script>/* HERO v18: the work as a spiral of cards streaming around a tilted axis (was v17: a flat plane). Drag to scroll it with inertia, move the mouse to tilt it,
+<script>/* HERO v21: rows of playing work cards (was v18 spiral, v17 plane). Drag to scroll it with inertia, move the mouse to tilt it,
    hover a file and it lifts off the plane into a readable preview; click to watch on the page. Scroll pushes the plane back. */
 (()=>{const $=id=>document.getElementById(id);const root=document.querySelector(".hero.hx"),scene=$("hx-scene"),plane=$("hx-plane"),peek=$("hx-peek");if(!root||!plane)return;
  const fr=()=>!!(window.I18N&&I18N.lang()==="fr");const FINE=matchMedia("(hover:hover) and (pointer:fine)").matches;
@@ -2078,55 +2089,40 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
   return {p,clip:c0,th:c0?`reel/${c0}-s.jpg`:`img/${p.id}.webp`,ar:Math.max(.5,Math.min(c0?arOf(c0):parseAR(p.ar),2)),sk:p.role.map(r=>VFX.includes(r)?"VFX":r)}});
  const byKey=k=>items.find(x=>String(x.p.id)===k);
  const order=items.map((it,i)=>[(i*37)%items.length,it]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
- /* the work as a spiral of cards streaming around a tilted axis */
- let skill=null,cards=[],G={};const SM=()=>innerWidth<900;
- function build(){const sm=SM();G=sm?{n:36,R:140,w:112,h:150,lk:1.8,turns:2.8}:{n:62,R:Math.round(Math.max(220,Math.min(350,innerHeight*.33))),w:244,h:326,lk:1.55,turns:2.6};
-  plane.style.setProperty("--cw",G.w+"px");plane.style.setProperty("--chh",G.h+"px");
-  const list=[];for(let i=0;i<G.n;i++)list.push(order[i%order.length]);
-  plane.innerHTML=list.map(it=>`<button class="hx-hc" type="button" data-id="${esc(it.p.id)}" style="background-image:url(${it.th})" aria-label="${esc(it.p.t)}"><i></i></button>`).join("");
-  cards=[...plane.children];applyFilter()}
+ /* HERO v21: rows of always-playing cards that burst out from the centre on load, then stream left to right.
+    Hovering a card grows it a little and slows its row to a stop; click to watch. */
+ let rows=[],G={},hot=null,on=true,last=0,timer=0,bursted=false;const SM=()=>innerWidth<900;
+ if(peek)peek.style.display="none";
+ const card=it=>{const w=Math.round(G.h*Math.max(.5625,Math.min(it.ar,1.78)));
+  return `<button class="hx-hc" type="button" data-id="${esc(it.p.id)}" style="width:${w}px;height:${G.h}px" aria-label="${esc(it.p.t)}"><span class="in"><video muted loop playsinline preload="none" poster="reel/${it.clip}-s.jpg" data-src="reel/${it.clip}.mp4"></video><span class="cap"><b>${esc(it.p.t)}</b><small>${esc(it.p.client)}</small></span></span></button>`};
+ const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{})}else v.pause()}),{rootMargin:"60px"});
+ function build(){const sm=SM();io.disconnect();
+  G=sm?{n:3,h:Math.round(Math.max(84,Math.min(110,innerHeight*.12))),gap:14}:{n:4,h:Math.round(Math.max(96,Math.min(126,innerHeight*.14))),gap:32};
+  const L=order.filter(it=>it.clip),R=Array.from({length:G.n},()=>[]);L.forEach((it,i)=>R[i%G.n].push(it));
+  plane.innerHTML=`<div class="hx-diag">${R.map((list,r)=>{const one=list.map(card).join("");return `<div class="hx-row" data-r="${r}"><div class="hx-track">${one}${one}${one}</div></div>`}).join("")}</div>`;
+  const H=root.clientHeight,tot=G.n*G.h+(G.n-1)*G.gap,top0=sm?Math.max(70,H*.1):Math.max(70,(H-tot)/2+10);
+  rows=[...plane.querySelectorAll(".hx-row")].map((el,r)=>{el.style.top=(top0+r*(G.h+G.gap))+"px";el.style.height=G.h+"px";const tr=el.firstElementChild,w=tr.scrollWidth/3;
+   return {el,tr,w,x:-w*(.25+r*.21),v:(sm?24:30)*(1+r*.22)*(r%2?.82:1),k:1,cs:[...tr.children].map(c=>({c,ol:c.offsetLeft,w:c.offsetWidth}))}});
+  plane.querySelectorAll("video").forEach(v=>io.observe(v));
+  burst()}
+ /* load: every card flies out of the centre of the hero into its slot */
+ function burst(){const hr=root.getBoundingClientRect(),cx=hr.left+hr.width/2,cy=hr.top+hr.height*.5;rows.forEach(R=>R.tr.style.transform=`translate3d(${R.x.toFixed(1)}px,0,0)`);
+  const cs=[...plane.querySelectorAll(".hx-hc")];
+  cs.forEach(c=>{const r=c.getBoundingClientRect();const inView=r.right>-200&&r.left<innerWidth+200;const i=c.querySelector(".in");if(RM||!inView){i.style.transition="";i.style.transform="";i.style.opacity="";return}
+   const sx=cx-(r.left+r.width/2),sy=cy-(r.top+r.height/2),d=Math.hypot(sx,sy),dg=parseFloat(getComputedStyle(plane.firstElementChild).getPropertyValue("--dg"))||14,dsc=parseFloat(getComputedStyle(plane.firstElementChild).getPropertyValue("--ds"))||1.22,an=-dg*Math.PI/180,dx=(sx*Math.cos(an)-sy*Math.sin(an))/dsc,dy=(sx*Math.sin(an)+sy*Math.cos(an))/dsc;i.style.transition="none";i.style.opacity=0;i.style.transform=`translate(${dx.toFixed(0)}px,${dy.toFixed(0)}px) scale(.18) rotate(${((Math.random()-.5)*24).toFixed(1)}deg)`;i.dataset.d=(d/1400).toFixed(3)});
+  void plane.offsetWidth;const go=()=>requestAnimationFrame(()=>cs.forEach(c=>{const i=c.querySelector(".in");if(i.dataset.d==null)return;const dl=(+i.dataset.d*.9+Math.random()*.18).toFixed(2);i.style.transition=`transform 1.7s cubic-bezier(.22,1,.36,1) ${dl}s,opacity .7s ease ${dl}s`;i.style.transform="none";i.style.opacity=1;delete i.dataset.d;setTimeout(()=>{i.style.transition="";i.style.transform="";i.style.opacity=""},(+dl+1.8)*1000)}));
+  if(bursted){go();return}bursted=true;let fired=false;const fire=()=>{if(!fired){fired=true;setTimeout(go,250)}};if(document.readyState==="complete")fire();else{addEventListener("load",fire,{once:true});setTimeout(fire,1600)}}
  build();let lastW=innerWidth;addEventListener("resize",()=>{if(Math.abs(innerWidth-lastW)>120){lastW=innerWidth;build()}});
  requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.add("ready")));
- let ph=0,vel=0,drag=false,lx=0,moved=0,tx=0,ty=0,cx=0,cy=0,on=true,last=0,hold=0,sp=0,flow=RM?0:1;const SPEED=1/34,TAU=Math.PI*2,DEG=180/Math.PI;
- function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-(last||now))/1000);last=now;if(!on)return;
-  if(hot)flow=0;else flow+=((RM||now<hold?0:1)-flow)*(1-Math.pow(.02,dt));
-  if(!drag){ph+=vel*dt;vel*=Math.pow(.9,dt*60)}ph+=SPEED*dt*flow;
-  const k=1-Math.pow(.02,dt);if(!hot){cx+=(tx-cx)*k;cy+=(ty-cy)*k}const s=Math.min(1,Math.max(0,scrollY/innerHeight));sp+=(s-sp)*k;
-  plane.style.transform=`translateZ(${(-sp*320).toFixed(1)}px) rotateZ(${(-11+cx*3).toFixed(2)}deg) rotateY(${(-14+cx*10).toFixed(2)}deg) rotateX(${(cy*-7+sp*10).toFixed(2)}deg)`;
-  const n=cards.length,LL=innerWidth*G.lk;for(let i=0;i<n;i++){const p=((i/n+ph)%1+1)%1,th=p*G.turns*TAU,x=(p-.5)*LL;
-   const e=Math.min(p,1-p)/.07,o=e>=1?1:e*e*(3-2*e),c=cards[i],st=c.style;
-   st.transform=`translate3d(${x.toFixed(1)}px,0,0) rotateX(${(th*DEG).toFixed(2)}deg) translateZ(${G.R}px) rotateY(-8deg)`;
-   st.setProperty("--d",((1-(Math.cos(th)+1)/2)*.6).toFixed(3));
-   const os=o.toFixed(3);if(st.opacity!==os)st.opacity=os;st.visibility=o<.02?"hidden":"visible"}
-  if(hot)placePeek(dt)}
+ function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-(last||now))/1000);last=now;if(!on||RM)return;
+  for(const R of rows){const tk=hot&&R.el.contains(hot)?0:1;R.k+=(tk-R.k)*(1-Math.pow(.004,dt));R.x+=R.v*R.k*dt;if(R.x>=0)R.x-=R.w;R.tr.style.transform=`translate3d(${R.x.toFixed(2)}px,0,0)`;const vw=innerWidth;for(const o of R.cs){const ccx=R.x+o.ol+o.w/2;if(ccx<-700||ccx>vw+700)continue;const u=Math.max(-.9,Math.min(.9,ccx/vw-.5));o.c.style.transform=`translateZ(${((.81-u*u)*170).toFixed(1)}px) rotateY(${(-u*34).toFixed(2)}deg)`}}}
  requestAnimationFrame(frame);
- scene.addEventListener("pointermove",e=>{const r=scene.getBoundingClientRect();tx=(e.clientX-r.left)/r.width*2-1;ty=(e.clientY-r.top)/r.height*2-1;mx=e.clientX-r.left;my=e.clientY-r.top;if(drag){const dx=e.clientX-lx;lx=e.clientX;moved+=Math.abs(dx);ph-=dx*.0008;vel=-dx*.03}});
- scene.addEventListener("pointerdown",e=>{drag=true;moved=0;lx=e.clientX;vel=0;scene.classList.add("drag");hold=performance.now()+2500});
- const up=()=>{if(!drag)return;drag=false;scene.classList.remove("drag");hold=performance.now()+1200;if(moved>6){document.querySelector(".hx-hint").classList.add("gone");clearHot()}};
- addEventListener("pointerup",up);addEventListener("pointercancel",up);
- scene.addEventListener("pointerleave",()=>{tx=0;ty=0;clearHot()});
- /* lift-out preview */
- let hot=null,mx=0,my=0,px=0,py=0,pw=340,timer=0,qx=0,qy=0,qs=.4,qr=0;const pm=peek.querySelector(".pk-media"),pb=peek.querySelector("b"),ps=peek.querySelector("small");
- function setHot(c){if(hot===c)return;if(hot)hot.classList.remove("lift");hot=c;if(!c){peek.classList.remove("on");return}
-  c.classList.add("lift");const it=byKey(c.dataset.id);const ar=it.ar;pw=ar<1?230:ar<1.5?300:360;peek.style.width=pw+"px";peek.style.setProperty("--par",ar);
-  pb.textContent=it.p.t;ps.textContent=[it.p.client,it.p.fmt||(it.p.dur?tc(it.p.dur).slice(0,5)+" · "+it.p.ar:it.p.ar)].filter(Boolean).join(" · ");
-  pm.style.backgroundImage=`url(${it.th})`;pm.innerHTML="";if(it.clip){const v=document.createElement("video");v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute("playsinline","");v.src=`reel/${it.clip}.mp4`;pm.append(v);v.play().catch(()=>{})}
-  const r=c.getBoundingClientRect(),sr=root.getBoundingClientRect();px=r.left-sr.left+r.width/2;py=r.top-sr.top+r.height/2;
-  if(!peek.classList.contains("on")){qx=px-pw/2;qy=py-100;qs=.4;qr=28}
-  peek.classList.add("on")}
- function clearHot(){clearTimeout(timer);if(hot){hot.classList.remove("lift");hot=null}peek.classList.remove("on");const v=pm.querySelector("video");if(v)v.pause()}
- function placePeek(){if(!hot)return;const r=hot.getBoundingClientRect(),sr=root.getBoundingClientRect(),ph=peek.offsetHeight;
-  let x=r.left-sr.left+r.width/2-pw/2,y=r.top-sr.top+r.height/2-ph/2-40;const copy=document.querySelector(".hx-copy").getBoundingClientRect();
-  x=Math.max(copy.right-sr.left+24,Math.min(sr.width-pw-24,x));y=Math.max(70,Math.min(sr.height-ph-24,y));
-  const k=1-Math.pow(.004,arguments[0]||.016);qx+=(x-qx)*k;qy+=(y-qy)*k;qs+=(1-qs)*k;qr+=(0-qr)*k;
-  const rx=(qr-(my-qy-ph/2)/ph*7).toFixed(2),ry=((mx-qx-pw/2)/pw*9).toFixed(2);peek.style.transform=`translate(${qx.toFixed(1)}px,${qy.toFixed(1)}px) perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${qs.toFixed(3)})`}
- if(FINE){plane.addEventListener("pointerover",e=>{const c=e.target.closest(".hx-hc");if(!c||drag||c.classList.contains("off"))return;clearTimeout(timer);timer=setTimeout(()=>setHot(c),hot?180:110)});
-  plane.addEventListener("pointerout",e=>{const c=e.target.closest(".hx-hc");if(!c||c.contains(e.relatedTarget))return;clearTimeout(timer);timer=setTimeout(()=>{if(hot===c)clearHot()},280)})}
- plane.addEventListener("click",e=>{const c=e.target.closest(".hx-hc");if(!c||moved>6)return;clearHot();window.openProject(isNaN(+c.dataset.id)?c.dataset.id:+c.dataset.id)});
- /* skill pills */
- const pills=$("hx-pills");
- function applyFilter(){root.classList.toggle("filt",!!skill);plane.querySelectorAll(".hx-hc").forEach(c=>{const it=byKey(c.dataset.id);const m=!skill||it.sk.includes(skill);c.classList.toggle("on",!!skill&&m);c.classList.toggle("off",!!skill&&!m);c.tabIndex=m?0:-1})}
- pills.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;skill=skill===b.dataset.k?null:b.dataset.k;pills.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.k===skill)));applyFilter();hold=performance.now()+900;vel=.08});
+ function setHot(c){if(hot===c)return;if(hot)hot.classList.remove("lift");hot=c;if(c)c.classList.add("lift")}
+ function clearHot(){clearTimeout(timer);if(hot)hot.classList.remove("lift");hot=null}
+ if(FINE){plane.addEventListener("pointerover",e=>{const c=e.target.closest(".hx-hc");if(!c)return;clearTimeout(timer);timer=setTimeout(()=>setHot(c),hot?90:60)});
+  plane.addEventListener("pointerout",e=>{const c=e.target.closest(".hx-hc");if(!c||c.contains(e.relatedTarget))return;clearTimeout(timer);timer=setTimeout(()=>{if(hot===c)clearHot()},160)});
+  scene.addEventListener("pointerleave",clearHot)}
+ plane.addEventListener("click",e=>{const c=e.target.closest(".hx-hc");if(!c)return;clearHot();window.openProject(isNaN(+c.dataset.id)?c.dataset.id:+c.dataset.id)});
  /* typed eyebrow */
  const ty2=$("hx-type"),full="studio by Atay";let tk=RM?full.length:0;(function type(){ty2.innerHTML=full.slice(0,tk).replace(/ (b|by)(?= |$)/," <b>$1</b>");if(tk<full.length){tk++;setTimeout(type,90)}})();
  /* "Ideas take" never moves; only the word rolls over on a cube, with a short glitch */
@@ -2182,7 +2178,7 @@ dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest("[data-clos
 })();</script>
 <script>/* ARABIC: strings for data-i18n keys (AR_K) and for the dynamic modules, keyed by their English text (AR_T) */
 window.AR_K={"nav-w":"الأعمال","nav-s":"المهارات","nav-c":"العملاء","nav-p":"الملف","nav-k":"تواصل","nav-b":"احجز مكالمة","go":"ابدأ مشروعاً","set-h":"الإعدادات","set-lang":"اللغة","set-game":"وضع اللعبة","set-snd":"الصوت","wa":"واتساب",
- "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نبنيها لقطة بلقطة","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"اسحب للتدوير · مرّر للمعاينة · انقر للمشاهدة","hx-hint-t":"اسحب للاستكشاف · المس فيلماً لمشاهدته","w-l-t":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. المس مشروعاً لمشاهدته.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
+ "hx-peek":"انقر للمشاهدة","hx-h1a":"الأفكار تأخذ","hx-p":"تصوير ومونتاج وتلوين ومؤثرات بصرية للعلامات التجارية والمهرجانات ومكاتب السياحة.","hx-shoot":"تصوير","hx-edit":"مونتاج","hx-grade":"تلوين","hx-vfx":"مؤثرات","hx-go":"ابدأ مشروعاً","cta2":"شاهد الأعمال","hx-tag":"نبنيها لقطة بلقطة","hx-oc":"13 عميلاً · المغرب وميامي","hx-hint":"مرّر على فيلم · انقر للمشاهدة","hx-hint-t":"المس فيلماً لمشاهدته","w-l-t":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. المس مشروعاً لمشاهدته.","c-l-t":"المس عميلاً لرؤية العمل الذي أنجزناه له.",
  "w-h":"أعمال مختارة","w-l":"أفلام، إعلانات، ريلز ومؤثرات بصرية، صوّرها وأنجزها Atay Studio. اختر مشروعاً لمشاهدته.","s-h":"أربع حِرَف، صورة واحدة","c-h":"اختر عميلاً","c-l":"مرّر على عميل لمعاينة ما صنعناه له. انقر لفتح المشروع.",
  "p-h":"ملف اللاعب","p-cls":"الفئة · مدير تصوير","p-t":"مؤسس Atay Studio. يصوّر أيوب ويُمنتج ويلوّن ويصنع المؤثرات البصرية بنفسه، فالصورة التي توافق عليها في موقع التصوير هي التي تُسلَّم. مقيم في مراكش، ويعمل في كل أنحاء المغرب وعن بُعد حول العالم.",
  "k-p":"مستعد يا لاعب واحد؟ أخبرنا عن المشروع والمواعيد والمكان.","f-name":"اسمك","f-type":"نوع المشروع","o1":"إعلان تجاري","o2":"حملة على مواقع التواصل","o3":"فيلم سياحي","o4":"حدث أو مهرجان","o5":"فيديو كليب","o6":"مؤثرات بصرية أو 3D فقط","o7":"شيء آخر","f-date":"المواعيد","f-loc":"المكان","f-msg":"المشروع في بضعة أسطر","f-wa":"أرسل عبر واتساب","f-mail":"أرسل بالبريد الإلكتروني","f-note":"رسالتك مكتوبة لك، ما عليك إلا الضغط على إرسال."};
@@ -2213,7 +2209,7 @@ window.AR_CHIPS=["أحضّر لفيلم سياحي","أرني أعمال الد�
 window.AR_TYPES=["فيلم سياحي","إعلان تجاري","ريلز لمواقع التواصل","حدث أو مهرجان","3D / مؤثرات بصرية","فيلم مؤسساتي"];
 </script>
 <script>/* touch screens get tap wording instead of hover wording */
-(()=>{if(!matchMedia("(hover: none)").matches)return;const T={"hx-hint":["hx-hint-t","Swipe to explore · tap a film to watch"],"w-l":["w-l-t","Films, commercials, reels and VFX, shot and finished by Atay Studio. Tap a project to watch it."],"c-l":["c-l-t","Tap a client to open the work we made for them."]};
+(()=>{if(!matchMedia("(hover: none)").matches)return;const T={"hx-hint":["hx-hint-t","Tap a film to watch"],"w-l":["w-l-t","Films, commercials, reels and VFX, shot and finished by Atay Studio. Tap a project to watch it."],"c-l":["c-l-t","Tap a client to open the work we made for them."]};
  for(const k in T)document.querySelectorAll(`[data-i18n="${k}"]`).forEach(el=>{el.dataset.i18n=T[k][0];el.textContent=T[k][1]})})();
 </script>
 <script>/* work filter labels follow the language */
@@ -2231,7 +2227,7 @@ addEventListener("atay:lang",()=>{const C={film:"Cinematography",travel:"Tourism
   "s-h":"Quatre métiers, une image","c-h":"Choisissez un client","c-l":"Survolez un client pour voir le travail réalisé pour lui. Cliquez pour ouvrir le projet.",
   "p-h":"Profil du joueur","p-cls":"Classe · Directeur de la photographie","p-t":"Fondateur d'Atay Studio. Ayoub filme, monte, étalonne et crée les VFX, pour que le rendu validé sur le plateau soit celui qui est livré. Basé à Marrakech, il travaille partout au Maroc et à distance dans le monde entier.",
   "k-p":"Prêt, joueur 1 ? Parlez-nous du projet, des dates et du lieu.","f-name":"Votre nom","f-type":"Type de projet","f-date":"Dates","f-loc":"Lieu","f-msg":"Le projet en quelques lignes","f-wa":"Envoyer sur WhatsApp","f-mail":"Envoyer par e-mail","f-note":"Le message est prêt, il ne reste qu'à l'envoyer.",
-  "set-h":"Réglages","set-lang":"Langue","set-snd":"Son","set-game":"Mode jeu","wa":"WhatsApp","nav-m":"Missions","nav-w":"Travaux","nav-s":"Métiers","nav-c":"Clients","nav-p":"Profil","nav-k":"Contact","nav-b":"Réserver un appel","go":"Lancer un projet","hx-h1a":"Les idées prennent","hx-p":"Tournage, montage, étalonnage et VFX pour les marques, les festivals et les offices du tourisme.","hx-shoot":"Tournage","hx-edit":"Montage","hx-grade":"Couleur","hx-vfx":"VFX","hx-go":"Lancer un projet","hx-tag":"Construit image par image","hx-hint":"Glissez pour faire tourner · survolez pour prévisualiser · cliquez pour lire","hx-hint-t":"Glissez pour explorer · touchez un film pour le voir","w-l-t":"Chaque intercalaire contient un projet. Touchez-en un pour voir le film, les crédits et tous les reels.","c-l-t":"Touchez un client pour voir le travail réalisé pour lui.","hx-peek":"Cliquez pour regarder","hx-oc":"13 clients · Maroc et Miami","pi-info":"Détails","like4":"Un projet comme celui-ci","mm-h":"Carte du monde","m1-tab":"Film touristique · Béni Mellal-Khénifra","m2-tab":"Campagne sociale · 9:16","m3-tab":"VFX de festival · Miami","st-1":"Brief","st-2":"Exécution","st-3":"Résultat","pc-reel":"Voir le reel","ghint":"Faites tourner · touchez une épingle","cin-x":"Retour au globe","ps":"Appuyez sur start","ps-mute":"Jouer sans le son","ps-tag":"Production vidéo et VFX · de Marrakech au monde","ec-k":"Journal de mission terminé","ec-h":"Prochaine mission : la vôtre","ec-p":"On filme, on monte, on étalonne et on crée des mondes. Dites-nous où se passe votre projet.","ec-re":"↻ Rejouer le voyage","dk-map":"◇ Carte"};
+  "set-h":"Réglages","set-lang":"Langue","set-snd":"Son","set-game":"Mode jeu","wa":"WhatsApp","nav-m":"Missions","nav-w":"Travaux","nav-s":"Métiers","nav-c":"Clients","nav-p":"Profil","nav-k":"Contact","nav-b":"Réserver un appel","go":"Lancer un projet","hx-h1a":"Les idées prennent","hx-p":"Tournage, montage, étalonnage et VFX pour les marques, les festivals et les offices du tourisme.","hx-shoot":"Tournage","hx-edit":"Montage","hx-grade":"Couleur","hx-vfx":"VFX","hx-go":"Lancer un projet","hx-tag":"Construit image par image","hx-hint":"Survolez un film · cliquez pour le voir","hx-hint-t":"Touchez un film pour le voir","w-l-t":"Chaque intercalaire contient un projet. Touchez-en un pour voir le film, les crédits et tous les reels.","c-l-t":"Touchez un client pour voir le travail réalisé pour lui.","hx-peek":"Cliquez pour regarder","hx-oc":"13 clients · Maroc et Miami","pi-info":"Détails","like4":"Un projet comme celui-ci","mm-h":"Carte du monde","m1-tab":"Film touristique · Béni Mellal-Khénifra","m2-tab":"Campagne sociale · 9:16","m3-tab":"VFX de festival · Miami","st-1":"Brief","st-2":"Exécution","st-3":"Résultat","pc-reel":"Voir le reel","ghint":"Faites tourner · touchez une épingle","cin-x":"Retour au globe","ps":"Appuyez sur start","ps-mute":"Jouer sans le son","ps-tag":"Production vidéo et VFX · de Marrakech au monde","ec-k":"Journal de mission terminé","ec-h":"Prochaine mission : la vôtre","ec-p":"On filme, on monte, on étalonne et on crée des mondes. Dites-nous où se passe votre projet.","ec-re":"↻ Rejouer le voyage","dk-map":"◇ Carte"};
  const TIPS={en:["Every frame is shot, cut and graded in-house, so the look you approve is the look that ships.","We deliver 16:9 films, 9:16 social cuts and LED-banner content from the same shoot.","Based in Marrakech, shooting across Morocco and remotely worldwide.","Hover a client in Level 03 to preview their footage.","Every project page plays the full film.","Arabic, English and French on every production."],
   fr:["Chaque image est filmée, montée et étalonnée chez nous : le rendu validé est celui qui est livré.","Nous livrons films 16:9, formats sociaux 9:16 et contenus pour écrans LED à partir du même tournage.","Basés à Marrakech, nous tournons partout au Maroc et à distance dans le monde entier.","Survolez un client au niveau 03 pour voir ses images.","Chaque projet se regarde en entier.","Arabe, anglais et français sur chaque production."],ar:["كل لقطة تُصوَّر وتُمنتج وتُلوَّن داخلياً، فما توافق عليه هو ما يُسلَّم.","نسلّم أفلام 16:9 ومقاطع 9:16 للتواصل ومحتوى شاشات LED من التصوير نفسه.","مقرّنا مراكش، ونصوّر في كل المغرب وعن بُعد حول العالم.","مرّر على عميل في المستوى 03 لمعاينة صوره.","كل مشروع يُشاهَد كاملاً.","العربية والإنجليزية والفرنسية في كل إنتاج."]};
  const EN={};document.querySelectorAll("[data-i18n]").forEach(el=>{EN[el.dataset.i18n]=el.textContent});
